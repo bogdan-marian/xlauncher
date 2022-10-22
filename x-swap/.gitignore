@@ -1,0 +1,13 @@
+.idea
+.vscode
+/target
+
+# sudjested my other sc tempaltes.
+*/target/
+
+# The erdpy output
+output
+
+# interaction logs
+interaction-logs
+erdpy.data-storage.json
