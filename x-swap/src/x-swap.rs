@@ -22,11 +22,6 @@ pub trait XSwap {
     #[storage_mapper("defaultRoyaltyPercentage")]
     fn default_royalty_percentage(&self) -> SingleValueMapper<BigUint>;
 
-
-    #[view(getClientList)]
-    #[storage_mapper("clientList")]
-    fn client_list(&self) -> UnorderedSetMapper<ManagedAddress>;
-
     #[view(getWhiteList)]
     #[storage_mapper("whiteList")]
     fn white_list(&self) -> UnorderedSetMapper<EgldOrEsdtTokenIdentifier>;
