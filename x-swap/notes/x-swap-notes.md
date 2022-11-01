@@ -30,4 +30,4 @@ We have 2 wallets
         - winner 4: 10%
         - winner 5: 5%
 - each 15 days (number of days would be custom) we select winners and start a new cycle.
-    - raffle contract sends directly the prise to the winners. 
+    - users need to claim prizes at the end of each raffle round
