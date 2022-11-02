@@ -1,18 +1,15 @@
 [package]
 name = "x-swap"
 version = "0.1.0"
-edition = "2021"
-authors = ["Bogdan Oloeriu <bogdan.oloeriu@gmail.com>"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = [ "Bogdan Oloeriu <bogdan.oloeriu@gmail.com>", "Ice <icegriffin1122@gmail.com>"]
+edition = "2018"
+publish = false
 
 [lib]
-path='src/x-swap.rs'
-
-[dependencies]
+path = "src/lib.rs"
 
 [dependencies.elrond-wasm]
-version = "0.36.0"
+version = "0.36.1"
 
 [dev-dependencies.elrond-wasm-debug]
-version = "0.36.0"
+version = "0.36.1"
