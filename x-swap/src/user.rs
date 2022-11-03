@@ -91,6 +91,10 @@ pub trait UserModule:
             to_payment.amount >= to_amount,
             "Offering token is not enough."
         );
+        require!(
+            to_amount >= offer.min_to_amount_per_accept,
+            "Offering token amount must be bigger than the minimum accept amount."
+        );
 
         let caller = self.blockchain().get_caller();
 
@@ -106,6 +110,11 @@ pub trait UserModule:
             offer.from_amount -= &from_amount;
             offer.to_amount -= &to_amount;
             self.offers(offer_id).set(&offer);
+
+            require!(
+                offer.to_amount >= offer.min_to_amount_per_accept,
+                "Left offering token amount must be bigger than the minimum accept amount."
+            );
         }
 
         // take fee and send it to Raffle Sc and Treasury Wallet
