@@ -7,6 +7,8 @@
 elrond_wasm_node::wasm_endpoints! {
     x_raffle
     (
+        buyTickets
+        claimPrize
         finishRound
         getCurrentRoundId
         getRoundEndTimestamp

@@ -3,6 +3,7 @@ elrond_wasm::derive_imports!();
 
 use core::ops::Deref;
 
+use crate::config::{ TOTAL_PERCENTAGE };
 use crate::state::{ RoundStatus };
 
 #[elrond_wasm::module]
@@ -14,10 +15,10 @@ pub trait AdminModule:
     #[endpoint(openRound)]
     fn open_round(
         &self,
-        round_end_timestamp: u64,
-        round_ticket_price: BigUint,
-        round_number_of_winners: usize,
-        round_prize_percentages: MultiValueEncoded<u64>,
+        end_timestamp: u64,
+        ticket_price: BigUint,
+        number_of_winners: usize,
+        prize_percentages: MultiValueEncoded<u64>,
     ) {
         let mut round_id = self.current_round_id().get();
         require!(
@@ -31,31 +32,38 @@ pub trait AdminModule:
 
         let current_timestamp = self.blockchain().get_block_timestamp();
         require!(
-            round_end_timestamp > current_timestamp,
-            "round_end_timestamp cannot be the past."
+            end_timestamp > current_timestamp,
+            "end_timestamp cannot be the past."
         );
 
         self.round_start_timestamp(round_id).set(current_timestamp);
-        self.round_end_timestamp(round_id).set(round_end_timestamp);
-        self.round_ticket_price(round_id).set(round_ticket_price);
-        self.round_number_of_winners(round_id).set(round_number_of_winners);
+        self.round_end_timestamp(round_id).set(end_timestamp);
+        self.round_ticket_price(round_id).set(ticket_price);
+        self.round_number_of_winners(round_id).set(number_of_winners);
 
         require!(
-            round_number_of_winners == round_prize_percentages.len(),
-            "round_number_of_winners and length of round_prize_percentages do not match."
+            number_of_winners == prize_percentages.len(),
+            "number_of_winners and length of prize_percentages do not match."
         );
 
         let mut ps = self.round_prize_percentages(round_id);
-        for p in round_prize_percentages {
+        let mut tp = 0;
+        for p in prize_percentages {
             ps.push(&p);
+            tp += p;
         }
+        require!(
+            tp == TOTAL_PERCENTAGE,
+            "Sum of prize_percentages is not equal to {}",
+            TOTAL_PERCENTAGE
+        );
     }
 
     #[payable("*")]
     #[endpoint(injectPrize)]
     fn inject_prize(&self) {
         let round_id = self.current_round_id().get();
-        let round_status = self.get_current_round_status();
+        let round_status = self.get_round_status(round_id);
         require!(
             round_id > 0,
             "No Round is opened yet."
@@ -79,7 +87,7 @@ pub trait AdminModule:
     #[endpoint(finishRound)]
     fn finish_round(&self) {
         let round_id = self.current_round_id().get();
-        let round_status = self.get_current_round_status();
+        let round_status = self.get_round_status(round_id);
         require!(
             round_id > 0,
             "No Round is opened yet."
@@ -103,11 +111,20 @@ pub trait AdminModule:
             round_winners.push(winner_address);
             ranking += 1;
         }
+
+        // update round_left_tokens
+        let round_prize_tokens = self.round_prize_tokens(round_id);
+        let mut round_left_tokens = self.round_left_tokens(round_id);
+        for (token_identifier, amount) in round_prize_tokens.iter() {
+            round_left_tokens.insert(token_identifier, amount);
+        }
     }
 
     #[inline]
-    fn get_current_round_status(&self) -> RoundStatus {
-        let round_id = self.current_round_id().get();
+    fn get_round_status(
+        &self,
+        round_id: usize,
+    ) -> RoundStatus {
         let round_status = self.round_status(round_id).get();
         if round_status == RoundStatus::Opened {
             if self.blockchain().get_block_timestamp() >= self.round_end_timestamp(round_id).get() {
