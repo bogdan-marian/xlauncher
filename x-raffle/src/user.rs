@@ -8,7 +8,7 @@ use crate::state::{ RoundStatus };
 pub trait UserModule:
     crate::storage::StorageModule
     + crate::event::EventModule
-    + crate::admin::AdminModule
+    + crate::view::ViewModule
 {
     #[payable("*")]
     #[endpoint(buyTickets)]

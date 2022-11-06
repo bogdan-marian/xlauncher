@@ -10,7 +10,10 @@ elrond_wasm_node::wasm_endpoints! {
         buyTickets
         claimPrize
         finishRound
+        getCurrentRound
         getCurrentRoundId
+        getCurrentRoundStatus
+        getRound
         getRoundEndTimestamp
         getRoundLeftTokens
         getRoundNumberOfWinners

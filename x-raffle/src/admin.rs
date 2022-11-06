@@ -10,6 +10,7 @@ use crate::state::{ RoundStatus };
 pub trait AdminModule:
     crate::storage::StorageModule
     + crate::event::EventModule
+    + crate::view::ViewModule
 {
     #[only_owner]
     #[endpoint(openRound)]
@@ -22,7 +23,7 @@ pub trait AdminModule:
     ) {
         let mut round_id = self.current_round_id().get();
         require!(
-            round_id == 0 || self.round_status(round_id).get() == RoundStatus::Claimable,
+            round_id == 0 || self.get_round_status(round_id) == RoundStatus::Claimable,
             "Previous Round is not closed yet."
         );
 
@@ -118,20 +119,6 @@ pub trait AdminModule:
         for (token_identifier, amount) in round_prize_tokens.iter() {
             round_left_tokens.insert(token_identifier, amount);
         }
-    }
-
-    #[inline]
-    fn get_round_status(
-        &self,
-        round_id: usize,
-    ) -> RoundStatus {
-        let round_status = self.round_status(round_id).get();
-        if round_status == RoundStatus::Opened {
-            if self.blockchain().get_block_timestamp() >= self.round_end_timestamp(round_id).get() {
-                return RoundStatus::Closed;
-            }
-        }
-        round_status
     }
 
     //

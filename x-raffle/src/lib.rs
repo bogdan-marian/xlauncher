@@ -9,6 +9,7 @@ mod state;
 mod storage;
 mod user;
 mod admin;
+mod view;
 
 #[elrond_wasm::contract]
 pub trait XRaffle:
@@ -16,6 +17,7 @@ pub trait XRaffle:
     + event::EventModule
     + user::UserModule
     + admin::AdminModule
+    + view::ViewModule
 {
     #[init]
     fn init(&self) {}
