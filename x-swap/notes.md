@@ -9,3 +9,6 @@ erdpy deps install rust --overwrite
 cargo clean && cargo build
 
 ```
+
+# dev log
+- current active develop branch: `dev-kent-1`
