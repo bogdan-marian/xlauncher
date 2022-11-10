@@ -16,6 +16,8 @@ cargo clean && cargo build
 
 # feedback session 1
 
+# xswap
+
 ## rename modules:
 
 - lib -> xswap //this is different
@@ -46,9 +48,33 @@ cargo clean && cargo build
 - [maker, taker]
 - [creator, acceptor]
 
+## create interactions and tests
+
+We need interactions and tests
+
 ## available tokens
-It is possible that we will need to create a second token list that will be pared with the tokens from available_tokens list. 
-Name sudjestion for this list: ? 
- - available_pairing_tokens 
 
+It is possible that we will need to create a second token list that will be pared with the tokens from available_tokens
+list.
+Name sudjestion for this list: ?
 
+- available_pairing_tokens
+
+# xraffle
+
+## module names rename
+
+- lib -> xraffle //this is different
+- state -> data //this is different
+
+## end_timestamp
+
+we keep end_timestamp only for display purposes
+
+## how the lottery selects the winner
+
+Notes for Bogdan: For now one user can only have 1 winning ticket.
+
+## create interactions and tests
+
+We need interactions and tests
