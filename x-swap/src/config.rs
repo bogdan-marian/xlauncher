@@ -1,1 +1,1 @@
-pub const TOTAL_PERCENTAGE: u64 = 10_000;
+pub const TOTAL_PERCENTAGE: u64 = 100_00;

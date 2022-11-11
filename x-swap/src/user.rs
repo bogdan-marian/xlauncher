@@ -71,6 +71,7 @@ pub trait UserModule:
         &self,
         offer_id: usize,
         from_percentage: u64,   // how much percentage of offering amount will be accepted
+        // this needs to be computed based on the to_amount and actual_to_amount
     ) {
         require!(
             self.offer_ids().contains(&offer_id),
@@ -85,7 +86,10 @@ pub trait UserModule:
             "Wrong expecting token."
         );
 
+        // rename to_amount to actual_to_amount (no computation needed)
         let to_amount = offer.to_amount.clone() * from_percentage / TOTAL_PERCENTAGE;
+
+        // rename from_amount to actual_from_amount
         let from_amount = offer.from_amount.clone() * from_percentage / TOTAL_PERCENTAGE;
         require!(
             to_payment.amount >= to_amount,

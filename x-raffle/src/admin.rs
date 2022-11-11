@@ -87,6 +87,7 @@ pub trait AdminModule:
     #[only_owner]
     #[endpoint(finishRound)]
     fn finish_round(&self) {
+        //TODO: check that shis is not the current active round
         let round_id = self.current_round_id().get();
         let round_status = self.get_round_status(round_id);
         require!(
@@ -124,6 +125,7 @@ pub trait AdminModule:
     //
     #[inline]
     fn choose_winners(&self) -> ManagedVec<ManagedAddress> {
+        //TODO: check that this is not the current active lottery round
         let round_id = self.current_round_id().get();
         let number_of_winners = self.round_number_of_winners(round_id).get();
         let number_of_users = self.round_user_tickets(round_id).len();
