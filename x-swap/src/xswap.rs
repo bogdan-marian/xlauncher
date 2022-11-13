@@ -4,7 +4,7 @@ elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
 mod config;
-mod state;
+mod data;
 mod storage;
 mod event;
 mod user;

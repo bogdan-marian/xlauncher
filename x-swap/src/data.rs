@@ -13,6 +13,7 @@ pub struct Offer<M: ManagedTypeApi>  {
 
     pub to_token: TokenIdentifier<M>,
     pub to_amount: BigUint<M>,
+    pub to_initial_amount: BigUint<M>,
 
     //todo: remove this field. We accept any type of partial acceptance
     pub min_to_amount_per_accept: BigUint<M>,

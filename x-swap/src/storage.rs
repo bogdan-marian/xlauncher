@@ -1,7 +1,7 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-use crate::state::{ Offer };
+use crate::data::{ Offer };
 
 #[elrond_wasm::module]
 pub trait StorageModule
@@ -23,10 +23,33 @@ pub trait StorageModule
     fn treasury_fee(&self) -> SingleValueMapper<u64>;
 
     //////////////////////////////////////////////////////////////////////////
-    
-    #[view(getAvailableTokens)]
-    #[storage_mapper("available_tokens")]
-    fn available_tokens(&self) -> UnorderedSetMapper<TokenIdentifier>;
+    #[view(getWegldTokenId)]
+    #[storage_mapper("wegld_token_id")]
+    fn wegld_token_id(&self) -> SingleValueMapper<TokenIdentifier>;
+
+    // When EGLD is traded by an offer, both of maker and taker will receive XRF token equal to the floor of EGLD_amount / this_value.
+    #[view(getEgldAmountForIncentive)]
+    #[storage_mapper("egld_base_amount_for_incentive")]
+    fn egld_base_amount_for_incentive(&self) -> SingleValueMapper<BigUint>;
+
+    #[view(getIncentiveTokenId)]
+    #[storage_mapper("incentive_token_id")]
+    fn incentive_token_id(&self) -> SingleValueMapper<TokenIdentifier>;
+
+    #[view(getIncentiveBaseAmount)]
+    #[storage_mapper("incentive_base_amount")]
+    fn incentive_base_amount(&self) -> SingleValueMapper<BigUint>;
+
+    //////////////////////////////////////////////////////////////////////////
+    // Token Pairs - One can only create A->B or B->A pairs
+
+    #[view(getATokens)]
+    #[storage_mapper("a_tokens")]
+    fn a_tokens(&self) -> UnorderedSetMapper<TokenIdentifier>;
+
+    #[view(getBTokens)]
+    #[storage_mapper("b_tokens")]
+    fn b_tokens(&self) -> UnorderedSetMapper<TokenIdentifier>;
     
     //////////////////////////////////////////////////////////////////////////
     

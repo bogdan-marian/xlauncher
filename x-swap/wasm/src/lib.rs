@@ -8,8 +8,13 @@ elrond_wasm_node::wasm_endpoints! {
     x_swap
     (
         acceptOffer
-        addAvailableTokens
-        getAvailableTokens
+        addATokens
+        addBTokens
+        getATokens
+        getBTokens
+        getEgldAmountForIncentive
+        getIncentiveBaseAmount
+        getIncentiveTokenId
         getLastOfferId
         getOffer
         getOfferIds
@@ -22,13 +27,18 @@ elrond_wasm_node::wasm_endpoints! {
         getRaffleScFee
         getTreasuryAddress
         getTreausryFee
+        getWegldTokenId
         makeOffer
-        removeAvailableTokens
+        removeATokens
+        removeBTokens
+        setIncentiveBaseAmount
+        setIncentiveTokenId
         setRaffleScAddress
         setRaffleScFee
         setSettings
         setTreasuryAddress
         setTreasuryFee
+        setWegldTokenId
     )
 }
 

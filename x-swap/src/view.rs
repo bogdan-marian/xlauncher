@@ -1,7 +1,7 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-use crate::state::{ Offer };
+use crate::data::{ Offer };
 
 #[elrond_wasm::module]
 pub trait ViewModule:
