@@ -4,7 +4,7 @@ elrond_wasm::derive_imports!();
 use core::ops::Deref;
 
 use crate::config::{ TOTAL_PERCENTAGE };
-use crate::state::{ RoundStatus };
+use crate::data::{ RoundStatus };
 
 #[elrond_wasm::module]
 pub trait AdminModule:
