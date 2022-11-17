@@ -14,3 +14,4 @@ trace*.scen.json
 
 wallets
 upgrade.json
+_generated_init.scen.json
