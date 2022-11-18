@@ -4,6 +4,20 @@ WALLET="./wallets/shard1-odin.pem"
 ADDRESS=$(erdpy data load --key=address-devnet)
 ######################################################################
 
+RAFFLE_SC_ADDRESS="erd1ygdttzrulwfspme2s4qrx5y2qyfqalju0k2vcyy8z3979whlj9qssl5uay"
+RAFFLE_SC_ADDRESS_HEX="0x$(erdpy wallet bech32 --decode ${RAFFLE_SC_ADDRESS})"
+TREASURY_ADDRESS="erd1ygdttzrulwfspme2s4qrx5y2qyfqalju0k2vcyy8z3979whlj9qssl5uay"
+TREASURY_ADDRESS_HEX="0x$(erdpy wallet bech32 --decode ${TREASURY_ADDRESS})"
+RAFFLE_SC_FEE=500 # 5%
+TREASURY_FEE=500 # 5%
+WEGLD_TOKEN_ID="WEGLD-123456"
+WEGLD_TOKEN_ID_HEX="0x$(echo -n ${WEGLD_TOKEN_ID} | xxd -p -u | tr -d '\n')"
+EGLD_BASE_AMOUNT_FOR_INCENTIVE=500000000000000000 # 0.5 EGLD
+INCENTIVE_TOKEN_ID="XRF-123456"
+INCENTIVE_TOKEN_ID_HEX="0x$(echo -n ${INCENTIVE_TOKEN_ID} | xxd -p -u | tr -d '\n')"
+INCENTIVE_BASE_AMOUNT=1000000000000000000 # 1 XRF
+USDC_TOKEN_ID="USDC-123456"
+USDC_TOKEN_ID_HEX="0x$(echo -n ${USDC_TOKEN_ID} | xxd -p -u | tr -d '\n')"
 ###
 
 deploy() {
@@ -24,4 +38,32 @@ upgrade() {
     erdpy --verbose contract upgrade ${ADDRESS} --project=${PROJECT} --recall-nonce --pem=${WALLET} --send --outfile="upgrade.json" --proxy=${PROXY} --chain=${CHAIN_ID} \
     --metadata-payable \
     --gas-limit=100000000
+}
+
+setSettings() {
+    erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
+    --gas-limit=8000000 \
+    --function="setSettings" \
+    --arguments ${RAFFLE_SC_ADDRESS_HEX} ${TREASURY_ADDRESS_HEX} ${RAFFLE_SC_FEE} ${TREASURY_FEE} ${WEGLD_TOKEN_ID_HEX} ${EGLD_BASE_AMOUNT_FOR_INCENTIVE} ${INCENTIVE_TOKEN_ID_HEX} ${INCENTIVE_BASE_AMOUNT} "0x" "0x"
+}
+
+setSettings() {
+    erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
+    --gas-limit=8000000 \
+    --function="setSettings" \
+    --arguments ${RAFFLE_SC_ADDRESS_HEX} ${TREASURY_ADDRESS_HEX} ${RAFFLE_SC_FEE} ${TREASURY_FEE} ${WEGLD_TOKEN_ID_HEX} ${EGLD_BASE_AMOUNT_FOR_INCENTIVE} ${INCENTIVE_TOKEN_ID_HEX} ${INCENTIVE_BASE_AMOUNT} "0x" "0x"
+}
+
+addATokens() {
+    erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
+    --gas-limit=8000000 \
+    --function="addATokens" \
+    --arguments ${WEGLD_TOKEN_ID_HEX}
+}
+
+addBTokens() {
+    erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
+    --gas-limit=8000000 \
+    --function="addBTokens" \
+    --arguments ${USDC_TOKEN_ID_HEX}
 }
