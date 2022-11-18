@@ -1,12 +1,28 @@
 {
     "name": "x-swap",
-    "comment": "add then check",
+    "comment": "init",
     "gasSchedule": "v3",
     "steps": [
         {
             "step": "setState",
             "accounts": {
                 "address:owner": {
+                    "nonce": "1",
+                    "balance": "0"
+                },
+                "address:raffle_sc": {
+                    "nonce": "1",
+                    "balance": "0"
+                },
+                "address:treasury": {
+                    "nonce": "1",
+                    "balance": "0"
+                },
+                "address:alice": {
+                    "nonce": "1",
+                    "balance": "0"
+                },
+                "address:bob": {
                     "nonce": "1",
                     "balance": "0"
                 }
@@ -21,14 +37,11 @@
         },
         {
             "step": "scDeploy",
-            "id": "1",
             "tx": {
                 "from": "address:owner",
                 "contractCode": "file:../output/x-swap.wasm",
-                "arguments": [
-                    "5"
-                ],
-                "gasLimit": "5,000,000",
+                "arguments": [],
+                "gasLimit": "50,000,000",
                 "gasPrice": "0"
             },
             "expect": {
@@ -40,32 +53,24 @@
             }
         },
         {
-            "step": "scQuery",
-            "id": "2",
-            "tx": {
-                "to": "sc:adder",
-                "function": "getSum",
-                "arguments": []
-            },
-            "expect": {
-                "out": [
-                    "5"
-                ],
-                "status": "",
-                "logs": []
-            }
-        },
-        {
             "step": "scCall",
-            "id": "3",
             "tx": {
                 "from": "address:owner",
                 "to": "sc:adder",
-                "function": "add",
+                "function": "setSettings",
                 "arguments": [
-                    "3"
+                    "address:raffle_sc",
+                    "address:treasury",
+                    "500",
+                    "500",
+                    "str:WEGLD-123456",
+                    "500",
+                    "str:XRF-123456",
+                    "100",
+                    "",
+                    ""
                 ],
-                "gasLimit": "5,000,000",
+                "gasLimit": "50,000,000",
                 "gasPrice": "0"
             },
             "expect": {
@@ -89,10 +94,18 @@
                     "nonce": "0",
                     "balance": "0",
                     "storage": {
-                        "str:sum": "8"
+                        "str:raffle_sc_address": "address:raffle_sc",
+                        "str:treasury_address": "address:treasury",
+                        "str:raffle_sc_fee": "500",
+                        "str:treasury_fee": "500",
+                        "str:wegld_token_id": "str:WEGLD-123456",
+                        "str:egld_base_amount_for_incentive": "500",
+                        "str:incentive_token_id": "str:XRF-123456",
+                        "str:incentive_base_amount": "100"
                     },
                     "code": "file:../output/x-swap.wasm"
-                }
+                },
+                "+": ""
             }
         }
     ]
