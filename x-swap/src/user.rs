@@ -20,12 +20,8 @@ pub trait UserModule:
         let from_payment = self.call_value().single_esdt();
 
         require!(
-            self.a_tokens().contains(&from_payment.token_identifier) || self.b_tokens().contains(&from_payment.token_identifier),
-            "Offering token is not allowed."
-        );
-        require!(
-            self.a_tokens().contains(&to_token) || self.b_tokens().contains(&to_token),
-            "Expecting token is not allowed."
+            self.a_tokens().contains(&from_payment.token_identifier) && self.b_tokens().contains(&to_token) || self.a_tokens().contains(&to_token) && self.b_tokens().contains(&from_payment.token_identifier),
+            "Offering tokens and Expecting tokens are not approved."
         );
         require!(
             from_payment.token_identifier != to_token,
