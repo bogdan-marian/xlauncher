@@ -40,7 +40,7 @@ pub trait AdminModule:
         for token in a_tokens.iter() {
             a_tokens_set.insert(token.deref().clone());
         }
-        let mut b_tokens_set = self.a_tokens();
+        let mut b_tokens_set = self.b_tokens();
         for token in b_tokens.iter() {
             b_tokens_set.insert(token.deref().clone());
         }

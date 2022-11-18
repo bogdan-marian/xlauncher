@@ -5,10 +5,14 @@
     "steps": [
         {
             "step": "setState",
+            "id": "initial setState",
             "accounts": {
                 "address:owner": {
                     "nonce": "1",
-                    "balance": "0"
+                    "balance": "0",
+                    "esdt": {
+                        "str:XRF-123456": "10"
+                    }
                 },
                 "address:raffle_sc": {
                     "nonce": "1",
@@ -20,23 +24,30 @@
                 },
                 "address:alice": {
                     "nonce": "1",
-                    "balance": "0"
+                    "balance": "0",
+                    "esdt": {
+                        "str:WEGLD-123456": "2,000"
+                    }
                 },
                 "address:bob": {
                     "nonce": "1",
-                    "balance": "0"
+                    "balance": "0",
+                    "esdt": {
+                        "str:USDC-123456": "4,000"
+                    }
                 }
             },
             "newAddresses": [
                 {
                     "creatorAddress": "address:owner",
                     "creatorNonce": "1",
-                    "newAddress": "sc:adder"
+                    "newAddress": "sc:xswap"
                 }
             ]
         },
         {
             "step": "scDeploy",
+            "id": "xswap deploy",
             "tx": {
                 "from": "address:owner",
                 "contractCode": "file:../output/x-swap.wasm",
@@ -53,10 +64,27 @@
             }
         },
         {
-            "step": "scCall",
+            "step": "transfer",
+            "id": "owner-fund-XRF-to-xswap",
             "tx": {
                 "from": "address:owner",
-                "to": "sc:adder",
+                "to": "sc:xswap",
+                "esdtValue": [
+                    {
+                        "tokenIdentifier": "str:XRF-123456",
+                        "value": "10"
+                    }
+                ],
+                "gasLimit": "50,000,000",
+                "gasPrice": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "owner calls set_settings",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:xswap",
                 "function": "setSettings",
                 "arguments": [
                     "address:raffle_sc",
@@ -66,9 +94,9 @@
                     "str:WEGLD-123456",
                     "500",
                     "str:XRF-123456",
-                    "100",
-                    "",
-                    ""
+                    "1",
+                    "nested:str:WEGLD-123456",
+                    "nested:str:USDC-123456"
                 ],
                 "gasLimit": "50,000,000",
                 "gasPrice": "0"
@@ -83,6 +111,7 @@
         },
         {
             "step": "checkState",
+            "id": "check state after setSettings",
             "accounts": {
                 "address:owner": {
                     "nonce": "*",
@@ -90,9 +119,12 @@
                     "storage": {},
                     "code": ""
                 },
-                "sc:adder": {
+                "sc:xswap": {
                     "nonce": "0",
                     "balance": "0",
+                    "esdt": {
+                        "str:XRF-123456": "10"
+                    },
                     "storage": {
                         "str:raffle_sc_address": "address:raffle_sc",
                         "str:treasury_address": "address:treasury",
@@ -101,7 +133,118 @@
                         "str:wegld_token_id": "str:WEGLD-123456",
                         "str:egld_base_amount_for_incentive": "500",
                         "str:incentive_token_id": "str:XRF-123456",
-                        "str:incentive_base_amount": "100"
+                        "str:incentive_base_amount": "1",
+                        "+": ""
+                    },
+                    "code": "file:../output/x-swap.wasm"
+                },
+                "+": ""
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "alice-maker-offer",
+            "tx": {
+                "from": "address:alice",
+                "to": "sc:xswap",
+                "esdtValue": [
+                    {
+                        "tokenIdentifier": "str:WEGLD-123456",
+                        "value": "2,000"
+                    }
+                ],
+                "function": "makeOffer",
+                "arguments": [
+                    "str:USDC-123456",
+                    "4,000",
+                    "800"
+                ],
+                "gasLimit": "50,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "",
+                "logs": "*",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "bob-accept-offer",
+            "tx": {
+                "from": "address:bob",
+                "to": "sc:xswap",
+                "esdtValue": [
+                    {
+                        "tokenIdentifier": "str:USDC-123456",
+                        "value": "4,000"
+                    }
+                ],
+                "function": "acceptOffer",
+                "arguments": [
+                    "1"
+                ],
+                "gasLimit": "50,000,000",
+                "gasPrice": "0"
+            },
+            "expect": {
+                "out": [],
+                "status": "",
+                "logs": "*",
+                "gas": "*",
+                "refund": "*"
+            }
+        },
+        {
+            "step": "checkState",
+            "id": "checkState after bob accept offer",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "*",
+                    "balance": "0",
+                    "storage": {},
+                    "code": ""
+                },
+                "address:alice": {
+                    "nonce": "*",
+                    "balance": "0",
+                    "esdt": {
+                        "str:XRF-123456": "4",
+                        "str:USDC-123456": "3600"
+                    },
+                    "storage": {},
+                    "code": ""
+                },
+                "address:bob": {
+                    "nonce": "*",
+                    "balance": "0",
+                    "esdt": {
+                        "str:XRF-123456": "4",
+                        "str:WEGLD-123456": "1800"
+                    },
+                    "storage": {},
+                    "code": ""
+                },
+                "sc:xswap": {
+                    "nonce": "0",
+                    "balance": "0",
+                    "esdt": {
+                        "str:WEGLD-123456": "0",
+                        "str:USDC-123456": "0",
+                        "str:XRF-123456": "2"
+                    },
+                    "storage": {
+                        "str:raffle_sc_address": "address:raffle_sc",
+                        "str:treasury_address": "address:treasury",
+                        "str:raffle_sc_fee": "500",
+                        "str:treasury_fee": "500",
+                        "str:wegld_token_id": "str:WEGLD-123456",
+                        "str:egld_base_amount_for_incentive": "500",
+                        "str:incentive_token_id": "str:XRF-123456",
+                        "str:incentive_base_amount": "1",
+                        "+": ""
                     },
                     "code": "file:../output/x-swap.wasm"
                 },
