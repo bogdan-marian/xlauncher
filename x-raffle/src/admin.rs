@@ -13,6 +13,15 @@ pub trait AdminModule:
     + crate::view::ViewModule
 {
     #[only_owner]
+    #[endpoint(setTicketToken)]
+    fn set_ticket_token(
+        &self,
+        ticket_token: TokenIdentifier,
+    ) {
+        self.ticket_token().set(&ticket_token);
+    }
+
+    #[only_owner]
     #[endpoint(openRound)]
     fn open_round(
         &self,
