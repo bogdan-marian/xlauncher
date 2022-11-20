@@ -59,23 +59,43 @@ finishRound() {
 
 sendTokensToClients() {
   ALICE_ADDRESS="erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th"
-  CLIENT_ADDRESS=${ALICE_ADDRESS}
+  BOB_ADDRESS="erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"
+  CAROL_ADDRESS="erd1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq6mjse8"
+  DAN_ADDRESS="erd1kyaqzaprcdnv4luvanah0gfxzzsnpaygsy6pytrexll2urtd05ts9vegu7"
+  EVE_ADDRESS="erd18tudnj2z8vjh0339yu3vrkgzz2jpz8mjq0uhgnmklnap6z33qqeszq2yn4"
+  FRANK_ADDRESS="erd1kdl46yctawygtwg2k462307dmz2v55c605737dp3zkxh04sct7asqylhyv"
+
+  CLIENT_ADDRESS=${BOB_ADDRESS}
   DENOMINATION="000000000000000000"
   erdpy --verbose contract call ${CLIENT_ADDRESS} --recall-nonce \
-      --pem=${WALLET} \
-      --gas-limit=1000000 \
-      --proxy=${PROXY} --chain=${CHAIN_ID} \
-      --function="ESDTTransfer" \
-      --arguments ${TICKET_TOKEN_HEX} "1${DENOMINATION}" \
-      --send \
-      --outfile="${LOGS_FOLDER}/sendTokensToClients.json"
+    --pem=${WALLET} \
+    --gas-limit=1000000 \
+    --proxy=${PROXY} --chain=${CHAIN_ID} \
+    --function="ESDTTransfer" \
+    --arguments ${TICKET_TOKEN_HEX} "1${DENOMINATION}" \
+    --send \
+    --outfile="${LOGS_FOLDER}/sendTokensToClients.json"
 }
 
 buyTickets() {
-  # alice: erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th
-  WALLET="../../wallets/users/alice.pem"
-  USER_WALLET
-  erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
-    --gas-limit=8000000 \
-    --function="buyTickets"
+  ALICE_WALLET="../../wallets/users/alice.pem"
+  BOB_WALLET="../../wallets/users/bob.pem"
+  CAROL_WALLET="../../wallets/users/carol.pem"
+  CAROL_WALLET="../../wallets/users/dan.pem"
+  DAN_WALLET="../../wallets/users/dan.pem"
+  EVE_WALLET="../../wallets/users/eve.pem"
+  FRANK_WALLET="../../wallets/users/frank.pem"
+  CLIENT_ADDRESS=${BOB_WALLET}
+  CLIENT_WALLET=${ALICE_WALLET}
+  DENOMINATION="000000000000000000"
+  method_name="0x$(echo -n 'buyTickets' | xxd -p -u | tr -d '\n')"
+  number_of_tikets="1"
+  erdpy --verbose contract call ${ADDRESS} --recall-nonce \
+      --pem=${CLIENT_WALLET} \
+      --gas-limit=10000000 \
+      --proxy=${PROXY} --chain=${CHAIN_ID} \
+      --function="ESDTTransfer" \
+      --arguments ${TICKET_TOKEN_HEX} "${number_of_tikets}${DENOMINATION}" ${method_name} ${number_of_tikets} \
+      --send \
+      --outfile="${LOGS_FOLDER}/buyTickets.json"
 }
