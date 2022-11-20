@@ -64,8 +64,7 @@ sendTokensToClients() {
   DAN_ADDRESS="erd1kyaqzaprcdnv4luvanah0gfxzzsnpaygsy6pytrexll2urtd05ts9vegu7"
   EVE_ADDRESS="erd18tudnj2z8vjh0339yu3vrkgzz2jpz8mjq0uhgnmklnap6z33qqeszq2yn4"
   FRANK_ADDRESS="erd1kdl46yctawygtwg2k462307dmz2v55c605737dp3zkxh04sct7asqylhyv"
-
-  CLIENT_ADDRESS=${BOB_ADDRESS}
+  CLIENT_ADDRESS=${FRANK_ADDRESS}
   DENOMINATION="000000000000000000"
   erdpy --verbose contract call ${CLIENT_ADDRESS} --recall-nonce \
     --pem=${WALLET} \
@@ -81,12 +80,10 @@ buyTickets() {
   ALICE_WALLET="../../wallets/users/alice.pem"
   BOB_WALLET="../../wallets/users/bob.pem"
   CAROL_WALLET="../../wallets/users/carol.pem"
-  CAROL_WALLET="../../wallets/users/dan.pem"
   DAN_WALLET="../../wallets/users/dan.pem"
   EVE_WALLET="../../wallets/users/eve.pem"
   FRANK_WALLET="../../wallets/users/frank.pem"
-  CLIENT_ADDRESS=${BOB_WALLET}
-  CLIENT_WALLET=${ALICE_WALLET}
+  CLIENT_WALLET=${FRANK_WALLET}
   DENOMINATION="000000000000000000"
   method_name="0x$(echo -n 'buyTickets' | xxd -p -u | tr -d '\n')"
   number_of_tikets="1"
