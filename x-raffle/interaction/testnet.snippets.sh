@@ -88,11 +88,43 @@ buyTickets() {
   method_name="0x$(echo -n 'buyTickets' | xxd -p -u | tr -d '\n')"
   number_of_tikets="1"
   erdpy --verbose contract call ${ADDRESS} --recall-nonce \
-      --pem=${CLIENT_WALLET} \
-      --gas-limit=10000000 \
-      --proxy=${PROXY} --chain=${CHAIN_ID} \
-      --function="ESDTTransfer" \
-      --arguments ${TICKET_TOKEN_HEX} "${number_of_tikets}${DENOMINATION}" ${method_name} ${number_of_tikets} \
-      --send \
-      --outfile="${LOGS_FOLDER}/buyTickets.json"
+    --pem=${CLIENT_WALLET} \
+    --gas-limit=10000000 \
+    --proxy=${PROXY} --chain=${CHAIN_ID} \
+    --function="ESDTTransfer" \
+    --arguments ${TICKET_TOKEN_HEX} "${number_of_tikets}${DENOMINATION}" ${method_name} ${number_of_tikets} \
+    --send \
+    --outfile="${LOGS_FOLDER}/buyTickets.json"
+}
+
+getCurrentRound() {
+  erdpy --verbose contract query ${ADDRESS} --function="getCurrentRound" \
+    --proxy=${PROXY}
+}
+
+getCurrentRoundStatus() {
+  erdpy --verbose contract query ${ADDRESS} --function="getCurrentRoundStatus" \
+    --proxy=${PROXY}
+}
+
+getRound() {
+  erdpy --verbose contract query ${ADDRESS} --function="getRound" \
+    --arguments 2 \
+    --proxy=${PROXY}
+}
+
+getRoundUserTickets() {
+  erdpy --verbose contract query ${ADDRESS} --function="getRoundUserTickets" \
+    --arguments 2 \
+    --proxy=${PROXY}
+}
+
+finishRound() {
+  erdpy --verbose contract call ${ADDRESS} --recall-nonce \
+    --pem=${WALLET} \
+    --gas-limit=5000000 \
+    --proxy=${PROXY} --chain=${CHAIN_ID} \
+    --function="finishRound" \
+    --send \
+    --outfile="${LOGS_FOLDER}/finishRound.json"
 }
