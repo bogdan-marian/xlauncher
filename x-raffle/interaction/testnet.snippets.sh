@@ -57,8 +57,25 @@ finishRound() {
     --function="finishRound"
 }
 
+sendTokensToClients() {
+  ALICE_ADDRESS="erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th"
+  CLIENT_ADDRESS=${ALICE_ADDRESS}
+  DENOMINATION="000000000000000000"
+  erdpy --verbose contract call ${CLIENT_ADDRESS} --recall-nonce \
+      --pem=${WALLET} \
+      --gas-limit=1000000 \
+      --proxy=${PROXY} --chain=${CHAIN_ID} \
+      --function="ESDTTransfer" \
+      --arguments ${TICKET_TOKEN_HEX} "1${DENOMINATION}" \
+      --send \
+      --outfile="${LOGS_FOLDER}/sendTokensToClients.json"
+}
+
 buyTickets() {
+  # alice: erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th
+  WALLET="../../wallets/users/alice.pem"
+  USER_WALLET
   erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
     --gas-limit=8000000 \
-    --function="finishRound"
+    --function="buyTickets"
 }
