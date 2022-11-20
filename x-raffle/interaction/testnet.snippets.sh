@@ -113,6 +113,12 @@ getRound() {
     --proxy=${PROXY}
 }
 
+getRoundUserTickets(){
+  erdpy --verbose contract query ${ADDRESS} --function="getRoundUserTickets" \
+      --arguments 2 \
+      --proxy=${PROXY}
+}
+
 getRoundUserTickets() {
   erdpy --verbose contract query ${ADDRESS} --function="getRoundUserTickets" \
     --arguments 2 \
