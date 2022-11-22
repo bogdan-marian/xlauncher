@@ -9,10 +9,11 @@ elrond_wasm_node::wasm_endpoints! {
     (
         buyTickets
         claimPrize
-        finishRound
-        getCurrentRound
+        finishAndStartNewRound
         getCurrentRoundId
         getCurrentRoundStatus
+        getNumberOfWinners
+        getPrizePercentages
         getRound
         getRoundEndTimestamp
         getRoundLeftTokens
@@ -25,9 +26,13 @@ elrond_wasm_node::wasm_endpoints! {
         getRoundUserRanking
         getRoundUserTickets
         getRoundWinners
+        getTicketPrice
         getTicketToken
         injectPrize
-        openRound
+        openGenesisRound
+        setPrizeSettings
+        setSettings
+        setTicketPrice
         setTicketToken
     )
 }

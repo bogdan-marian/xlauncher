@@ -10,6 +10,18 @@ pub trait StorageModule
     #[storage_mapper("ticket_token")]
     fn ticket_token(&self) -> SingleValueMapper<TokenIdentifier>;
 
+    #[view(getTicketPrice)]
+    #[storage_mapper("ticket_price")]
+    fn ticket_price(&self) -> SingleValueMapper<BigUint>;
+
+    #[view(getNumberOfWinners)]
+    #[storage_mapper("number_of_winners")]
+    fn number_of_winners(&self) -> SingleValueMapper<usize>;
+
+    #[view(getPrizePercentages)]
+    #[storage_mapper("prize_percentages")]
+    fn prize_percentages(&self) -> VecMapper<u64>;
+
     //////////////////////////////////////////////////////////////////////////
         
     #[view(getCurrentRoundId)]
@@ -28,10 +40,18 @@ pub trait StorageModule
     #[storage_mapper("round_end_timestamp")]
     fn round_end_timestamp(&self, round_id: usize) -> SingleValueMapper<u64>;
 
+    //
     #[view(getRoundTicketPrice)]
     #[storage_mapper("round_ticket_price")]
     fn round_ticket_price(&self, round_id: usize) -> SingleValueMapper<BigUint>;
 
+    #[view(getRoundNumberOfWinners)]
+    #[storage_mapper("round_number_of_winners")]
+    fn round_number_of_winners(&self, round_id: usize) -> SingleValueMapper<usize>;
+
+    #[view(getRoundPrizePercentages)]
+    #[storage_mapper("round_prize_percentages")]
+    fn round_prize_percentages(&self, round_id: usize) -> VecMapper<u64>;
     //
     #[view(getRoundPrizeTokens)]
     #[storage_mapper("round_prize_tokens")]
@@ -42,14 +62,6 @@ pub trait StorageModule
     fn round_left_tokens(&self, round_id: usize) -> MapMapper<TokenIdentifier, BigUint>;
 
     //
-    #[view(getRoundNumberOfWinners)]
-    #[storage_mapper("round_number_of_winners")]
-    fn round_number_of_winners(&self, round_id: usize) -> SingleValueMapper<usize>;
-
-    #[view(getRoundPrizePercentages)]
-    #[storage_mapper("round_prize_percentages")]
-    fn round_prize_percentages(&self, round_id: usize) -> VecMapper<u64>;
-
     #[view(getRoundWinners)]
     #[storage_mapper("round_winners")]
     fn round_winners(&self, round_id: usize) -> VecMapper<ManagedAddress>;

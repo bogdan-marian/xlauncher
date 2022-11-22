@@ -12,19 +12,12 @@ pub trait ViewModule:
         &self,
         round_id: usize,
     ) -> RoundStatus {
-        let round_status = self.round_status(round_id).get();
-        if round_status == RoundStatus::Opened {
-            if self.blockchain().get_block_timestamp() >= self.round_end_timestamp(round_id).get() {
-                return RoundStatus::Closed;
-            }
-        }
-        round_status
+        self.round_status(round_id).get()
     }
 
     /// 1 - Pending
     /// 2 - Opened
     /// 3 - Closed
-    /// 4 - Claimable
     #[view(getCurrentRoundStatus)]
     fn get_current_round_status(&self) -> usize {
         let round_id = self.current_round_id().get();
@@ -33,20 +26,6 @@ pub trait ViewModule:
         match round_status {
             RoundStatus::Opened => 2,
             RoundStatus::Closed => 3,
-            RoundStatus::Claimable => 4,
-            _ => 1,
-        }
-    }
-
-    #[view(getCurrentRound)]
-    fn get_current_round(&self) -> usize {
-        let round_id = self.current_round_id().get();
-        let round_status = self.get_round_status(round_id);
-        
-        match round_status {
-            RoundStatus::Opened => 2,
-            RoundStatus::Closed => 3,
-            RoundStatus::Claimable => 4,
             _ => 1,
         }
     }

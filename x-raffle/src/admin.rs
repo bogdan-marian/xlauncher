@@ -2,8 +2,6 @@ elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
 use core::ops::Deref;
-
-use crate::config::{ TOTAL_PERCENTAGE };
 use crate::data::{ RoundStatus };
 
 #[elrond_wasm::module]
@@ -13,76 +11,56 @@ pub trait AdminModule:
     + crate::view::ViewModule
 {
     #[only_owner]
-    #[endpoint(setTicketToken)]
-    fn set_ticket_token(
-        &self,
-        ticket_token: TokenIdentifier,
-    ) {
-        self.ticket_token().set(&ticket_token);
-    }
-
-    #[only_owner]
-    #[endpoint(openRound)]
-    fn open_round(
-        &self,
-        end_timestamp: u64,
-        ticket_price: BigUint,
-        number_of_winners: usize,
-        prize_percentages: MultiValueEncoded<u64>,
-    ) {
+    #[endpoint(openGenesisRound)]
+    fn open_genesis_round(&self) {
         let mut round_id = self.current_round_id().get();
         require!(
-            round_id == 0 || self.get_round_status(round_id) == RoundStatus::Claimable,
-            "Previous Round is not closed yet."
+            round_id == 0,
+            "Genesis Round was already started."
         );
 
         round_id += 1;
+        self.open_round(round_id);
+    }
+
+    #[inline]
+    fn open_round(&self, round_id: usize) {
+        require!(
+            self.round_status(round_id).get() == RoundStatus::Pending,
+            "Given round is already started."
+        );
+
         self.current_round_id().set(round_id);
         self.round_status(round_id).set(RoundStatus::Opened);
 
         let current_timestamp = self.blockchain().get_block_timestamp();
-        require!(
-            end_timestamp > current_timestamp,
-            "end_timestamp cannot be the past."
-        );
-
         self.round_start_timestamp(round_id).set(current_timestamp);
-        self.round_end_timestamp(round_id).set(end_timestamp);
-        self.round_ticket_price(round_id).set(ticket_price);
-        self.round_number_of_winners(round_id).set(number_of_winners);
 
-        require!(
-            number_of_winners == prize_percentages.len(),
-            "number_of_winners and length of prize_percentages do not match."
-        );
+        //
+        self.round_ticket_price(round_id).set(&self.ticket_price().get());
+        self.round_number_of_winners(round_id).set(self.number_of_winners().get());
 
-        let mut ps = self.round_prize_percentages(round_id);
-        let mut tp = 0;
-        for p in prize_percentages {
-            ps.push(&p);
-            tp += p;
+        let mut round_prize_percentages = self.round_prize_percentages(round_id);
+        let prize_percentages = self.prize_percentages();
+        for p in prize_percentages.iter() {
+            round_prize_percentages.push(&p);
         }
-        require!(
-            tp == TOTAL_PERCENTAGE,
-            "Sum of prize_percentages is not equal to {}",
-            TOTAL_PERCENTAGE
-        );
     }
 
     #[payable("*")]
     #[endpoint(injectPrize)]
     fn inject_prize(&self) {
-        let round_id = self.current_round_id().get();
+        let mut round_id = self.current_round_id().get();
         let round_status = self.get_round_status(round_id);
         require!(
             round_id > 0,
             "No Round is opened yet."
         );
-        // One can only inject prize before Claimable
-        require!(
-            round_status == RoundStatus::Opened || round_status == RoundStatus::Closed,
-            "Current Round is already closed."
-        );
+
+        // if current round is closed, rewards will be injected into the next round
+        if round_status == RoundStatus::Closed {
+            round_id += 1;
+        }
 
         // update round_prize_tokens
         let payments = self.call_value().all_esdt_transfers();
@@ -94,24 +72,26 @@ pub trait AdminModule:
     }
 
     #[only_owner]
-    #[endpoint(finishRound)]
-    fn finish_round(&self) {
+    #[endpoint(finishAndStartNewRound)]
+    fn finish_and_start_new_round(&self) {
         //TODO: check that shis is not the current active round
         let round_id = self.current_round_id().get();
+        self.finish_round(round_id);
+        self.open_round(round_id + 1);
+    }
+
+    #[inline]
+    fn finish_round(&self, round_id: usize) {
         let round_status = self.get_round_status(round_id);
         require!(
             round_id > 0,
             "No Round is opened yet."
         );
         require!(
-            round_status != RoundStatus::Claimable,
-            "Current Round is already finished."
+            round_status != RoundStatus::Pending,
+            "Current Round is not opened yet."
         );
-        require!(
-            round_status == RoundStatus::Closed,
-            "Current Round is not closed."
-        );
-        self.round_status(round_id).set(RoundStatus::Claimable);
+        self.round_status(round_id).set(RoundStatus::Closed);
 
         let winners = self.choose_winners();
         let mut round_winners = self.round_winners(round_id);

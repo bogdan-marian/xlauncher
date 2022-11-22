@@ -3,13 +3,14 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-mod config;
-mod event;
-mod data;
-mod storage;
-mod user;
-mod admin;
-mod view;
+pub mod constant;
+pub mod event;
+pub mod data;
+pub mod storage;
+pub mod user;
+pub mod admin;
+pub mod view;
+pub mod config;
 
 #[elrond_wasm::contract]
 pub trait XRaffle:
@@ -17,6 +18,7 @@ pub trait XRaffle:
     + event::EventModule
     + user::UserModule
     + admin::AdminModule
+    + config::ConfigModule
     + view::ViewModule
 {
     #[init]

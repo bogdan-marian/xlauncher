@@ -7,7 +7,6 @@ pub enum RoundStatus {
     Pending,
     Opened,
     Closed,
-    Claimable
 }
 
 // this struct is too costly, do not use this in non-view functions

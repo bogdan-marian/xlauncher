@@ -1,7 +1,7 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-use crate::config::{ TOTAL_PERCENTAGE };
+use crate::constant::{ TOTAL_PERCENTAGE };
 use crate::data::{ RoundStatus };
 
 #[elrond_wasm::module]
@@ -23,7 +23,7 @@ pub trait UserModule:
             "Round is not opened yet."
         );
         require!(
-            !(round_status == RoundStatus::Closed || round_status == RoundStatus::Claimable),
+            round_status != RoundStatus::Closed,
             "Round is closed."
         );
 
@@ -50,8 +50,8 @@ pub trait UserModule:
     ) {
         let round_status = self.get_round_status(round_id);
         require!(
-            round_status == RoundStatus::Claimable,
-            "Round is not closed or Winners are not decided yet."
+            round_status == RoundStatus::Closed,
+            "Round is not closed."
         );
 
         let caller = self.blockchain().get_caller();
