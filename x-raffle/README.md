@@ -5,8 +5,8 @@
 ### next round needs to be added to storage
 ```rust  
   #[view(getNextRoundId)]
-  #[storage_mapper("previous_round_id")]
-  fn previous_round_id(&self) -> SingleValueMapper<usize>;
+  #[storage_mapper("next_round_id")]
+  fn next_round_id(&self) -> SingleValueMapper<usize>;
 ```
  
 ### open round
