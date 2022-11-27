@@ -1,6 +1,6 @@
 PROXY=https://testnet-gateway.elrond.com
 CHAIN_ID="T"
-WALLET="./wallets/shard1-odin.pem"
+WALLET="./wallets/eve.pem"
 ADDRESS=$(erdpy data load --key=address-testnet)
 ######################################################################
 

@@ -1,7 +1,7 @@
-PROXY=https://devnet-gateway.elrond.com
-CHAIN_ID="D"
-WALLET="./wallets/shard1-odin.pem"
-ADDRESS=$(erdpy data load --key=address-devnet)
+PROXY=https://testnet-gateway.elrond.com
+CHAIN_ID="T"
+WALLET="./wallets/eve.pem"
+ADDRESS=$(erdpy data load --key=address-testnet)
 ######################################################################
 
 RAFFLE_SC_ADDRESS="erd1ygdttzrulwfspme2s4qrx5y2qyfqalju0k2vcyy8z3979whlj9qssl5uay"
@@ -22,13 +22,13 @@ USDC_TOKEN_ID_HEX="0x$(echo -n ${USDC_TOKEN_ID} | xxd -p -u | tr -d '\n')"
 
 deploy() {
     erdpy --verbose contract deploy  --project=${PROJECT} --recall-nonce --pem=${WALLET} --send --proxy=${PROXY} --chain=${CHAIN_ID} \
-    --outfile="deploy-devnet.interaction.json" \
+    --outfile="deploy-testnet.interaction.json" \
     --metadata-payable \
     --gas-limit=100000000
     
-    ADDRESS=$(erdpy data parse --file="deploy-devnet.interaction.json" --expression="data['contractAddress']")
+    ADDRESS=$(erdpy data parse --file="deploy-testnet.interaction.json" --expression="data['contractAddress']")
 
-    erdpy data store --key=address-devnet --value=${ADDRESS}
+    erdpy data store --key=address-testnet --value=${ADDRESS}
 
     echo ""
     echo "Smart contract address: ${ADDRESS}"
