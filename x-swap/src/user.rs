@@ -1,14 +1,30 @@
+#![allow(non_snake_case)]
+
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
 use crate::config::{ TOTAL_PERCENTAGE };
 use crate::data::{ Offer };
 
+pub mod x_raffle_proxy {
+    elrond_wasm::imports!();
+
+    #[elrond_wasm::proxy]
+    pub trait XRaffleProxy {
+        #[payable("*")]
+        #[endpoint(injectPrize)]
+        fn injectPrize(&self);
+    }
+}
+
 #[elrond_wasm::module]
 pub trait UserModule:
     crate::storage::StorageModule
     + crate::event::EventModule
-{    
+{   
+    #[proxy]
+    fn x_raffle_contract(&self, sc_address: ManagedAddress) -> x_raffle_proxy::Proxy<Self::Api>;
+
     #[payable("*")]
     #[endpoint(makeOffer)]
     fn make_offer(
@@ -170,13 +186,11 @@ pub trait UserModule:
         let raffle_sc_amount = amount.clone() * raffle_sc_fee / TOTAL_PERCENTAGE;
         let treasury_amount = amount.clone() * treasury_fee / TOTAL_PERCENTAGE;
         let left_amount = amount.clone() - &raffle_sc_amount - &treasury_amount;
-
-        self.send().direct_esdt(
-            &self.raffle_sc_address().get(),
-            &token,
-            0,
-            &raffle_sc_amount,
-        );
+        
+        let _: () = self.x_raffle_contract(self.raffle_sc_address().get())
+            .injectPrize()
+            .with_egld_or_single_esdt_token_transfer(EgldOrEsdtTokenIdentifier::parse(token.clone().into_managed_buffer()), 0, raffle_sc_amount)
+            .execute_on_dest_context();
         self.send().direct_esdt(
             &self.treasury_address().get(),
             &token,

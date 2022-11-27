@@ -4,7 +4,7 @@ WALLET="./wallets/eve.pem"
 ADDRESS=$(erdpy data load --key=address-testnet)
 ######################################################################
 
-RAFFLE_SC_ADDRESS="erd1ygdttzrulwfspme2s4qrx5y2qyfqalju0k2vcyy8z3979whlj9qssl5uay"
+RAFFLE_SC_ADDRESS="erd1qqqqqqqqqqqqqpgqz9gpnvxsh3kep8s4zulzxwmrv6jtk39rqqesahxreh"
 RAFFLE_SC_ADDRESS_HEX="0x$(erdpy wallet bech32 --decode ${RAFFLE_SC_ADDRESS})"
 TREASURY_ADDRESS="erd1ygdttzrulwfspme2s4qrx5y2qyfqalju0k2vcyy8z3979whlj9qssl5uay"
 TREASURY_ADDRESS_HEX="0x$(erdpy wallet bech32 --decode ${TREASURY_ADDRESS})"
@@ -38,13 +38,6 @@ upgrade() {
     erdpy --verbose contract upgrade ${ADDRESS} --project=${PROJECT} --recall-nonce --pem=${WALLET} --send --outfile="upgrade.json" --proxy=${PROXY} --chain=${CHAIN_ID} \
     --metadata-payable \
     --gas-limit=100000000
-}
-
-setSettings() {
-    erdpy --verbose contract call ${ADDRESS} --send --proxy=${PROXY} --chain=${CHAIN_ID} --recall-nonce --pem=${WALLET} \
-    --gas-limit=8000000 \
-    --function="setSettings" \
-    --arguments ${RAFFLE_SC_ADDRESS_HEX} ${TREASURY_ADDRESS_HEX} ${RAFFLE_SC_FEE} ${TREASURY_FEE} ${WEGLD_TOKEN_ID_HEX} ${EGLD_BASE_AMOUNT_FOR_INCENTIVE} ${INCENTIVE_TOKEN_ID_HEX} ${INCENTIVE_BASE_AMOUNT} "0x" "0x"
 }
 
 setSettings() {
