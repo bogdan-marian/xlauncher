@@ -32,6 +32,8 @@ import {
 	RAFFLE_PRIZE_PERCENTAGES,
 	XRAFFLE_SC_ADDRESS,
 	COMMON_GAS_LIMIT,
+	USDC_TOKEN_ID,
+	USDC_TOKEN_DECIMALS,
 } from "./config";
 
 import {
@@ -45,25 +47,27 @@ import {
 	sleep,
 	convertBigNumberToDate,
 	convertWeiToEsdt,
+	convertEsdtToWei,
 } from './util';
 
 async function setSettings() {
 	const args = [
-		BytesValue.fromUTF8(XRF_TOKEN_ID),
-		new BigUIntValue(BigNumber(RAFFLE_TICKET_PRICE)),
-		new U32Value(RAFFLE_NUMBER_OF_WINNERS),
+		new AddressValue(new Address(XRAFFLE_SC_ADDRESS)), 	// receiver
+		new U32Value(1), 																		//number of tokens to transfer
+		
+		BytesValue.fromUTF8(USDC_TOKEN_ID),									// token id
+		new U32Value(0),																		// token nonce
+		new BigUIntValue(convertEsdtToWei(3_000, USDC_TOKEN_DECIMALS)),
+		
+		BytesValue.fromUTF8('injectPrize'),
 	];
-	for (const prize_percentage of RAFFLE_PRIZE_PERCENTAGES) {
-		args.push(new U32Value(prize_percentage));
-	}
-
 	const { argumentsString } = new ArgSerializer().valuesToString(args);
-	const dataString = `setSettings@${argumentsString}`;
+	const dataString = `MultiESDTNFTTransfer@${argumentsString}`;
 	const data = new TransactionPayload(dataString);
 
 	const tx = new Transaction({
 			nonce: account.getNonceThenIncrement(),
-			receiver: new Address(XRAFFLE_SC_ADDRESS),
+			receiver: account.address,
 			value: Balance.Zero(),
 			data: data,
 			gasLimit: new GasLimit(COMMON_GAS_LIMIT),

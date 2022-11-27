@@ -32,6 +32,8 @@ import {
 	RAFFLE_PRIZE_PERCENTAGES,
 	XRAFFLE_SC_ADDRESS,
 	COMMON_GAS_LIMIT,
+	USDC_TOKEN_ID,
+	USDC_TOKEN_DECIMALS,
 } from "./config";
 
 import {
@@ -45,27 +47,15 @@ import {
 	sleep,
 	convertBigNumberToDate,
 	convertWeiToEsdt,
+	convertEsdtToWei,
 } from './util';
 
-async function setSettings() {
-	const args = [
-		BytesValue.fromUTF8(XRF_TOKEN_ID),
-		new BigUIntValue(BigNumber(RAFFLE_TICKET_PRICE)),
-		new U32Value(RAFFLE_NUMBER_OF_WINNERS),
-	];
-	for (const prize_percentage of RAFFLE_PRIZE_PERCENTAGES) {
-		args.push(new U32Value(prize_percentage));
-	}
-
-	const { argumentsString } = new ArgSerializer().valuesToString(args);
-	const dataString = `setSettings@${argumentsString}`;
-	const data = new TransactionPayload(dataString);
-
+async function finishAndStartNewRound() {
 	const tx = new Transaction({
 			nonce: account.getNonceThenIncrement(),
 			receiver: new Address(XRAFFLE_SC_ADDRESS),
 			value: Balance.Zero(),
-			data: data,
+			data: new TransactionPayload('finishAndStartNewRound'),
 			gasLimit: new GasLimit(COMMON_GAS_LIMIT),
 	});
 
@@ -77,5 +67,5 @@ async function setSettings() {
 
 (async function() {
 	await account.sync(provider);
-	await setSettings();
+	await finishAndStartNewRound();
 })();

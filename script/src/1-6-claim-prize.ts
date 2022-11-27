@@ -32,6 +32,9 @@ import {
 	RAFFLE_PRIZE_PERCENTAGES,
 	XRAFFLE_SC_ADDRESS,
 	COMMON_GAS_LIMIT,
+	USDC_TOKEN_ID,
+	USDC_TOKEN_DECIMALS,
+	XRF_TOKEN_DECIMALS,
 } from "./config";
 
 import {
@@ -45,20 +48,15 @@ import {
 	sleep,
 	convertBigNumberToDate,
 	convertWeiToEsdt,
+	convertEsdtToWei,
 } from './util';
 
-async function setSettings() {
+async function claimPrize() {
 	const args = [
-		BytesValue.fromUTF8(XRF_TOKEN_ID),
-		new BigUIntValue(BigNumber(RAFFLE_TICKET_PRICE)),
-		new U32Value(RAFFLE_NUMBER_OF_WINNERS),
+		new U32Value(1),	// round_id
 	];
-	for (const prize_percentage of RAFFLE_PRIZE_PERCENTAGES) {
-		args.push(new U32Value(prize_percentage));
-	}
-
 	const { argumentsString } = new ArgSerializer().valuesToString(args);
-	const dataString = `setSettings@${argumentsString}`;
+	const dataString = `claimPrize@${argumentsString}`;
 	const data = new TransactionPayload(dataString);
 
 	const tx = new Transaction({
@@ -77,5 +75,5 @@ async function setSettings() {
 
 (async function() {
 	await account.sync(provider);
-	await setSettings();
+	await claimPrize();
 })();
