@@ -9,13 +9,11 @@ pub trait UserModule:
     crate::storage::StorageModule
     + crate::event::EventModule
     + crate::view::ViewModule
+    + crate::admin::AdminModule
 {
     #[payable("*")]
     #[endpoint(buyTickets)]
-    fn buy_tickets(
-        &self,
-        number_of_tickets: u64,
-    ) {
+    fn buy_tickets(&self) {
         let round_id = self.current_round_id().get();
         let round_status = self.get_round_status(round_id);
         require!(
@@ -26,16 +24,21 @@ pub trait UserModule:
             round_status != RoundStatus::Closed,
             "Round is closed."
         );
+        self.require_ticket_token_burn_role();
 
         let payment = self.call_value().single_esdt();
         require!(
             payment.token_identifier == self.ticket_token().get(),
             "Wrong payment token."
         );
+        let number_of_tickets = (&payment.amount / &self.round_ticket_price(round_id).get()).to_u64().unwrap_or_default();
         require!(
-            payment.amount >= self.round_ticket_price(round_id).get() * number_of_tickets,
-            "Not enough payment."
+            number_of_tickets > 0u64,
+            "You must buy 1 ticket at least."
         );
+
+        // burn ticket token
+        self.send().esdt_local_burn(&payment.token_identifier, 0u64, &payment.amount);
 
         let caller = self.blockchain().get_caller();
         let mut round_user_tickets = self.round_user_tickets(round_id);
