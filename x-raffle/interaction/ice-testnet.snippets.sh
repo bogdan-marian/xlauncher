@@ -4,7 +4,7 @@ WALLET="./wallets/eve.pem"
 ADDRESS=$(erdpy data load --key=address-testnet)
 ######################################################################
 
-TICKET_TOKEN="XRF-123456"
+TICKET_TOKEN="XRF-c0c96a"
 TICKET_TOKEN_HEX="0x$(echo -n ${TICKET_TOKEN} | xxd -p -u | tr -d '\n')"
 
 END_TIMESTAMP=1668826285

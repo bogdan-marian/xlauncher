@@ -13,6 +13,8 @@ pub trait AdminModule:
     #[only_owner]
     #[endpoint(openGenesisRound)]
     fn open_genesis_round(&self) {
+        self.require_ticket_token_burn_role();
+        
         let mut round_id = self.current_round_id().get();
         require!(
             round_id == 0,
@@ -167,5 +169,14 @@ pub trait AdminModule:
         }
 
         winners
+    }
+
+    #[inline]
+    fn require_ticket_token_burn_role(&self) {
+        let roles = self.blockchain().get_esdt_local_roles(&self.ticket_token().get());
+        require!(
+            roles.has_role(&EsdtLocalRole::Burn),
+            "Smart Contract does not have Burn role of ticket token."
+        );
     }
 }
