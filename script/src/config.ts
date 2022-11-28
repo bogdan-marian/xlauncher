@@ -32,3 +32,18 @@ export const XRF_TOKEN_ID = 'XRF-c0c96a';
 export const XRF_TOKEN_DECIMALS = 18;
 export const USDC_TOKEN_ID = 'USDC-ca298e';
 export const USDC_TOKEN_DECIMALS = 6;
+
+// 2- Swap
+export const XSWAP_SC_ABI_URL = 'abi/x-swap.abi.json';
+export const XSWAP_SC_NAME = 'XSwap';
+export const XSWAP_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqpqnt0rdt2tqxg9mrcahtrxp0au8qdhgwqqesjkkjvk';
+
+export const TREASURY_ADDRESS = 'erd15936k9pw34xyzmcaupyn7lpr7f6p20q50h4wlgemxg7h9zasdfysmhg50z';
+export const RAFFLE_SC_FEE = 5_00; // 5%
+export const TREASURY_FEE = 5_00; // 5%
+
+export const WEGLD_TOKEN_ID = 'WEGLD-fb9728';
+export const WEGLD_TOKEN_DECIMALS = 18;
+
+export const EGLD_BASE_AMOUNT_FOR_INCENTIVE = '500000000000000000'; // 0.5 EGLD
+export const INCENTIVE_BASE_AMOUNT = '1000000000000000000'; // 1 ESDT

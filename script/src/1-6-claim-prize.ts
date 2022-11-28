@@ -52,7 +52,7 @@ import {
 } from './util';
 
 async function claimPrize() {
-	const args = [
+	const args: TypedValue[] = [
 		new U32Value(1),	// round_id
 	];
 	const { argumentsString } = new ArgSerializer().valuesToString(args);

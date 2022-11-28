@@ -48,7 +48,7 @@ import {
 } from './util';
 
 async function setSettings() {
-	const args = [
+	const args: TypedValue[] = [
 		BytesValue.fromUTF8(XRF_TOKEN_ID),
 		new BigUIntValue(BigNumber(RAFFLE_TICKET_PRICE)),
 		new U32Value(RAFFLE_NUMBER_OF_WINNERS),

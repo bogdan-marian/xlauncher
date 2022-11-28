@@ -48,7 +48,6 @@ import {
 } from './util';
 
 async function openGenesisRound() {
-
 	const tx = new Transaction({
 			nonce: account.getNonceThenIncrement(),
 			receiver: new Address(XRAFFLE_SC_ADDRESS),

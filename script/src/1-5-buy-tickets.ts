@@ -52,7 +52,7 @@ import {
 } from './util';
 
 async function buyTickets() {
-	const args = [
+	const args: TypedValue[] = [
 		new AddressValue(new Address(XRAFFLE_SC_ADDRESS)), 	// receiver
 		new U32Value(1), 																		//number of tokens to transfer
 		
