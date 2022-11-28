@@ -4,7 +4,9 @@
   "description": "",
   "main": "hello.js",
   "scripts": {
-    "1": "ts-node src/1-set-settings"
+    "1": "ts-node src/1-set-settings",
+    "2": "ts-node src/2-make-offer",
+    "3": "ts-node src/3-accept-offer"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",
