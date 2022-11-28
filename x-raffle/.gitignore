@@ -12,6 +12,6 @@ output*
 # Mandos test trace
 trace*.scen.json
 
-wallets
+/wallets
 interaction-logs
 upgrade.json
