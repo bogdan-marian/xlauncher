@@ -31,9 +31,6 @@ import {
 	EVE_PEM_PATH,
 	EXPLORER_URL,
 	CHAIN_ID,
-	XRAFFLE_SC_ABI_URL,
-	XRAFFLE_SC_NAME,
-	XRAFFLE_SC_ADDRESS,
 	XSWAP_SC_ABI_URL,
 	XSWAP_SC_NAME,
 	XSWAP_SC_ADDRESS,
@@ -47,18 +44,6 @@ config.sync(provider);
 const pem = fs.readFileSync(EVE_PEM_PATH, { encoding: 'utf-8' }).trim();
 export const signer = UserSigner.fromPem(pem);
 export const account = new Account(new Address((signer.getAddress()).bech32()));
-
-export const getXRaffleContractInteractor = async () => {
-	const registry = await AbiRegistry.load({ files: [XRAFFLE_SC_ABI_URL] });
-	const abi = new SmartContractAbi(registry, [XRAFFLE_SC_NAME]);
-	const contract = new SmartContract({ address: new Address(XRAFFLE_SC_ADDRESS), abi: abi });
-	const controller = new DefaultSmartContractController(abi, provider);
-
-	return {
-		contract,
-		controller,
-	};
-};
 
 export const getXSwapContractInteractor = async () => {
 	const registry = await AbiRegistry.load({ files: [XSWAP_SC_ABI_URL] });
