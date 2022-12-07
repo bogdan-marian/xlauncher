@@ -54,6 +54,7 @@ import {
 async function claimPrize() {
 	const args: TypedValue[] = [
 		new U32Value(1),	// round_id
+		new U32Value(1),	// ticket_number
 	];
 	const { argumentsString } = new ArgSerializer().valuesToString(args);
 	const dataString = `claimPrize@${argumentsString}`;
