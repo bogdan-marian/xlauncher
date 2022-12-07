@@ -32,6 +32,7 @@ elrond_wasm_node::wasm_endpoints! {
         getTicketPrice
         getTicketPrizeRanking
         getTicketToken
+        getUser
         injectPrize
         openGenesisRound
         setPrizeSettings

@@ -30,3 +30,12 @@ pub struct Round<M: ManagedTypeApi> {
     pub round_sold_tickets: usize,
     pub round_sold_amount: BigUint<M>,
 }
+
+// this struct is too costly, do not use this in non-view functions
+#[derive(ManagedVecItem, TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, Clone, PartialEq)]
+pub struct User<M: ManagedTypeApi> {
+    pub address: ManagedAddress<M>,
+    pub round_ticket_numbers: ManagedVec<M, ManagedVec<M, usize>>,
+    pub round_prize_rankings: ManagedVec<M, usize>,
+    pub round_prize_claimed: ManagedVec<M, bool>,
+}
