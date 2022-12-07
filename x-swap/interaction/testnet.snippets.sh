@@ -4,7 +4,7 @@ WALLET="./wallets/eve.pem"
 ADDRESS=$(erdpy data load --key=address-testnet)
 ######################################################################
 
-RAFFLE_SC_ADDRESS="erd1qqqqqqqqqqqqqpgqz9gpnvxsh3kep8s4zulzxwmrv6jtk39rqqesahxreh"
+RAFFLE_SC_ADDRESS="erd1qqqqqqqqqqqqqpgqtpk48r66tz3t5zshytm2cjeqzvjha5tqqqesk6rgg6"
 RAFFLE_SC_ADDRESS_HEX="0x$(erdpy wallet bech32 --decode ${RAFFLE_SC_ADDRESS})"
 TREASURY_ADDRESS="erd1ygdttzrulwfspme2s4qrx5y2qyfqalju0k2vcyy8z3979whlj9qssl5uay"
 TREASURY_ADDRESS_HEX="0x$(erdpy wallet bech32 --decode ${TREASURY_ADDRESS})"

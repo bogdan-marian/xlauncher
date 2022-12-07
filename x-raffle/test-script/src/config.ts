@@ -22,7 +22,7 @@ export const COMMON_GAS_LIMIT = 60_000_000;
 // 1 - Raffle
 export const XRAFFLE_SC_ABI_URL = 'abi/x-raffle.abi.json';
 export const XRAFFLE_SC_NAME = 'XRaffle';
-export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqz9gpnvxsh3kep8s4zulzxwmrv6jtk39rqqesahxreh';
+export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqtpk48r66tz3t5zshytm2cjeqzvjha5tqqqesk6rgg6';
 
 export const RAFFLE_TICKET_PRICE = '5000000000000000000';
 export const RAFFLE_NUMBER_OF_WINNERS = 2;
