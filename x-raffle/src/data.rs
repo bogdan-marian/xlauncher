@@ -25,6 +25,7 @@ pub struct Round<M: ManagedTypeApi> {
     pub round_number_of_winners: usize,
     pub round_prize_percentages: ManagedVec<M, u64>,
     pub round_winners: ManagedVec<M, ManagedAddress<M>>,
+    pub round_win_numbers: ManagedVec<M, usize>,
 
     pub round_sold_tickets: usize,
     pub round_sold_amount: BigUint<M>,

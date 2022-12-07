@@ -51,17 +51,15 @@ pub trait ViewModule:
             round_prize_percentages.push(rpp);
         }
 
+        let mut round_win_numbers = ManagedVec::new();
         let mut round_winners = ManagedVec::new();
-        let rw_vec = self.round_winners(round_id);
-        for rw in rw_vec.iter() {
-            round_winners.push(rw);
+        let rwn_vec = self.round_win_numbers(round_id);
+        for rwn in rwn_vec.iter() {
+            round_win_numbers.push(rwn);
+            round_winners.push(self.ticket_owner(rwn).get());
         }
 
-        let mut round_sold_tickets = 0;
-        let rut_map = self.round_user_tickets(round_id);
-        for (_address, amount) in rut_map.iter() {
-            round_sold_tickets += amount;
-        }
+        let round_sold_tickets = self.round_first_ticket_number(round_id + 1).get () - self.round_first_ticket_number(round_id).get();
         let round_sold_amount = self.round_ticket_price(round_id).get() * &BigUint::from(round_sold_tickets);
         
         Round {
@@ -78,6 +76,7 @@ pub trait ViewModule:
             round_number_of_winners: self.round_number_of_winners(round_id).get(),
             round_prize_percentages,
             round_winners,
+            round_win_numbers,
         
             round_sold_tickets,
             round_sold_amount,

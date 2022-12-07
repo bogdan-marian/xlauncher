@@ -1,7 +1,6 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-use core::ops::Deref;
 use crate::data::{ RoundStatus };
 
 #[elrond_wasm::module]
@@ -22,6 +21,11 @@ pub trait AdminModule:
         );
 
         round_id += 1;
+
+        self.last_ticker_number().set(0); // this is an emphasis (initial value of usize SingleValueMapper is 0)
+        self.round_first_ticket_number(round_id).set(1);
+        self.round_first_ticket_number(round_id + 1).set(1);
+
         self.open_round(round_id);
     }
 
@@ -95,13 +99,11 @@ pub trait AdminModule:
         );
         self.round_status(round_id).set(RoundStatus::Closed);
 
-        let winners = self.choose_winners();
-        let mut round_winners = self.round_winners(round_id);
+        let win_ticket_numbers = self.choose_winners();
         let mut ranking = 1;
-        for winner in winners.iter() {
-            let winner_address = winner.deref();
-            self.round_user_ranking(round_id, &winner_address).set(ranking);
-            round_winners.push(winner_address);
+        for wtn in win_ticket_numbers.iter() {
+            self.ticket_prize_ranking(wtn).set(ranking);
+            self.round_win_numbers(round_id).push(&wtn);
             ranking += 1;
         }
 
@@ -115,60 +117,43 @@ pub trait AdminModule:
 
     //
     #[inline]
-    fn choose_winners(&self) -> ManagedVec<ManagedAddress> {
+    fn choose_winners(&self) -> ManagedVec<usize> {
         //TODO: check that this is not the current active lottery round
         let round_id = self.current_round_id().get();
         let number_of_winners = self.round_number_of_winners(round_id).get();
-        let number_of_users = self.round_user_tickets(round_id).len();
 
-        // if number of people who bought tickets in this round is smaller than number of prizes, real_number_of_prizes will be number of people who bought tickets in this round
-        let real_number_of_prizes = core::cmp::min(number_of_winners, number_of_users);
-
-        let mut total_numbers = 0;
-        let mut user_tickets_vec: ManagedVec<usize> = ManagedVec::new();
-        let mut user_index_vec: ManagedVec<usize> = ManagedVec::new();
-        let round_user_tickets = self.round_user_tickets(round_id);
-        let mut k = 0;
-        for (_, user_number_of_tickets) in round_user_tickets.iter() {
-            total_numbers += user_number_of_tickets;
-            user_tickets_vec.push(user_number_of_tickets);
-            user_index_vec.push(k);
-            k += 1;
+        let current_round_first_ticket_number = self.round_first_ticket_number(round_id).get();
+        let next_round_first_ticket_number = self.round_first_ticket_number(round_id + 1).get();
+        
+        let mut ticket_numbers_vec: ManagedVec<usize> = ManagedVec::new();
+        for tn in current_round_first_ticket_number..next_round_first_ticket_number {
+            ticket_numbers_vec.push(tn);
         }
 
         let mut rand = RandomnessSource::<Self::Api>::new();
-        let mut winner_ids: ManagedVec<usize> = ManagedVec::new();
-        for _ in 0..real_number_of_prizes {
-            let rand_index = rand.next_usize_in_range(0, total_numbers);
+        let mut win_ticket_numbers: ManagedVec<usize> = ManagedVec::new();
+        for _ in 0..number_of_winners {
+            if ticket_numbers_vec.len() == 0 { // if no ticket is left, break the loop
+                break;
+            }
 
-            let mut sum = 0;
-            let mut j = 0;
-            for num in user_tickets_vec.iter() {
-                sum += num;
-                if rand_index < sum {
-                    break;
+            let rand_index = rand.next_usize_in_range(0, ticket_numbers_vec.len());
+
+            //
+            win_ticket_numbers.push(ticket_numbers_vec.get(rand_index));
+
+            //
+            let winner = self.ticket_owner(ticket_numbers_vec.get(rand_index)).get();
+            let mut new_win_ticket_numbers: ManagedVec<usize> = ManagedVec::new();
+            for i in ticket_numbers_vec.iter() {
+                if winner != self.ticket_owner(ticket_numbers_vec.get(i)).get() {
+                    new_win_ticket_numbers.push(ticket_numbers_vec.get(i));
                 }
-                j += 1;
             }
-
-            total_numbers -= user_tickets_vec.get(j);
-            winner_ids.push(user_index_vec.get(j));
-            user_tickets_vec.remove(j);
-            user_index_vec.remove(j);
+            ticket_numbers_vec = new_win_ticket_numbers;
         }
 
-        let mut winners = ManagedVec::new();
-        let mut i = 0;
-        let mut j = 0;
-        for (user_address, _) in round_user_tickets.iter() {
-            if winner_ids.get(i) == j {
-                winners.push(user_address);
-                i += 1;
-            }
-            j += 1;
-        }
-
-        winners
+        win_ticket_numbers
     }
 
     #[inline]

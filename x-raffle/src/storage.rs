@@ -62,16 +62,33 @@ pub trait StorageModule
     fn round_left_tokens(&self, round_id: usize) -> MapMapper<TokenIdentifier, BigUint>;
 
     //
-    #[view(getRoundWinners)]
-    #[storage_mapper("round_winners")]
-    fn round_winners(&self, round_id: usize) -> VecMapper<ManagedAddress>;
+    #[view(getLastTickerNumber)]
+    #[storage_mapper("last_ticker_number")]
+    fn last_ticker_number(&self) -> SingleValueMapper<usize>;
+
+    #[view(getTicketOwner)]
+    #[storage_mapper("ticket_owner")]
+    fn ticket_owner(&self, ticket_number: usize) -> SingleValueMapper<ManagedAddress>;
+
+    #[view(getTicketPrizeRanking)]
+    #[storage_mapper("ticket_prize_ranking")]
+    fn ticket_prize_ranking(&self, ticket_number: usize) -> SingleValueMapper<usize>;   // ranking of ticket in a round; if no rank, value is 0
+
+    #[view(getTicketClaimed)]
+    #[storage_mapper("ticket_claimed")]
+    fn ticket_claimed(&self, ticket_number: usize) -> SingleValueMapper<bool>;
 
     //
-    #[view(getRoundUserTickets)]
-    #[storage_mapper("round_user_tickets")]
-    fn round_user_tickets(&self, round_id: usize) -> MapMapper<ManagedAddress, usize>;
+    #[view(getRoundFirstTicketNumber)]
+    #[storage_mapper("round_first_ticket_number")]
+    fn round_first_ticket_number(&self, round_id: usize) -> SingleValueMapper<usize>;
 
-    #[view(getRoundUserRanking)]
-    #[storage_mapper("round_user_ranking")]
-    fn round_user_ranking(&self, round_id: usize, user: &ManagedAddress) -> SingleValueMapper<usize>;
+    #[view(getRoundWinNumbers)]
+    #[storage_mapper("round_win_numbers")]
+    fn round_win_numbers(&self, round_id: usize) -> VecMapper<usize>;
+
+    //
+    #[view(getRoundUserTicketNumbers)]
+    #[storage_mapper("round_user_ticket_numbers")]
+    fn round_user_ticket_numbers(&self, round_id: usize, user_address: &ManagedAddress) -> VecMapper<usize>;
 }

@@ -40,32 +40,48 @@ pub trait UserModule:
         // burn ticket token
         self.send().esdt_local_burn(&payment.token_identifier, 0u64, &payment.amount);
 
+        //
         let caller = self.blockchain().get_caller();
-        let mut round_user_tickets = self.round_user_tickets(round_id);
-        let new_number_of_tickets = round_user_tickets.get(&caller).unwrap_or_default() + number_of_tickets as usize;
-        round_user_tickets.insert(caller, new_number_of_tickets);
+        
+        let mut ticket_number = self.last_ticker_number().get();
+        for _ in 0..number_of_tickets {
+            ticket_number += 1;
+            self.ticket_owner(ticket_number).set(&caller);
+            self.round_user_ticket_numbers(round_id, &caller).push(&ticket_number);
+        }
+
+        self.round_first_ticket_number(round_id + 1).set(ticket_number + 1);
+        self.last_ticker_number().set(ticket_number);
     }
 
     #[endpoint(claimPrize)]
     fn claim_prize(
         &self,
         round_id: usize,
+        ticket_number: usize,
     ) {
         let round_status = self.get_round_status(round_id);
         require!(
             round_status == RoundStatus::Closed,
-            "Round is not closed."
+            "Round is not closed"
         );
 
         let caller = self.blockchain().get_caller();
-        let user_ranking = self.round_user_ranking(round_id, &caller).get();
+        let user_ranking = self.ticket_prize_ranking(ticket_number).get();
         require!(
             user_ranking > 0,
-            "You have not won any prize."
+            "You have not won the given round"
+        );
+        require!(
+            !self.ticket_claimed(ticket_number).get(),
+            "Rewards are already claimed"
         );
 
-        let prize_percentage = self.round_prize_percentages(round_id).get(user_ranking);
+        //
+        self.ticket_claimed(ticket_number).set(true);
 
+        //
+        let prize_percentage = self.round_prize_percentages(round_id).get(user_ranking);
         let round_prize_tokens = self.round_prize_tokens(round_id);
         let mut round_left_tokens = self.round_left_tokens(round_id);
         let mut payments = ManagedVec::new();
