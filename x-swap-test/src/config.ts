@@ -21,6 +21,7 @@ export const COMMON_GAS_LIMIT = 60_000_000;
 
 
 // 2- Swap
+// SC metadata
 export const XSWAP_SC_ABI_URL = 'abi/x-swap.abi.json';
 export const XSWAP_SC_WASM_URL = 'abi/x-swap.wasm';
 export const XSWAP_SC_NAME = 'XSwap';
