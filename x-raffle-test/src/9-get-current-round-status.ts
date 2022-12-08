@@ -75,8 +75,16 @@ async function main() {
     round_ticket_token: value.round_ticket_token.toString(),
     round_ticket_price: convertWeiToEsdt(value.round_ticket_price),
 
-    round_prize_tokens: value.round_prize_tokens,
-    round_left_tokens: value.round_left_tokens,
+    round_prize_tokens: value.round_prize_tokens.map(v => ({
+			token_identifier: v.token_identifier.toString(),
+			token_nonce: v.token_nonce.toNumber(),
+			amount: v.amount.toNumber(),
+		})),
+    round_left_tokens: value.round_left_tokens.map(v => ({
+			token_identifier: v.token_identifier.toString(),
+			token_nonce: v.token_nonce.toNumber(),
+			amount: v.amount.toNumber(),
+		})),
 
     round_number_of_winners: value.round_number_of_winners.toNumber(),
     round_prize_percentages: value.round_prize_percentages.map(v => v.toNumber()),

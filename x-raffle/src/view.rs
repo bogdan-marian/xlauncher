@@ -90,7 +90,7 @@ pub trait ViewModule:
         let mut round_prize_claimed = ManagedVec::new();
 
         let current_round_id = self.current_round_id().get();
-        for round_id in 1..current_round_id {
+        for round_id in 1..=current_round_id {
             let mut ticket_numbers: ManagedVec<usize> = ManagedVec::new();
             let rutn_vec = self.round_user_ticket_numbers(round_id, &address);
             for tn in rutn_vec.iter() {

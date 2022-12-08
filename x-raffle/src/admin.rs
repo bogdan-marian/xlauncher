@@ -33,6 +33,12 @@ pub trait AdminModule:
         //
         self.round_ticket_price(round_id).set(&self.ticket_price().get());
         self.round_number_of_winners(round_id).set(self.number_of_winners().get());
+
+        let mut round_prize_percentages = self.round_prize_percentages(round_id);
+        let prize_percentages = self.prize_percentages();
+        for p in prize_percentages.iter() {
+            round_prize_percentages.push(&p);
+        }
     }
 
     #[inline]
