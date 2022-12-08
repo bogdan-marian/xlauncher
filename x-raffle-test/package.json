@@ -13,7 +13,8 @@
     "7": "ts-node src/7-buy-tickets",
     "8": "ts-node src/8-claim-prize",
     "9": "ts-node src/9-get-current-round-status",
-    "10": "ts-node src/10-get-user"
+    "10": "ts-node src/10-get-user",
+    "11": "ts-node src/11-get-round-first-ticket-number"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",
