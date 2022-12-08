@@ -11,7 +11,9 @@
     "5": "ts-node src/5-inject-prize",
     "6": "ts-node src/6-finish-and-start-new-round",
     "7": "ts-node src/7-buy-tickets",
-    "8": "ts-node src/8-claim-prize"
+    "8": "ts-node src/8-claim-prize",
+    "9": "ts-node src/9-get-current-round-status",
+    "10": "ts-node src/10-get-user"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",
