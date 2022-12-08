@@ -22,6 +22,10 @@ pub trait StorageModule
     #[storage_mapper("prize_percentages")]
     fn prize_percentages(&self) -> VecMapper<u64>;
 
+    #[view(getTreasuryAddress)]
+    #[storage_mapper("treasury_address")]
+    fn treasury_address(&self) -> SingleValueMapper<ManagedAddress>;
+
     //////////////////////////////////////////////////////////////////////////
         
     #[view(getCurrentRoundId)]

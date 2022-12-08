@@ -24,7 +24,6 @@ pub trait UserModule:
             round_status != RoundStatus::Closed,
             "Round is closed."
         );
-        self.require_ticket_token_burn_role();
 
         let payment = self.call_value().single_esdt();
         require!(
@@ -37,8 +36,8 @@ pub trait UserModule:
             "You must buy 1 ticket at least."
         );
 
-        // burn ticket token
-        self.send().esdt_local_burn(&payment.token_identifier, 0u64, &payment.amount);
+        // send XRF to treasury wallet
+        self.send().direct_esdt(&self.treasury_address().get(), &payment.token_identifier, 0u64, &payment.amount);
 
         //
         let caller = self.blockchain().get_caller();

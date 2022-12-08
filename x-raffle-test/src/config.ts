@@ -27,6 +27,7 @@ export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqtpk48r66tz3t5zshytm2cjeqz
 export const RAFFLE_TICKET_PRICE = '5000000000000000000';
 export const RAFFLE_NUMBER_OF_WINNERS = 2;
 export const RAFFLE_PRIZE_PERCENTAGES = [70_00, 30_00];
+export const TREASURY_ADDRESS = 'erd15936k9pw34xyzmcaupyn7lpr7f6p20q50h4wlgemxg7h9zasdfysmhg50z';
 
 export const XRF_TOKEN_ID = 'XRF-c0c96a';
 export const XRF_TOKEN_DECIMALS = 18;

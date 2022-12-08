@@ -32,6 +32,7 @@ import {
 	RAFFLE_PRIZE_PERCENTAGES,
 	XRAFFLE_SC_ADDRESS,
 	COMMON_GAS_LIMIT,
+	TREASURY_ADDRESS,
 } from "./config";
 
 import {
@@ -52,6 +53,7 @@ async function setSettings() {
 		BytesValue.fromUTF8(XRF_TOKEN_ID),
 		new BigUIntValue(BigNumber(RAFFLE_TICKET_PRICE)),
 		new U32Value(RAFFLE_NUMBER_OF_WINNERS),
+		new AddressValue(new Address(TREASURY_ADDRESS)),
 	];
 	for (const prize_percentage of RAFFLE_PRIZE_PERCENTAGES) {
 		args.push(new U32Value(prize_percentage));

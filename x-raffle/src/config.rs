@@ -12,11 +12,13 @@ pub trait ConfigModule:
     #[endpoint(setSettings)]
     fn set_settings(
         &self,
+        treasury_address: ManagedAddress,
         ticket_token: TokenIdentifier,
         ticket_price: BigUint,
         number_of_winners: usize,
         pps: MultiValueEncoded<u64>,
     ) {
+        self.set_treasury_address(treasury_address);
         self.set_ticket_token(ticket_token);
         self.set_ticket_price(ticket_price);
         self.set_prize_settings(number_of_winners, pps);
@@ -67,5 +69,14 @@ pub trait ConfigModule:
             "Sum of prize_percentages is not equal to {}",
             TOTAL_PERCENTAGE
         );
+    }
+
+    #[only_owner]
+    #[endpoint(setTreasuryAddress)]
+    fn set_treasury_address(
+        &self,
+        treasury_address: ManagedAddress,
+    ) {
+        self.treasury_address().set(&treasury_address);
     }
 }
