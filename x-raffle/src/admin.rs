@@ -50,7 +50,7 @@ pub trait AdminModule:
             round_prize_percentages.push(&p);
         }
 
-        self.round_first_ticket_number(round_id + 1).set(1);
+        self.round_first_ticket_number(round_id + 1).set(self.round_first_ticket_number(round_id).get());
     }
 
     #[payable("*")]
