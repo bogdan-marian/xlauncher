@@ -1,588 +1,588 @@
 {
-  "buildInfo": {
-      "rustc": {
-          "version": "1.66.0-nightly",
-          "commitHash": "1898c34e923bad763e723c68dd9f23a09f9eb0fc",
-          "commitDate": "2022-10-26",
-          "channel": "Nightly",
-          "short": "rustc 1.66.0-nightly (1898c34e9 2022-10-26)"
-      },
-      "contractCrate": {
-          "name": "x-swap",
-          "version": "0.1.0",
-          "git_version": "8162a22-modified"
-      },
-      "framework": {
-          "name": "elrond-wasm",
-          "version": "0.36.1"
-      }
-  },
-  "name": "XSwap",
-  "constructor": {
-      "inputs": [],
-      "outputs": []
-  },
-  "endpoints": [
-      {
-          "name": "getRaffleScAddress",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "Address"
-              }
-          ]
-      },
-      {
-          "name": "getTreasuryAddress",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "Address"
-              }
-          ]
-      },
-      {
-          "name": "getRaffleScFee",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "u64"
-              }
-          ]
-      },
-      {
-          "name": "getTreausryFee",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "u64"
-              }
-          ]
-      },
-      {
-          "name": "getWegldTokenId",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "TokenIdentifier"
-              }
-          ]
-      },
-      {
-          "name": "getEgldAmountForIncentive",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "BigUint"
-              }
-          ]
-      },
-      {
-          "name": "getIncentiveTokenId",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "TokenIdentifier"
-              }
-          ]
-      },
-      {
-          "name": "getIncentiveBaseAmount",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "BigUint"
-              }
-          ]
-      },
-      {
-          "name": "getATokens",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "variadic<TokenIdentifier>",
-                  "multi_result": true
-              }
-          ]
-      },
-      {
-          "name": "getBTokens",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "variadic<TokenIdentifier>",
-                  "multi_result": true
-              }
-          ]
-      },
-      {
-          "name": "getOffer",
-          "mutability": "readonly",
-          "inputs": [
-              {
-                  "name": "offer_id",
-                  "type": "u32"
-              }
-          ],
-          "outputs": [
-              {
-                  "type": "Offer"
-              }
-          ]
-      },
-      {
-          "name": "getOfferIds",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "variadic<u32>",
-                  "multi_result": true
-              }
-          ]
-      },
-      {
-          "name": "getLastOfferId",
-          "mutability": "readonly",
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "u32"
-              }
-          ]
-      },
-      {
-          "name": "getOfferIdsByFromToken",
-          "mutability": "readonly",
-          "inputs": [
-              {
-                  "name": "from_token",
-                  "type": "TokenIdentifier"
-              }
-          ],
-          "outputs": [
-              {
-                  "type": "variadic<u32>",
-                  "multi_result": true
-              }
-          ]
-      },
-      {
-          "name": "getOfferIdsByToToken",
-          "mutability": "readonly",
-          "inputs": [
-              {
-                  "name": "from_token",
-                  "type": "TokenIdentifier"
-              }
-          ],
-          "outputs": [
-              {
-                  "type": "variadic<u32>",
-                  "multi_result": true
-              }
-          ]
-      },
-      {
-          "name": "makeOffer",
-          "mutability": "mutable",
-          "payableInTokens": [
-              "*"
-          ],
-          "inputs": [
-              {
-                  "name": "to_token",
-                  "type": "TokenIdentifier"
-              },
-              {
-                  "name": "to_amount",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "min_to_amount_per_accept_opt",
-                  "type": "optional<BigUint>",
-                  "multi_arg": true
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "acceptOffer",
-          "mutability": "mutable",
-          "payableInTokens": [
-              "*"
-          ],
-          "inputs": [
-              {
-                  "name": "offer_id",
-                  "type": "u32"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setSettings",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "raffle_sc_address",
-                  "type": "Address"
-              },
-              {
-                  "name": "treasury_address",
-                  "type": "Address"
-              },
-              {
-                  "name": "raffle_sc_fee",
-                  "type": "u64"
-              },
-              {
-                  "name": "treasury_fee",
-                  "type": "u64"
-              },
-              {
-                  "name": "wegld_token_id",
-                  "type": "TokenIdentifier"
-              },
-              {
-                  "name": "egld_base_amount_for_incentive",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "incentive_token_id",
-                  "type": "TokenIdentifier"
-              },
-              {
-                  "name": "incentive_base_amount",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "a_tokens",
-                  "type": "List<TokenIdentifier>"
-              },
-              {
-                  "name": "b_tokens",
-                  "type": "List<TokenIdentifier>"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setRaffleScAddress",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "raffle_sc_address",
-                  "type": "Address"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setTreasuryAddress",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "treasury_address",
-                  "type": "Address"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setRaffleScFee",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "raffle_sc_fee",
-                  "type": "u64"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setTreasuryFee",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "treasury_fee",
-                  "type": "u64"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setWegldTokenId",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "wegld_token_id",
-                  "type": "TokenIdentifier"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setIncentiveTokenId",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "incentive_token_id",
-                  "type": "TokenIdentifier"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "setIncentiveBaseAmount",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "incentive_base_amount",
-                  "type": "BigUint"
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "addATokens",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "tokens",
-                  "type": "variadic<TokenIdentifier>",
-                  "multi_arg": true
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "removeATokens",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "tokens",
-                  "type": "variadic<TokenIdentifier>",
-                  "multi_arg": true
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "addBTokens",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "tokens",
-                  "type": "variadic<TokenIdentifier>",
-                  "multi_arg": true
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "removeBTokens",
-          "onlyOwner": true,
-          "mutability": "mutable",
-          "inputs": [
-              {
-                  "name": "tokens",
-                  "type": "variadic<TokenIdentifier>",
-                  "multi_arg": true
-              }
-          ],
-          "outputs": []
-      },
-      {
-          "name": "getOffers",
-          "mutability": "readonly",
-          "payableInTokens": [
-              "*"
-          ],
-          "inputs": [],
-          "outputs": [
-              {
-                  "type": "List<Offer>"
-              }
-          ]
-      },
-      {
-          "name": "getOffersByFromToken",
-          "mutability": "readonly",
-          "payableInTokens": [
-              "*"
-          ],
-          "inputs": [
-              {
-                  "name": "from_token",
-                  "type": "TokenIdentifier"
-              }
-          ],
-          "outputs": [
-              {
-                  "type": "List<Offer>"
-              }
-          ]
-      },
-      {
-          "name": "getOffersByToToken",
-          "mutability": "readonly",
-          "payableInTokens": [
-              "*"
-          ],
-          "inputs": [
-              {
-                  "name": "to_token",
-                  "type": "TokenIdentifier"
-              }
-          ],
-          "outputs": [
-              {
-                  "type": "List<Offer>"
-              }
-          ]
-      }
-  ],
-  "events": [
-      {
-          "identifier": "MakeOffer",
-          "inputs": [
-              {
-                  "name": "caller",
-                  "type": "Address",
-                  "indexed": true
-              },
-              {
-                  "name": "from_token",
-                  "type": "TokenIdentifier",
-                  "indexed": true
-              },
-              {
-                  "name": "from_amount",
-                  "type": "BigUint",
-                  "indexed": true
-              },
-              {
-                  "name": "from_timestamp",
-                  "type": "u64",
-                  "indexed": true
-              },
-              {
-                  "name": "to_token",
-                  "type": "TokenIdentifier",
-                  "indexed": true
-              },
-              {
-                  "name": "to_amount",
-                  "type": "BigUint",
-                  "indexed": true
-              },
-              {
-                  "name": "min_to_amount_per_accept",
-                  "type": "BigUint",
-                  "indexed": true
-              }
-          ]
-      },
-      {
-          "identifier": "MakeOffer",
-          "inputs": [
-              {
-                  "name": "from",
-                  "type": "Address",
-                  "indexed": true
-              },
-              {
-                  "name": "from_token",
-                  "type": "TokenIdentifier",
-                  "indexed": true
-              },
-              {
-                  "name": "from_amount",
-                  "type": "BigUint",
-                  "indexed": true
-              },
-              {
-                  "name": "to",
-                  "type": "Address",
-                  "indexed": true
-              },
-              {
-                  "name": "to_token",
-                  "type": "TokenIdentifier",
-                  "indexed": true
-              },
-              {
-                  "name": "to_amount",
-                  "type": "BigUint",
-                  "indexed": true
-              }
-          ]
-      }
-  ],
-  "hasCallback": false,
-  "types": {
-      "Offer": {
-          "type": "struct",
-          "fields": [
-              {
-                  "name": "from",
-                  "type": "Address"
-              },
-              {
-                  "name": "from_token",
-                  "type": "TokenIdentifier"
-              },
-              {
-                  "name": "from_amount",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "from_initial_amount",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "from_timestamp",
-                  "type": "u64"
-              },
-              {
-                  "name": "to_token",
-                  "type": "TokenIdentifier"
-              },
-              {
-                  "name": "to_amount",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "to_initial_amount",
-                  "type": "BigUint"
-              },
-              {
-                  "name": "min_to_amount_per_accept",
-                  "type": "BigUint"
-              }
-          ]
-      }
-  }
+    "buildInfo": {
+        "rustc": {
+            "version": "1.66.0-nightly",
+            "commitHash": "1898c34e923bad763e723c68dd9f23a09f9eb0fc",
+            "commitDate": "2022-10-26",
+            "channel": "Nightly",
+            "short": "rustc 1.66.0-nightly (1898c34e9 2022-10-26)"
+        },
+        "contractCrate": {
+            "name": "x-swap",
+            "version": "0.1.0",
+            "git_version": "25dd64b"
+        },
+        "framework": {
+            "name": "elrond-wasm",
+            "version": "0.36.1"
+        }
+    },
+    "name": "XSwap",
+    "constructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "endpoints": [
+        {
+            "name": "getRaffleScAddress",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "Address"
+                }
+            ]
+        },
+        {
+            "name": "getTreasuryAddress",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "Address"
+                }
+            ]
+        },
+        {
+            "name": "getRaffleScFee",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "getTreausryFee",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "getWegldTokenId",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "TokenIdentifier"
+                }
+            ]
+        },
+        {
+            "name": "getEgldAmountForIncentive",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "getIncentiveTokenId",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "TokenIdentifier"
+                }
+            ]
+        },
+        {
+            "name": "getIncentiveBaseAmount",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "getATokens",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getBTokens",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getOffer",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "offer_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "Offer"
+                }
+            ]
+        },
+        {
+            "name": "getOfferIds",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<u32>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getLastOfferId",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u32"
+                }
+            ]
+        },
+        {
+            "name": "getOfferIdsByFromToken",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "from_token",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<u32>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getOfferIdsByToToken",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "from_token",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<u32>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "makeOffer",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "to_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "to_amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "min_to_amount_per_accept_opt",
+                    "type": "optional<BigUint>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "acceptOffer",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "offer_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setSettings",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "raffle_sc_address",
+                    "type": "Address"
+                },
+                {
+                    "name": "treasury_address",
+                    "type": "Address"
+                },
+                {
+                    "name": "raffle_sc_fee",
+                    "type": "u64"
+                },
+                {
+                    "name": "treasury_fee",
+                    "type": "u64"
+                },
+                {
+                    "name": "wegld_token_id",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "egld_base_amount_for_incentive",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "incentive_token_id",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "incentive_base_amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "a_tokens",
+                    "type": "List<TokenIdentifier>"
+                },
+                {
+                    "name": "b_tokens",
+                    "type": "List<TokenIdentifier>"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setRaffleScAddress",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "raffle_sc_address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setTreasuryAddress",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "treasury_address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setRaffleScFee",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "raffle_sc_fee",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setTreasuryFee",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "treasury_fee",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setWegldTokenId",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "wegld_token_id",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setIncentiveTokenId",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "incentive_token_id",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setIncentiveBaseAmount",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "incentive_base_amount",
+                    "type": "BigUint"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "addATokens",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "tokens",
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "removeATokens",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "tokens",
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "addBTokens",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "tokens",
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "removeBTokens",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "tokens",
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getOffers",
+            "mutability": "readonly",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "List<Offer>"
+                }
+            ]
+        },
+        {
+            "name": "getOffersByFromToken",
+            "mutability": "readonly",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "from_token",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "List<Offer>"
+                }
+            ]
+        },
+        {
+            "name": "getOffersByToToken",
+            "mutability": "readonly",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "to_token",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "List<Offer>"
+                }
+            ]
+        }
+    ],
+    "events": [
+        {
+            "identifier": "MakeOffer",
+            "inputs": [
+                {
+                    "name": "caller",
+                    "type": "Address",
+                    "indexed": true
+                },
+                {
+                    "name": "from_token",
+                    "type": "TokenIdentifier",
+                    "indexed": true
+                },
+                {
+                    "name": "from_amount",
+                    "type": "BigUint",
+                    "indexed": true
+                },
+                {
+                    "name": "from_timestamp",
+                    "type": "u64",
+                    "indexed": true
+                },
+                {
+                    "name": "to_token",
+                    "type": "TokenIdentifier",
+                    "indexed": true
+                },
+                {
+                    "name": "to_amount",
+                    "type": "BigUint",
+                    "indexed": true
+                },
+                {
+                    "name": "min_to_amount_per_accept",
+                    "type": "BigUint",
+                    "indexed": true
+                }
+            ]
+        },
+        {
+            "identifier": "MakeOffer",
+            "inputs": [
+                {
+                    "name": "from",
+                    "type": "Address",
+                    "indexed": true
+                },
+                {
+                    "name": "from_token",
+                    "type": "TokenIdentifier",
+                    "indexed": true
+                },
+                {
+                    "name": "from_amount",
+                    "type": "BigUint",
+                    "indexed": true
+                },
+                {
+                    "name": "to",
+                    "type": "Address",
+                    "indexed": true
+                },
+                {
+                    "name": "to_token",
+                    "type": "TokenIdentifier",
+                    "indexed": true
+                },
+                {
+                    "name": "to_amount",
+                    "type": "BigUint",
+                    "indexed": true
+                }
+            ]
+        }
+    ],
+    "hasCallback": false,
+    "types": {
+        "Offer": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "Address"
+                },
+                {
+                    "name": "from_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "from_amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "from_initial_amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "from_timestamp",
+                    "type": "u64"
+                },
+                {
+                    "name": "to_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "to_amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "to_initial_amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "min_to_amount_per_accept",
+                    "type": "BigUint"
+                }
+            ]
+        }
+    }
 }
