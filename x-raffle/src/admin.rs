@@ -24,7 +24,15 @@ pub trait AdminModule:
         self.round_first_ticket_number(round_id).set(1);
         self.round_first_ticket_number(round_id + 1).set(1);
 
-        self.open_round(round_id);
+        self.current_round_id().set(round_id);
+        self.round_status(round_id).set(RoundStatus::Opened);
+
+        let current_timestamp = self.blockchain().get_block_timestamp();
+        self.round_start_timestamp(round_id).set(current_timestamp);
+
+        //
+        self.round_ticket_price(round_id).set(&self.ticket_price().get());
+        self.round_number_of_winners(round_id).set(self.number_of_winners().get());
     }
 
     #[inline]

@@ -51,23 +51,15 @@ import {
 	convertEsdtToWei,
 } from './util';
 
-async function main() {
+async function main(roundId: number) {
 	const contractInteractor = await getXRaffleContractInteractor();
-	let interaction = contractInteractor.contract.methods.getCurrentRoundId();
-	let res = await contractInteractor.controller.query(interaction);
+	const args = [new U32Value(roundId)];
+	const interaction = contractInteractor.contract.methods.getRound(args);
+	const res = await contractInteractor.controller.query(interaction);
 
 	if (!res || !res.returnCode.isSuccess()) return;
-	let value = res.firstValue.valueOf();
-	const currentRoundId = value.toNumber();
-	console.log('Current Round ID: ', currentRoundId);
-
-	const args = [new U32Value(currentRoundId)];
-	interaction = contractInteractor.contract.methods.getRound(args);
-	res = await contractInteractor.controller.query(interaction);
-
-	if (!res || !res.returnCode.isSuccess()) return;
-	value = res.firstValue.valueOf();
-	const currentRound = {
+	const value = res.firstValue.valueOf();
+	const round = {
 		round_id: value.round_id.toNumber(),
     round_status: value.round_status,
     round_start_timestamp: new Date(value.round_start_timestamp.toNumber() * 1000),
@@ -87,11 +79,13 @@ async function main() {
     round_sold_amount: convertWeiToEsdt(value.round_sold_amount),
 	};
 
-	console.log('Current Round: ', currentRound);
+	console.log('Round: ', round);
 }
 
 
 (async function() {
 	await account.sync(provider);
-	await main();
+
+	const roundId = 1;
+	await main(roundId);
 })();
