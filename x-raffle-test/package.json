@@ -4,12 +4,14 @@
   "description": "",
   "main": "hello.js",
   "scripts": {
-    "1": "ts-node src/1-set-settings",
-    "2": "ts-node src/2-open-genesis-round",
-    "3": "ts-node src/3-inject-prize",
-    "4": "ts-node src/4-finish-and-start-new-round",
-    "5": "ts-node src/5-buy-tickets",
-    "6": "ts-node src/6-claim-prize"
+    "1": "ts-node src/1-deploy",
+    "2": "ts-node src/2-upgrade",
+    "3": "ts-node src/3-set-settings",
+    "4": "ts-node src/4-open-genesis-round",
+    "5": "ts-node src/5-inject-prize",
+    "6": "ts-node src/6-finish-and-start-new-round",
+    "7": "ts-node src/7-buy-tickets",
+    "8": "ts-node src/8-claim-prize"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",

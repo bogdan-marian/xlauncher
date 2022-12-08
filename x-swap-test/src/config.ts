@@ -21,16 +21,18 @@ export const COMMON_GAS_LIMIT = 60_000_000;
 
 
 // 2- Swap
-export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqtpk48r66tz3t5zshytm2cjeqzvjha5tqqqesk6rgg6';
-
 export const XSWAP_SC_ABI_URL = 'abi/x-swap.abi.json';
+export const XSWAP_SC_WASM_URL = 'abi/x-swap.wasm';
 export const XSWAP_SC_NAME = 'XSwap';
-export const XSWAP_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqpqnt0rdt2tqxg9mrcahtrxp0au8qdhgwqqesjkkjvk';
+export const XSWAP_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqhjkd4353tn9z8u9yq3zrhwmua3vrkmjpqqesp0qncy';
 
+// for set-settings
+export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqtpk48r66tz3t5zshytm2cjeqzvjha5tqqqesk6rgg6';
 export const TREASURY_ADDRESS = 'erd15936k9pw34xyzmcaupyn7lpr7f6p20q50h4wlgemxg7h9zasdfysmhg50z';
 export const RAFFLE_SC_FEE = 5_00; // 5%
 export const TREASURY_FEE = 5_00; // 5%
 
+// for make & accept offers
 export const WEGLD_TOKEN_ID = 'WEGLD-fb9728';
 export const WEGLD_TOKEN_DECIMALS = 18;
 export const XRF_TOKEN_ID = 'XRF-c0c96a';
