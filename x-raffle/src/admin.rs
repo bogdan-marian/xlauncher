@@ -49,6 +49,8 @@ pub trait AdminModule:
         for p in prize_percentages.iter() {
             round_prize_percentages.push(&p);
         }
+
+        self.round_first_ticket_number(round_id + 1).set(1);
     }
 
     #[payable("*")]
