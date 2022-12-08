@@ -20,16 +20,19 @@ export const DELAY_TIME = 100;
 export const COMMON_GAS_LIMIT = 60_000_000;
 
 // 1 - Raffle
+// SC metadata
 export const XRAFFLE_SC_ABI_URL = 'abi/x-raffle.abi.json';
 export const XRAFFLE_SC_WASM_URL = 'abi/x-raffle.wasm';
 export const XRAFFLE_SC_NAME = 'XRaffle';
 export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqg89ptvhaw9tgq5cang4c07l4wjspmtp0qqesuvkwy2';
 
+// for set-settings
 export const RAFFLE_TICKET_PRICE = '5000000000000000000';
 export const RAFFLE_NUMBER_OF_WINNERS = 2;
 export const RAFFLE_PRIZE_PERCENTAGES = [70_00, 30_00];
 export const TREASURY_ADDRESS = 'erd15936k9pw34xyzmcaupyn7lpr7f6p20q50h4wlgemxg7h9zasdfysmhg50z';
 
+// for buy-tickets, inject-prize
 export const XRF_TOKEN_ID = 'XRF-c0c96a';
 export const XRF_TOKEN_DECIMALS = 18;
 export const USDC_TOKEN_ID = 'USDC-ca298e';
