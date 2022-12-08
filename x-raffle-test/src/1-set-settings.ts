@@ -50,10 +50,10 @@ import {
 
 async function setSettings() {
 	const args: TypedValue[] = [
+		new AddressValue(new Address(TREASURY_ADDRESS)),
 		BytesValue.fromUTF8(XRF_TOKEN_ID),
 		new BigUIntValue(BigNumber(RAFFLE_TICKET_PRICE)),
 		new U32Value(RAFFLE_NUMBER_OF_WINNERS),
-		new AddressValue(new Address(TREASURY_ADDRESS)),
 	];
 	for (const prize_percentage of RAFFLE_PRIZE_PERCENTAGES) {
 		args.push(new U32Value(prize_percentage));
