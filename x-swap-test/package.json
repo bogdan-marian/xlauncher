@@ -8,7 +8,8 @@
     "2": "ts-node src/2-upgrade",
     "3": "ts-node src/3-set-settings",
     "4": "ts-node src/4-make-offer",
-    "5": "ts-node src/5-accept-offer"
+    "5": "ts-node src/5-accept-offer",
+    "6": "ts-ndoe src/6-get-offers"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",
