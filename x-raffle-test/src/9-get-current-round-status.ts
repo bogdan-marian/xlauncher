@@ -53,7 +53,7 @@ import {
 
 async function main() {
 	const contractInteractor = await getXRaffleContractInteractor();
-	let interaction = contractInteractor.contract.methods.getCurrentRoundStatus();
+	let interaction = contractInteractor.contract.methods.getCurrentRoundId();
 	let res = await contractInteractor.controller.query(interaction);
 
 	if (!res || !res.returnCode.isSuccess()) return;
