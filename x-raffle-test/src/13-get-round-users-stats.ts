@@ -55,40 +55,18 @@ import {
 async function main(roundId: number) {
 	const contractInteractor = await getXRaffleContractInteractor();
 	const args = [new U32Value(roundId)];
-	const interaction = contractInteractor.contract.methods.getRound(args);
+	const interaction = contractInteractor.contract.methods.getRoundUsersStats(args);
 	const res = await contractInteractor.controller.query(interaction);
 
 	if (!res || !res.returnCode.isSuccess()) return;
 	const value = res.firstValue.valueOf();
-	const round = {
+	const roundUsersStats = {
 		round_id: value.round_id.toNumber(),
-    round_status: value.round_status,
-    round_start_timestamp: new Date(value.round_start_timestamp.toNumber() * 1000),
-    round_end_timestamp: new Date(value.round_end_timestamp.toNumber() * 1000),
-    round_ticket_token: value.round_ticket_token.toString(),
-    round_ticket_price: convertWeiToEsdt(value.round_ticket_price),
-
-    round_prize_tokens: value.round_prize_tokens.map(v => ({
-			token_identifier: v.token_identifier.toString(),
-			token_nonce: v.token_nonce.toNumber(),
-			amount: v.amount.toNumber(),
-		})),
-    round_left_tokens: value.round_left_tokens.map(v => ({
-			token_identifier: v.token_identifier.toString(),
-			token_nonce: v.token_nonce.toNumber(),
-			amount: v.amount.toNumber(),
-		})),
-
-    round_number_of_winners: value.round_number_of_winners.toNumber(),
-    round_prize_percentages: value.round_prize_percentages.map(v => v.toNumber()),
-    round_winners: value.round_winners.map(v => v.bech32()),
-    round_win_numbers: value.round_win_numbers.map(v => v.toNumber()),
-
-    round_sold_tickets: value.round_sold_tickets.toNumber(),
-    round_sold_amount: convertWeiToEsdt(value.round_sold_amount),
+    round_users: value.round_users.map(v => v.bech32()),
+    round_user_ticket_numbers: value.round_user_ticket_numbers.map(arr => arr.map(v => v.toNumber())),
 	};
 
-	console.log('Round: ', round);
+	console.log('roundUsersStats: ', roundUsersStats);
 }
 
 

@@ -28,7 +28,7 @@ import {
 import { UserSecretKey, UserSigner } from "@elrondnetwork/erdjs-walletcore"
 import {
 	GATEWAY_URL,
-	EVE_PEM_PATH,
+	PEM_PATH,
 	EXPLORER_URL,
 	CHAIN_ID,
 	XRAFFLE_SC_ABI_URL,
@@ -41,7 +41,7 @@ let config = NetworkConfig.getDefault();
 config.ChainID = new ChainID(CHAIN_ID);
 config.sync(provider);
 
-const pem = fs.readFileSync(EVE_PEM_PATH, { encoding: 'utf-8' }).trim();
+const pem = fs.readFileSync(PEM_PATH, { encoding: 'utf-8' }).trim();
 export const signer = UserSigner.fromPem(pem);
 export const account = new Account(new Address((signer.getAddress()).bech32()));
 
