@@ -15,7 +15,8 @@
     "9": "ts-node src/9-get-current-round-status",
     "10": "ts-node src/10-get-user",
     "11": "ts-node src/11-get-round-first-ticket-number",
-    "12": "ts-node src/12-get-round-status"
+    "12": "ts-node src/12-get-round-status",
+    "13": "ts-node src/13-get-round-users-stats"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",

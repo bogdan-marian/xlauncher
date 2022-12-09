@@ -35,6 +35,8 @@ import {
 	USDC_TOKEN_ID,
 	USDC_TOKEN_DECIMALS,
 	XRF_TOKEN_DECIMALS,
+	TICKET_NUMBER,
+	ROUND_ID,
 } from "./config";
 
 import {
@@ -51,10 +53,10 @@ import {
 	convertEsdtToWei,
 } from './util';
 
-async function claimPrize() {
+async function claimPrize(roundId: number, ticketNumber: number) {
 	const args: TypedValue[] = [
-		new U32Value(1),	// round_id
-		new U32Value(1),	// ticket_number
+		new U32Value(roundId),	// round_id
+		new U32Value(ticketNumber),	// ticket_number
 	];
 	const { argumentsString } = new ArgSerializer().valuesToString(args);
 	const dataString = `claimPrize@${argumentsString}`;
@@ -76,5 +78,6 @@ async function claimPrize() {
 
 (async function() {
 	await account.sync(provider);
-	await claimPrize();
+
+	await claimPrize(ROUND_ID, TICKET_NUMBER);
 })();

@@ -111,9 +111,10 @@ pub trait AdminModule:
             round_status != RoundStatus::Pending,
             "Current Round is not opened yet."
         );
-        self.round_status(round_id).set(RoundStatus::Closed);
 
-        let win_ticket_numbers = self.choose_winners();
+        let win_ticket_numbers = self.choose_winners(round_id);
+        self.round_status(round_id).set(RoundStatus::Closed);
+        
         let mut ranking = 1;
         for wtn in win_ticket_numbers.iter() {
             self.ticket_prize_ranking(wtn).set(ranking);
@@ -131,9 +132,12 @@ pub trait AdminModule:
 
     //
     #[inline]
-    fn choose_winners(&self) -> ManagedVec<usize> {
-        //TODO: check that this is not the current active lottery round
-        let round_id = self.current_round_id().get();
+    fn choose_winners(&self, round_id: usize) -> ManagedVec<usize> {
+        require!(
+            self.get_round_status(round_id) == RoundStatus::Opened,
+            "Round is not opened or is already closed"
+        );
+        
         let number_of_winners = self.round_number_of_winners(round_id).get();
 
         let current_round_first_ticket_number = self.round_first_ticket_number(round_id).get();
@@ -159,9 +163,9 @@ pub trait AdminModule:
             //
             let winner = self.ticket_owner(ticket_numbers_vec.get(rand_index)).get();
             let mut new_win_ticket_numbers: ManagedVec<usize> = ManagedVec::new();
-            for i in ticket_numbers_vec.iter() {
-                if winner != self.ticket_owner(ticket_numbers_vec.get(i)).get() {
-                    new_win_ticket_numbers.push(ticket_numbers_vec.get(i));
+            for tn in ticket_numbers_vec.iter() {
+                if winner != self.ticket_owner(tn).get() {
+                    new_win_ticket_numbers.push(tn);
                 }
             }
             ticket_numbers_vec = new_win_ticket_numbers;

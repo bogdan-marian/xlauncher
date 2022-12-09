@@ -1,7 +1,7 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-use crate::data::{ RoundStatus, Round, User };
+use crate::data::{ RoundStatus, Round, User, RoundUsersStats };
 
 #[elrond_wasm::module]
 pub trait ViewModule:
@@ -116,6 +116,27 @@ pub trait ViewModule:
             round_ticket_numbers,
             round_prize_rankings,
             round_prize_claimed,
+        }
+    }
+
+    #[view(getRoundUsersStats)]
+    fn get_round_users_stats(&self, round_id: usize) -> RoundUsersStats<Self::Api> {
+        let mut round_users: ManagedVec<ManagedAddress> = ManagedVec::new();
+        let mut round_user_ticket_numbers: ManagedVec<ManagedVec<usize>> = ManagedVec::new();
+
+        for ru in self.round_users(round_id).iter() {
+            let mut utn_vec = ManagedVec::new();
+            for tn in self.round_user_ticket_numbers(round_id, &ru).iter() {
+                utn_vec.push(tn);
+            }
+            round_user_ticket_numbers.push(utn_vec);
+            round_users.push(ru);
+        }
+
+        RoundUsersStats {
+            round_id,
+            round_users,
+            round_user_ticket_numbers,
         }
     }
 }

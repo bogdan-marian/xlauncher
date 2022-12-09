@@ -51,6 +51,9 @@ pub trait UserModule:
 
         self.round_first_ticket_number(round_id + 1).set(ticket_number + 1);
         self.last_ticker_number().set(ticket_number);
+
+        //
+        self.round_users(round_id).insert(caller);
     }
 
     #[endpoint(claimPrize)]
