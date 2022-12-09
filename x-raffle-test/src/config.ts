@@ -13,7 +13,7 @@ export const CHAIN_ID = "T"
 // export const EXPLORER_URL = 'https://explorer.elrond.com/transactions/';
 // export const CHAIN_ID = "1"
 
- export const PEM_PATH = "./wallets/eve.pem";
+export const PEM_PATH = "./wallets/eve.pem";
 // export const PEM_PATH = "./wallets/frank.pem";
 // export const PEM_PATH = "./wallets/grace.pem";
 // export const PEM_PATH = "./wallets/heidi.pem";
