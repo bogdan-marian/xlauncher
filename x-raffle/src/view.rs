@@ -85,7 +85,8 @@ pub trait ViewModule:
 
     #[view(getUserRounds)]
     fn get_user_rounds(
-        &self, address: ManagedAddress,
+        &self,
+        address: ManagedAddress,
         start_round_id: usize,
         end_round_id: usize,
     ) -> ManagedVec<UserRound<Self::Api>> {
