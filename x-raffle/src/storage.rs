@@ -95,4 +95,8 @@ pub trait StorageModule
     #[view(getRoundUserTicketNumbers)]
     #[storage_mapper("round_user_ticket_numbers")]
     fn round_user_ticket_numbers(&self, round_id: usize, user_address: &ManagedAddress) -> VecMapper<usize>;
+
+    #[view(getRoundUsers)]
+    #[storage_mapper("round_users")]
+    fn round_users(&self, round_id: usize) -> UnorderedSetMapper<ManagedAddress>;
 }

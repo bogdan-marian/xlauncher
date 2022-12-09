@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "x-raffle",
             "version": "0.1.0",
-            "git_version": "8b47c60-modified"
+            "git_version": "e36fcd9-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -314,6 +314,22 @@
             ]
         },
         {
+            "name": "getRoundUsers",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "round_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<Address>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
             "name": "buyTickets",
             "mutability": "mutable",
             "payableInTokens": [
@@ -486,6 +502,21 @@
                     "type": "User"
                 }
             ]
+        },
+        {
+            "name": "getRoundUsersStats",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "round_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "RoundUsersStats"
+                }
+            ]
         }
     ],
     "events": [],
@@ -583,6 +614,23 @@
                 {
                     "name": "Closed",
                     "discriminant": 2
+                }
+            ]
+        },
+        "RoundUsersStats": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "round_id",
+                    "type": "u32"
+                },
+                {
+                    "name": "round_prize_rankings",
+                    "type": "List<Address>"
+                },
+                {
+                    "name": "round_user_ticket_numbers",
+                    "type": "List<List<u32>>"
                 }
             ]
         },

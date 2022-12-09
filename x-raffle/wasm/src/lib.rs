@@ -26,6 +26,8 @@ elrond_wasm_node::wasm_endpoints! {
         getRoundStatus
         getRoundTicketPrice
         getRoundUserTicketNumbers
+        getRoundUsers
+        getRoundUsersStats
         getRoundWinNumbers
         getTicketClaimed
         getTicketOwner
