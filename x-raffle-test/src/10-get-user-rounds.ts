@@ -35,6 +35,8 @@ import {
 	USDC_TOKEN_ID,
 	USDC_TOKEN_DECIMALS,
 	XRF_TOKEN_DECIMALS,
+	START_ROUND_ID,
+	END_ROUND_ID,
 } from "./config";
 
 import {
@@ -53,20 +55,24 @@ import {
 
 async function main() {
 	const contractInteractor = await getXRaffleContractInteractor();
-	const args = [new AddressValue(account.address)];
-	const interaction = contractInteractor.contract.methods.getUser(args);
+	const args: TypedValue[] = [
+		new AddressValue(account.address),
+		new U32Value(START_ROUND_ID),
+		new U32Value(END_ROUND_ID),
+	];
+	const interaction = contractInteractor.contract.methods.getUserRounds(args);
 	const res = await contractInteractor.controller.query(interaction);
 
 	if (!res || !res.returnCode.isSuccess()) return;
-	const value = res.firstValue.valueOf();
-	const user = {
-		address: value.address.bech32(),
-    round_ticket_numbers: value.round_ticket_numbers.map(arr => arr.map(v => v.toNumber())),
-    round_prize_rankings: value.round_prize_rankings.map(v => v.toNumber()),
-    round_prize_claimed: value.round_prize_claimed,
-	};
+	const values = res.firstValue.valueOf();
+	const userRounds = values.map(value => ({
+    ticket_numbers: value.ticket_numbers.map(v => v.toNumber()),
+		win_ticket_number: value.win_ticket_number.toNumber(),
+    prize_ranking: value.prize_ranking.toNumber(),
+    prize_claimed: value.prize_claimed,
+	}));
 
-	console.log('User: ', user);
+	console.log('userRounds: ', userRounds);
 }
 
 

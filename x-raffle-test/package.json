@@ -13,7 +13,7 @@
     "7": "ts-node src/7-buy-tickets",
     "8": "ts-node src/8-claim-prize",
     "9": "ts-node src/9-get-current-round-status",
-    "10": "ts-node src/10-get-user",
+    "10": "ts-node src/10-get-user-rounds",
     "11": "ts-node src/11-get-round-first-ticket-number",
     "12": "ts-node src/12-get-round-status",
     "13": "ts-node src/13-get-round-users-stats"

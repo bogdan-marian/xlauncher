@@ -34,6 +34,7 @@ import {
 	COMMON_GAS_LIMIT,
 	USDC_TOKEN_ID,
 	USDC_TOKEN_DECIMALS,
+	XRF_TOKEN_DECIMALS,
 } from "./config";
 
 import {
@@ -53,11 +54,15 @@ import {
 async function setSettings() {
 	const args: TypedValue[] = [
 		new AddressValue(new Address(XRAFFLE_SC_ADDRESS)), 	// receiver
-		new U32Value(1), 																		//number of tokens to transfer
+		new U32Value(2), 																		//number of tokens to transfer
 		
 		BytesValue.fromUTF8(USDC_TOKEN_ID),									// token id
 		new U32Value(0),																		// token nonce
 		new BigUIntValue(convertEsdtToWei(3_000, USDC_TOKEN_DECIMALS)),
+
+		BytesValue.fromUTF8(XRF_TOKEN_ID),									// token id
+		new U32Value(0),																		// token nonce
+		new BigUIntValue(convertEsdtToWei(100, XRF_TOKEN_DECIMALS)),
 		
 		BytesValue.fromUTF8('injectPrize'),
 	];
