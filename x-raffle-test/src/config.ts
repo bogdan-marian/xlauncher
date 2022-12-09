@@ -27,7 +27,7 @@ export const COMMON_GAS_LIMIT = 60_000_000;
 export const XRAFFLE_SC_ABI_URL = 'abi/x-raffle.abi.json';
 export const XRAFFLE_SC_WASM_URL = 'abi/x-raffle.wasm';
 export const XRAFFLE_SC_NAME = 'XRaffle';
-export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqvfwf5a5ly3xah5s9ulmmg456yamqh365t7asgarnvg';
+export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqs7sraj93nrt8g00psawru0t2yp6kj3j3qqesu53gp8';
 
 // for set-settings
 export const RAFFLE_TICKET_PRICE = '5000000000000000000';
