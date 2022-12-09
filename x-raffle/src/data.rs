@@ -33,11 +33,11 @@ pub struct Round<M: ManagedTypeApi> {
 
 // this struct is too costly, do not use this in non-view functions
 #[derive(ManagedVecItem, TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, Clone, PartialEq)]
-pub struct User<M: ManagedTypeApi> {
-    pub address: ManagedAddress<M>,
-    pub round_ticket_numbers: ManagedVec<M, ManagedVec<M, usize>>,
-    pub round_prize_rankings: ManagedVec<M, usize>,
-    pub round_prize_claimed: ManagedVec<M, bool>,
+pub struct UserRound<M: ManagedTypeApi> {
+    pub ticket_numbers: ManagedVec<M, usize>,
+    pub win_ticket_number: usize,
+    pub prize_ranking: usize,
+    pub prize_claimed: bool,
 }
 
 // this struct is too costly, do not use this in non-view functions

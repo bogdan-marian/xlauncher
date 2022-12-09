@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "x-raffle",
             "version": "0.1.0",
-            "git_version": "2c91e21-modified"
+            "git_version": "04f5306-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -489,17 +489,25 @@
             ]
         },
         {
-            "name": "getUser",
+            "name": "getUserRounds",
             "mutability": "readonly",
             "inputs": [
                 {
                     "name": "address",
                     "type": "Address"
+                },
+                {
+                    "name": "start_round_id",
+                    "type": "u32"
+                },
+                {
+                    "name": "end_round_id",
+                    "type": "u32"
                 }
             ],
             "outputs": [
                 {
-                    "type": "User"
+                    "type": "List<UserRound>"
                 }
             ]
         },
@@ -634,24 +642,24 @@
                 }
             ]
         },
-        "User": {
+        "UserRound": {
             "type": "struct",
             "fields": [
                 {
-                    "name": "address",
-                    "type": "Address"
-                },
-                {
-                    "name": "round_ticket_numbers",
-                    "type": "List<List<u32>>"
-                },
-                {
-                    "name": "round_prize_rankings",
+                    "name": "ticket_numbers",
                     "type": "List<u32>"
                 },
                 {
-                    "name": "round_prize_claimed",
-                    "type": "List<bool>"
+                    "name": "win_ticket_number",
+                    "type": "u32"
+                },
+                {
+                    "name": "prize_ranking",
+                    "type": "u32"
+                },
+                {
+                    "name": "prize_claimed",
+                    "type": "bool"
                 }
             ]
         }

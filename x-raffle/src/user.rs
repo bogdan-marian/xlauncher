@@ -69,6 +69,10 @@ pub trait UserModule:
         );
 
         let caller = self.blockchain().get_caller();
+        require!(
+            caller == self.ticket_owner(ticket_number).get(),
+            "You do not own the given ticket"
+        );
         let user_ranking = self.ticket_prize_ranking(ticket_number).get();
         require!(
             user_ranking > 0,
