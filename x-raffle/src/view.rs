@@ -121,22 +121,21 @@ pub trait ViewModule:
 
     #[view(getRoundUsersStats)]
     fn get_round_users_stats(&self, round_id: usize) -> RoundUsersStats<Self::Api> {
-        let mut round_prize_rankings: ManagedVec<ManagedAddress> = ManagedVec::new();
+        let mut round_users: ManagedVec<ManagedAddress> = ManagedVec::new();
         let mut round_user_ticket_numbers: ManagedVec<ManagedVec<usize>> = ManagedVec::new();
 
-        let round_users = self.round_users(round_id);
-        for ru in round_users.iter() {
+        for ru in self.round_users(round_id).iter() {
             let mut utn_vec = ManagedVec::new();
             for tn in self.round_user_ticket_numbers(round_id, &ru).iter() {
                 utn_vec.push(tn);
             }
             round_user_ticket_numbers.push(utn_vec);
-            round_prize_rankings.push(ru);
+            round_users.push(ru);
         }
 
         RoundUsersStats {
             round_id,
-            round_prize_rankings,
+            round_users,
             round_user_ticket_numbers,
         }
     }

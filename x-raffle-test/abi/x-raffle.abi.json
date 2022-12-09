@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "x-raffle",
             "version": "0.1.0",
-            "git_version": "e36fcd9-modified"
+            "git_version": "2c91e21-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -625,7 +625,7 @@
                     "type": "u32"
                 },
                 {
-                    "name": "round_prize_rankings",
+                    "name": "round_users",
                     "type": "List<Address>"
                 },
                 {

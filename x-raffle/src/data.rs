@@ -44,6 +44,6 @@ pub struct User<M: ManagedTypeApi> {
 #[derive(ManagedVecItem, TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, Clone, PartialEq)]
 pub struct RoundUsersStats<M: ManagedTypeApi> {
     pub round_id: usize,
-    pub round_prize_rankings: ManagedVec<M, ManagedAddress<M>>,
+    pub round_users: ManagedVec<M, ManagedAddress<M>>,
     pub round_user_ticket_numbers: ManagedVec<M, ManagedVec<M, usize>>,
 }
