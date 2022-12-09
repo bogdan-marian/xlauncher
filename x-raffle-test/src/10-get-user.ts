@@ -63,7 +63,7 @@ async function main() {
 		address: value.address.bech32(),
     round_ticket_numbers: value.round_ticket_numbers.map(arr => arr.map(v => v.toNumber())),
     round_prize_rankings: value.round_prize_rankings.map(v => v.toNumber()),
-    round_prize_claimed: value.round_prize_rankings.map(v => v.toNumber()),
+    round_prize_claimed: value.round_prize_claimed.map(v => v.toNumber()),
 	};
 
 	console.log('User: ', user);
