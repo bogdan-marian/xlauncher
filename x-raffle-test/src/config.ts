@@ -31,8 +31,8 @@ export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqkrrqzfs27wsupnjl2q3tmkvhk
 
 // for set-settings
 export const RAFFLE_TICKET_PRICE = '5000000000000000000';
-export const RAFFLE_NUMBER_OF_WINNERS = 2;
-export const RAFFLE_PRIZE_PERCENTAGES = [70_00, 30_00];
+export const RAFFLE_NUMBER_OF_WINNERS = 3;
+export const RAFFLE_PRIZE_PERCENTAGES = [50_00, 30_00, 20_00];
 export const TREASURY_ADDRESS = 'erd15936k9pw34xyzmcaupyn7lpr7f6p20q50h4wlgemxg7h9zasdfysmhg50z';
 
 // for buy-tickets, inject-prize
