@@ -42,8 +42,8 @@ export const USDC_TOKEN_ID = 'USDC-ca298e';
 export const USDC_TOKEN_DECIMALS = 6;
 
 // temp variables
-export const ROUND_ID = 1;
-export const TICKET_NUMBER = 1;
+export const ROUND_ID = 2;
+export const TICKET_NUMBER = 6;
 
 export const START_ROUND_ID = 1;
 export const END_ROUND_ID = 1;
