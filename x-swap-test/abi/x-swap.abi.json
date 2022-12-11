@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "x-swap",
             "version": "0.1.0",
-            "git_version": "25dd64b"
+            "git_version": "7a198d3-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -546,6 +546,10 @@
         "Offer": {
             "type": "struct",
             "fields": [
+                {
+                    "name": "offer_id",
+                    "type": "u32"
+                },
                 {
                     "name": "from",
                     "type": "Address"

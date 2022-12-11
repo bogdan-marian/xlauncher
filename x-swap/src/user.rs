@@ -55,6 +55,7 @@ pub trait UserModule:
         self.last_offer_id().set(offer_id);
 
         let offer = Offer {
+            offer_id,
             from: caller.clone(),
             from_token: from_payment.token_identifier.clone(),
             from_amount: from_payment.amount.clone(),
