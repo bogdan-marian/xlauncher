@@ -43,13 +43,15 @@ import {
 } from './util';
 
 async function collectIncentiveToken() {
-	const args: TypedValue[] = [
-		// new BigUIntValue(convertEsdtToWei(300, XRF_TOKEN_DECIMALS))	// collect_amount, OptionalValue - you can omit this value and all XRF token will be withdrew
-	];
+	// const args: TypedValue[] = [
+	// 	new BigUIntValue(convertEsdtToWei(300, XRF_TOKEN_DECIMALS))	// collect_amount, OptionalValue - you can omit this value and all XRF token will be withdrew
+	// ];
 
-	const { argumentsString } = new ArgSerializer().valuesToString(args);
-	const dataString = `collectIncentiveToken@${argumentsString}`;
-	const data = new TransactionPayload(dataString);
+	// const { argumentsString } = new ArgSerializer().valuesToString(args);
+	// const dataString = `collectIncentiveToken@${argumentsString}`;
+	// const data = new TransactionPayload(dataString);
+
+	const data = new TransactionPayload('collectIncentiveToken');	// collect all XRF
 
 	const tx = new Transaction({
 			nonce: account.getNonceThenIncrement(),
