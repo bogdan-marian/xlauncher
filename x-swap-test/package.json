@@ -9,7 +9,11 @@
     "3": "ts-node src/3-set-settings",
     "4": "ts-node src/4-make-offer",
     "5": "ts-node src/5-accept-offer",
-    "6": "ts-ndoe src/6-get-offers"
+    "6": "ts-node src/6-get-offers",
+    "7": "ts-node src/7-inject-incentive-token",
+    "8": "ts-node src/8-collect-incentive-token",
+    "9": "ts-node src/9-get-contract-is-active",
+    "10": "ts-node src/10-switch-contract-is-active"
   },
   "author": "Ice <icegriffin1122@gmail.com>",
   "license": "GPL3 or later",
