@@ -28,7 +28,13 @@ pub trait AdminModule:
             OptionalValue::Some(v) => core::cmp::min(v, balance),
             OptionalValue::None => balance,
         };
-        self.incentive_token_amount().update(|v| *v -= &collect_amount);
+
+        if collect_amount == self.incentive_token_amount().get() {  // collect all
+            self.incentive_token_amount().clear();
+        } else {
+            self.incentive_token_amount().update(|v| *v -= &collect_amount);
+        }
+        
         self.send().direct_esdt(
             &self.blockchain().get_caller(),
             &self.incentive_token_id().get(),
