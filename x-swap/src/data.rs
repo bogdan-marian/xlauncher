@@ -4,6 +4,7 @@ elrond_wasm::derive_imports!();
 
 #[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, ManagedVecItem, Clone)]
 pub struct Offer<M: ManagedTypeApi>  {
+    pub offer_id: usize,
     pub from: ManagedAddress<M>,
     pub from_token: TokenIdentifier<M>,
     pub from_amount: BigUint<M>,

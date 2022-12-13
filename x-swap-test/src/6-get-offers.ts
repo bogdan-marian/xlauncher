@@ -66,6 +66,7 @@ async function main() {
 	if (!res || !res.returnCode.isSuccess()) return;
 	const values = res.firstValue.valueOf();
 	const offers = values.map(value => ({
+		offer_id: value.offer_id.toNumber(),
 		from: value.from.bech32(),
     from_token: value.from_token.toString(),
     from_amount: value.from_amount.toNumber(),
