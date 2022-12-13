@@ -3,7 +3,7 @@
 elrond_wasm::imports!();
 elrond_wasm::derive_imports!();
 
-use crate::config::{ TOTAL_PERCENTAGE };
+use crate::constant::{ TOTAL_PERCENTAGE };
 use crate::data::{ Offer };
 
 pub mod x_raffle_proxy {
@@ -33,6 +33,11 @@ pub trait UserModule:
         to_amount: BigUint,
         min_to_amount_per_accept_opt: OptionalValue<BigUint>,
     ) {
+        require!(
+            self.contract_is_active().get(),
+            "Contract is in maintenance"
+        );
+
         let from_payment = self.call_value().single_esdt();
 
         require!(
@@ -91,6 +96,10 @@ pub trait UserModule:
         &self,
         offer_id: usize,
     ) {
+        require!(
+            self.contract_is_active().get(),
+            "Contract is in maintenance"
+        );
         require!(
             self.offer_ids().contains(&offer_id),
             "offer_id does not exist."
@@ -211,6 +220,18 @@ pub trait UserModule:
         let incentive_amount = egld_amount.clone() / &self.egld_base_amount_for_incentive().get() * &self.incentive_base_amount().get();
         
         if incentive_amount != BigUint::zero() {
+            require!(
+                incentive_amount <= self.incentive_token_amount().get(),
+                "Not enough deposit of Incentive Token in Smart Contract",
+            );
+            self.incentive_token_amount().update(|v| *v -= &incentive_amount);
+
+            let incentive_token_balance = self.blockchain().get_sc_balance(&EgldOrEsdtTokenIdentifier::esdt(self.incentive_token_id().get()), 0u64);
+            require!(
+                incentive_amount <= incentive_token_balance,
+                "Not enough balance of Incentive Token in Smart Contract",
+            );
+            
             self.send().direct_esdt(
                 to,
                 &self.incentive_token_id().get(),

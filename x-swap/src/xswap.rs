@@ -2,6 +2,7 @@
 
 elrond_wasm::imports!();
 
+pub mod constant;
 pub mod config;
 pub mod data;
 pub mod storage;
@@ -16,6 +17,7 @@ pub trait XSwap:
     + event::EventModule
     + user::UserModule
     + admin::AdminModule
+    + config::ConfigModule
     + view::ViewModule
 {
     #[init]

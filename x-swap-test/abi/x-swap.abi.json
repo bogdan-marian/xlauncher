@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "x-swap",
             "version": "0.1.0",
-            "git_version": "7a198d3-modified"
+            "git_version": "2c63803-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -104,6 +104,16 @@
             ]
         },
         {
+            "name": "getContractIsActive",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
             "name": "getATokens",
             "mutability": "readonly",
             "inputs": [],
@@ -122,6 +132,16 @@
                 {
                     "type": "variadic<TokenIdentifier>",
                     "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getIncentiveTokenAmount",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "BigUint"
                 }
             ]
         },
@@ -226,6 +246,28 @@
                 {
                     "name": "offer_id",
                     "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "injectIncentiveToken",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "collectIncentiveToken",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "opt_collect_amount",
+                    "type": "optional<BigUint>",
+                    "multi_arg": true
                 }
             ],
             "outputs": []
@@ -412,6 +454,13 @@
                     "multi_arg": true
                 }
             ],
+            "outputs": []
+        },
+        {
+            "name": "switchContractIsActive",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [],
             "outputs": []
         },
         {

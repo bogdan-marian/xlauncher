@@ -10,10 +10,13 @@ elrond_wasm_node::wasm_endpoints! {
         acceptOffer
         addATokens
         addBTokens
+        collectIncentiveToken
         getATokens
         getBTokens
+        getContractIsActive
         getEgldAmountForIncentive
         getIncentiveBaseAmount
+        getIncentiveTokenAmount
         getIncentiveTokenId
         getLastOfferId
         getOffer
@@ -28,6 +31,7 @@ elrond_wasm_node::wasm_endpoints! {
         getTreasuryAddress
         getTreausryFee
         getWegldTokenId
+        injectIncentiveToken
         makeOffer
         removeATokens
         removeBTokens
@@ -39,6 +43,7 @@ elrond_wasm_node::wasm_endpoints! {
         setTreasuryAddress
         setTreasuryFee
         setWegldTokenId
+        switchContractIsActive
     )
 }
 

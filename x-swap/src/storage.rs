@@ -40,6 +40,10 @@ pub trait StorageModule
     #[storage_mapper("incentive_base_amount")]
     fn incentive_base_amount(&self) -> SingleValueMapper<BigUint>;
 
+    #[view(getContractIsActive)]
+    #[storage_mapper("contract_is_active")]
+    fn contract_is_active(&self) -> SingleValueMapper<bool>;
+
     //////////////////////////////////////////////////////////////////////////
     // Token Pairs - One can only create A->B or B->A pairs
 
@@ -50,6 +54,12 @@ pub trait StorageModule
     #[view(getBTokens)]
     #[storage_mapper("b_tokens")]
     fn b_tokens(&self) -> UnorderedSetMapper<TokenIdentifier>;
+    
+    //////////////////////////////////////////////////////////////////////////
+
+    #[view(getIncentiveTokenAmount)]
+    #[storage_mapper("incentive_token_amount")]
+    fn incentive_token_amount(&self) -> SingleValueMapper<BigUint>;
     
     //////////////////////////////////////////////////////////////////////////
     
