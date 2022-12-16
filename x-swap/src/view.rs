@@ -8,7 +8,6 @@ pub trait ViewModule:
     crate::storage::StorageModule
     + crate::event::EventModule
 {    
-    #[payable("*")]
     #[view(getOffers)]
     fn get_offers(
         &self,
@@ -21,7 +20,6 @@ pub trait ViewModule:
         offers
     }
 
-    #[payable("*")]
     #[view(getOffersByFromToken)]
     fn get_offers_by_from_token(
         &self,
@@ -35,7 +33,6 @@ pub trait ViewModule:
         offers
     }
 
-    #[payable("*")]
     #[view(getOffersByToToken)]
     fn get_offers_by_to_token(
         &self,

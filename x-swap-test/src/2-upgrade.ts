@@ -54,7 +54,7 @@ import { loadContractCode } from '@elrondnetwork/erdjs/out/testutils';
 async function deploy() {
 	const abiRegistry = await AbiRegistry.load({ files: [XSWAP_SC_ABI_URL] });
 	const abi = new SmartContractAbi(abiRegistry, [XSWAP_SC_NAME]);
-	const contract = new SmartContract({ abi: abi });
+	const contract = new SmartContract({ address: new Address(XSWAP_SC_ADDRESS), abi: abi });
 	const controller = new DefaultSmartContractController(abi, provider);
 	
 	const tx = contract.upgrade({
