@@ -6,7 +6,11 @@
   "scripts": {
     "1": "ts-node src/1-deploy",
     "2": "ts-node src/2-upgrade",
-    "3": "ts-node src/3-set-settings",
+    "3": "ts-node src/3-0-set-settings",
+    "3-1": "ts-node src/3-1-add-a-tokens",
+    "3-2": "ts-node src/3-1-add-b-tokens",
+    "3-3": "ts-node src/3-3-get-a-tokens",
+    "3-4": "ts-node src/3-4-get-b-tokens",
     "4": "ts-node src/4-make-offer",
     "5": "ts-node src/5-accept-offer",
     "6": "ts-node src/6-get-offers",
