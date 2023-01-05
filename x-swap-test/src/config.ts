@@ -25,7 +25,7 @@ export const COMMON_GAS_LIMIT = 60_000_000;
 export const XSWAP_SC_ABI_URL = 'abi/x-swap.abi.json';
 export const XSWAP_SC_WASM_URL = 'abi/x-swap.wasm';
 export const XSWAP_SC_NAME = 'XSwap';
-export const XSWAP_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqfjxdkeeryz7w7ftjvau9h650079ku0nyqqesr7geul';
+export const XSWAP_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqzykhhnxneh5277z5ch74gktmxk46qynlqqesz6taqj';
 
 // for set-settings
 export const XRAFFLE_SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqkrrqzfs27wsupnjl2q3tmkvhkx4av35yqqes30fcc7';
