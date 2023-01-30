@@ -1,0 +1,20 @@
+[package]
+name = "xlauncher-presale"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+path="src/xlauncher-presale.rs"
+
+[dependencies]
+
+[dependencies.elrond-wasm]
+version = "0.34.0"
+
+[dev-dependencies.elrond-wasm-debug]
+version = "0.34.0"
+
+[dependencies.xlauncher-staking]
+path="../xlauncher-staking-contract"
