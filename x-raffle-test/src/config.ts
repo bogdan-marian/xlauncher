@@ -13,8 +13,8 @@ export const CHAIN_ID = "T"
 // export const EXPLORER_URL = 'https://explorer.elrond.com/transactions/';
 // export const CHAIN_ID = "1"
 
-export const PEM_PATH = "./wallets/eve.pem";
-// export const PEM_PATH = "./wallets/frank.pem";
+// export const PEM_PATH = "./wallets/eve.pem";
+export const PEM_PATH = "./wallets/frank.pem";
 // export const PEM_PATH = "./wallets/grace.pem";
 // export const PEM_PATH = "./wallets/heidi.pem";
 
@@ -43,7 +43,7 @@ export const USDC_TOKEN_DECIMALS = 6;
 
 // temp variables
 export const ROUND_ID = 1;
-export const TICKET_NUMBER = 1;
+export const TICKET_NUMBER = 2;
 
 export const START_ROUND_ID = 1;
 export const END_ROUND_ID = 1;
