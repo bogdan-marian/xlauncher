@@ -3,9 +3,9 @@
 // export const EXPLORER_URL = 'https://devnet-explorer.elrond.com/transactions/';
 // export const CHAIN_ID = "D"
 
-export const GATEWAY_URL = "https://testnet-gateway.elrond.com";
-export const API_URL = "https://testnet-api.elrond.com";
-export const EXPLORER_URL = 'https://testnet-explorer.elrond.com/transactions/';
+export const GATEWAY_URL = "https://testnet-gateway.multiversx.com";
+export const API_URL = "https://testnet-api.multiversx.com";
+export const EXPLORER_URL = 'https://testnet-explorer.multiversx.com/transactions/';
 export const CHAIN_ID = "T"
 
 // export const GATEWAY_URL = "https://gateway.elrond.com";
