@@ -13,10 +13,10 @@ fn world() -> BlockchainMock {
 
 #[test]
 fn buy_ok_scen_01() {
-    elrond_wasm_debug::mandos_rs("mandos/03-buy-ok.scen.json", world());
+    elrond_wasm_debug::mandos_rs("scenarios/03-buy-ok.scen.json", world());
 }
 
 #[test]
 fn test_pricing_for_presale_round_2() {
-    elrond_wasm_debug::mandos_rs("mandos/08-test-pricing-for-presale-round-2.scen.json", world());
+    elrond_wasm_debug::mandos_rs("scenarios/08-test-pricing-for-presale-round-2.scen.json", world());
 }
