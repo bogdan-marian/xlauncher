@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                           12
+// Endpoints:                           14
 // Async Callback (empty):               1
-// Total number of exported functions:  14
+// Total number of exported functions:  16
 
 #![no_std]
 
@@ -18,8 +18,10 @@ elrond_wasm_node::wasm_endpoints! {
         getTokenBalance
         buy
         collect
-        getTokenId
+        setTokenInfo
         getCollectionIdentifier
+        getNonce
+        getTokenId
         getPrice
         getMinAmount
         getMaxAmount

@@ -160,7 +160,26 @@ pub trait XLauncherPresale {
         }
     }
 
+    #[only_owner]
+    #[endpoint(setTokenInfo)]
+    fn set_token_info(
+        &self,
+        collection_identifier: TokenIdentifier,
+        nonce: u64,
+    ) {
+        self.collection_identifier().set_token_id(collection_identifier);
+        self.nonce().set(nonce);
+    }
+
     // storage
+
+    #[view(getCollectionIdentifier)]
+    #[storage_mapper("collection_identifier")]
+    fn collection_identifier(&self) -> NonFungibleTokenMapper<Self::Api>;
+
+    #[view(getNonce)]
+    #[storage_mapper("nonce")]
+    fn nonce(&self) -> SingleValueMapper<u64>;
 
     // NOTE
     // For our case this type of storage is simple and good enough
@@ -169,9 +188,6 @@ pub trait XLauncherPresale {
     #[storage_mapper("tokenId")]
     fn token_id(&self) -> SingleValueMapper<TokenIdentifier>;
 
-    #[view(getCollectionIdentifier)]
-    #[storage_mapper("collection_identifier")]
-    fn collection_identifier(&self) -> NonFungibleTokenMapper<Self::Api>;
 
     #[view(getPrice)]
     #[storage_mapper("price")]
