@@ -137,10 +137,10 @@ version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "464f138aad7a8f8605ee709793863989b46d050f444bf65c4dc9f4bb481e1425"
 dependencies = [
-    "arrayvec",
-    "elrond-codec-derive",
-    "num-bigint",
-    "wee_alloc",
+ "arrayvec",
+ "elrond-codec-derive",
+ "num-bigint",
+ "wee_alloc",
 ]
 
 [[package]]
@@ -149,10 +149,10 @@ version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "307ece5b7a6347c517a02f7c3d6fc40d516bbc2d5b2fe0468a1cb2bb4b36403e"
 dependencies = [
-    "hex",
-    "proc-macro2",
-    "quote",
-    "syn",
+ "hex",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -161,13 +161,13 @@ version = "0.38.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce51a244a7dffb88af6426fbdf38d037750053e07269fec32f0b99b56c45f0ac"
 dependencies = [
-    "bitflags",
-    "elrond-codec",
-    "elrond-wasm-derive",
-    "hashbrown 0.11.2",
-    "hex-literal",
-    "num-traits",
-    "wee_alloc",
+ "bitflags",
+ "elrond-codec",
+ "elrond-wasm-derive",
+ "hashbrown 0.11.2",
+ "hex-literal",
+ "num-traits",
+ "wee_alloc",
 ]
 
 [[package]]
@@ -176,24 +176,24 @@ version = "0.38.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "864a9a59b8f85a2ad2d230985d68de326bd5ab360f3b39c21a34e0fba8224a65"
 dependencies = [
-    "bech32",
-    "ed25519-dalek",
-    "elrond-wasm",
-    "hex",
-    "itertools",
-    "mandos",
-    "num-bigint",
-    "num-traits",
-    "pathdiff",
-    "rand 0.8.5",
-    "rand_pcg",
-    "rand_seeder",
-    "rustc_version",
-    "serde",
-    "serde_json",
-    "sha2",
-    "sha3",
-    "toml",
+ "bech32",
+ "ed25519-dalek",
+ "elrond-wasm",
+ "hex",
+ "itertools",
+ "mandos",
+ "num-bigint",
+ "num-traits",
+ "pathdiff",
+ "rand 0.8.5",
+ "rand_pcg",
+ "rand_seeder",
+ "rustc_version",
+ "serde",
+ "serde_json",
+ "sha2",
+ "sha3",
+ "toml",
 ]
 
 [[package]]
@@ -202,11 +202,11 @@ version = "0.38.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b597e6a65aa96fdb2d6ed46c9d9fd1c224b857f4933022f89ab5ef5ada4f2ed"
 dependencies = [
-    "hex",
-    "proc-macro2",
-    "quote",
-    "radix_trie",
-    "syn",
+ "hex",
+ "proc-macro2",
+ "quote",
+ "radix_trie",
+ "syn",
 ]
 
 [[package]]
@@ -253,7 +253,7 @@ version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ab5ef0d4909ef3724cc8cce6ccc8572c5c817592e9285f5464f8e86f8bd3726e"
 dependencies = [
-    "ahash",
+ "ahash",
 ]
 
 [[package]]
@@ -280,8 +280,8 @@ version = "1.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1885e79c1fc4b10f0e172c475f458b7f7b93061064d98c3293e98c5ba0c8b399"
 dependencies = [
-    "autocfg",
-    "hashbrown 0.12.3",
+ "autocfg",
+ "hashbrown 0.12.3",
 ]
 
 [[package]]
@@ -290,7 +290,7 @@ version = "0.10.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a9a9d19fa1e79b6215ff29b9d6880b706147f16e9b1dbb1e4e5947b5b02bc5e3"
 dependencies = [
-    "either",
+ "either",
 ]
 
 [[package]]
@@ -317,13 +317,13 @@ version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "57cfadc5266c179dee0b5fd1aeba0934771af5ef250b278691b7944c261e7454"
 dependencies = [
-    "bech32",
-    "hex",
-    "num-bigint",
-    "num-traits",
-    "serde",
-    "serde_json",
-    "sha3",
+ "bech32",
+ "hex",
+ "num-bigint",
+ "num-traits",
+ "serde",
+ "serde_json",
+ "sha3",
 ]
 
 [[package]]
@@ -627,8 +627,8 @@ version = "0.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a31142970826733df8241ef35dc040ef98c679ab14d7c3e54d827099b3acecaa"
 dependencies = [
-    "indexmap",
-    "serde",
+ "indexmap",
+ "serde",
 ]
 
 [[package]]
