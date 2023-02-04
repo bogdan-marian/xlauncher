@@ -169,6 +169,10 @@ pub trait XLauncherPresale {
     #[storage_mapper("tokenId")]
     fn token_id(&self) -> SingleValueMapper<TokenIdentifier>;
 
+    #[view(getCollectionIdentifier)]
+    #[storage_mapper("collection_identifier")]
+    fn collection_identifier(&self) -> NonFungibleTokenMapper<Self::Api>;
+
     #[view(getPrice)]
     #[storage_mapper("price")]
     fn price(&self) -> SingleValueMapper<BigUint>;
