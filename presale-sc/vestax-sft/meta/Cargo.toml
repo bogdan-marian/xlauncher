@@ -10,8 +10,9 @@ edition = "2021"
 [dependencies.xlauncher-presale]
 path = ".."
 
-[dependencies.elrond-wasm]
-version = "0.38.0"
 
-[dependencies.elrond-wasm-debug]
-version = "0.38.0"
+[dependencies.multiversx-sc]
+version = "0.39.4"
+
+[dependencies.multiversx-sc-meta]
+version = "0.39.4"

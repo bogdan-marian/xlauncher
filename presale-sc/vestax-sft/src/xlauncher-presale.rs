@@ -1,12 +1,12 @@
 #![no_std]
 
-elrond_wasm::imports!();
-elrond_wasm::derive_imports!();
+multiversx_sc::imports!();
+multiversx_sc::derive_imports!();
 
 const EGLD_DECIMALS_VALUE: u64 = 1_000_000_000_000_000_000;
 const ZERO: u64 = 0;
 
-#[elrond_wasm::derive::contract]
+#[multiversx_sc::derive::contract]
 pub trait XLauncherPresale {
     #[init]
     fn init(
