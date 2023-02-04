@@ -1,10 +1,10 @@
-use elrond_wasm_debug::*;
+use multiversx_sc_scenario::*;
 
-fn world() -> BlockchainMock {
-    let mut blockchain = BlockchainMock::new();
+fn world() -> ScenarioWorld {
+    let mut blockchain = ScenarioWorld::new();
     blockchain.set_current_dir_from_workspace("");
 
-    blockchain.register_contract_builder(
+    blockchain.register_contract(
         "file:output/xlauncher-presale.wasm",
         xlauncher_presale::ContractBuilder,
     );
@@ -13,10 +13,10 @@ fn world() -> BlockchainMock {
 
 #[test]
 fn buy_ok_scen_01() {
-    elrond_wasm_debug::mandos_rs("scenarios/03-buy-ok.scen.json", world());
+    multiversx_sc_scenario::run_rs("scenarios/03-buy-ok.scen.json", world());
 }
 
 #[test]
 fn test_pricing_for_presale_round_2() {
-    elrond_wasm_debug::mandos_rs("scenarios/08-test-pricing-for-presale-round-2.scen.json", world());
+    multiversx_sc_scenario::run_rs("scenarios/08-test-pricing-for-presale-round-2.scen.json", world());
 }

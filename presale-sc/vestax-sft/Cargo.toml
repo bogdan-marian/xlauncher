@@ -13,3 +13,5 @@ path="src/xlauncher-presale.rs"
 [dependencies.multiversx-sc]
 version = "0.39.4"
 
+[dev-dependencies.multiversx-sc-scenario]
+version = "0.39.4"
