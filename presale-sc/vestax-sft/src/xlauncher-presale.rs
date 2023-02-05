@@ -138,7 +138,6 @@ pub trait XLauncherPresale {
     #[payable("*")]
     #[endpoint(buySft)]
     fn buy_sft(&self) {
-        sc_print!("Debug buySft start {}", 0);
         let egld_or_esdt_token_identifier = self.call_value().egld_or_single_esdt();
         let payment_token = egld_or_esdt_token_identifier.token_identifier;
         let payment_amount = egld_or_esdt_token_identifier.amount;
@@ -153,14 +152,17 @@ pub trait XLauncherPresale {
 
         let current_price = self.price().get();
         //let one_standard_token = BigUint::from(EGLD_DECIMALS_VALUE);
-        sc_print!("Debug current_price {}", &current_price);
-        sc_print!("Debug payment_amount {}", &payment_amount);
         let result_sft_value = &payment_amount / &current_price;
-        // / &one_standard_token;
-        sc_print!("Debug result_sft_value {}", result_sft_value.clone());
+
+
         require!(
             balance >= result_sft_value,
             "Not enough sft's for sale: balance={},sftValue={}",balance,result_sft_value
+        );
+        let the_rest = &payment_amount % &current_price;
+        require!(
+            the_rest == 0,
+            "The rest is bigger then zero the_rest={}",the_rest
         );
 
         let caller = self.blockchain().get_caller();
@@ -219,7 +221,6 @@ pub trait XLauncherPresale {
     ) {
         self.collection_identifier().set_token_id(collection_identifier);
         self.nonce().set(nonce);
-        sc_print!("End of set_token_info {}", 1)
     }
 
     #[payable("*")]
@@ -234,7 +235,6 @@ pub trait XLauncherPresale {
             nonce == self.nonce().get(),
             "Wrong Nonce"
         );
-        sc_print!("fundWithSft complete {}",1)
     }
 
     // storage
