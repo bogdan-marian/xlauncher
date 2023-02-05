@@ -7,30 +7,13 @@
       "path": "01-deploy-sft.scen.json"
     },
     {
-      "step": "scCall",
-      "txId": "fund-contract",
-      "tx": {
-        "from": "address:owner",
-        "to": "sc:xlauncher-presale",
-        "function": "fundContract",
-        "esdtValue": [
-          {
-            "tokenIdentifier": "str:BCOIN-a00000",
-            "value": "100,000,000,000,000,000,000,000,000"
-          }
-        ],
-        "gasLimit": "100,000,000",
-        "gasPrice": "0"
-      }
-    },
-    {
       "step": "checkState",
       "accounts": {
         "address:owner": {
           "nonce": "*",
           "balance": "0",
           "esdt": {
-            "str:BCOIN-a00000": "0",
+            "str:BCOIN-a00000": "100,000,000,000,000,000,000,000,000",
             "str:BCOIN-bad000": "100,000,000,000,000,000,000"
           },
           "storage": {},
@@ -39,9 +22,7 @@
         "sc:xlauncher-presale": {
           "nonce": "*",
           "balance": "0",
-          "esdt": {
-            "str:BCOIN-a00000": "100,000,000,000,000,000,000,000,000"
-          },
+          "esdt": {},
           "storage": {
             "str:tokenId": "str:BCOIN-a00000",
             "str:price": "10,000,000,000,000,000,000,000",

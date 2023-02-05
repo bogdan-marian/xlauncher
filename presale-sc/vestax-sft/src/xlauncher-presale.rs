@@ -172,6 +172,21 @@ pub trait XLauncherPresale {
         sc_print!("End of set_token_info {}", 1)
     }
 
+    #[payable("*")]
+    #[endpoint(fundWithSft)]
+    fn deposit_sft(&self) {
+        let (collection_id, nonce, _amount) = self.call_value().single_esdt().into_tuple();
+        require!(
+            collection_id == self.collection_identifier().get_token_id(),
+            "Wrong Collection Identifier"
+        );
+        require!(
+            nonce == self.nonce().get(),
+            "Wrong Nonce"
+        );
+        sc_print!("fundWithSft complete {}",1)
+    }
+
     // storage
 
     #[view(getCollectionIdentifier)]
