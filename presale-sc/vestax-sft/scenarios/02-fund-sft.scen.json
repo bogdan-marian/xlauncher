@@ -47,7 +47,9 @@
             "str:price": "10,000,000,000,000,000,000,000",
             "str:minAmount": "250,000,000,000,000,000",
             "str:maxAmount": "5,000,000,000,000,000,000",
-            "str:maxBalance": "55,000,000,000,000,000,000,000"
+            "str:maxBalance": "55,000,000,000,000,000,000,000",
+            "str:collection_identifier": "str:VESTAXDAO-e6c48c",
+            "str:nonce": "2"
           },
           "code": "file:../output/xlauncher-presale.wasm"
         }

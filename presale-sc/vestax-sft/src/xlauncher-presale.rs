@@ -169,6 +169,7 @@ pub trait XLauncherPresale {
     ) {
         self.collection_identifier().set_token_id(collection_identifier);
         self.nonce().set(nonce);
+        sc_print!("End of set_token_info {}", 1)
     }
 
     // storage
