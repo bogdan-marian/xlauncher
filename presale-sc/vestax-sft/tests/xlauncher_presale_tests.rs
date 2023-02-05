@@ -1,9 +1,10 @@
-use multiversx_sc::storage::mappers::SingleValue;
+//use multiversx_sc::storage::mappers::SingleValue;
 use multiversx_sc_scenario::*;
-use multiversx_sc_scenario::{scenario_model::*};
-use multiversx_sc_scenario::{*, num_bigint::BigUint, scenario_model::*};
 
-use xlauncher_presale::ProxyTrait;
+/*use multiversx_sc_scenario::{scenario_model::*};
+use multiversx_sc_scenario::{*, num_bigint::BigUint, scenario_model::*};*/
+
+// use xlauncher_presale::ProxyTrait;
 
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
@@ -29,6 +30,11 @@ fn test_pricing_for_presale_round_2() {
     multiversx_sc_scenario::run_rs("scenarios/08-test-pricing-for-presale-round-2.scen.json", world());
 }
 
+#[test]
+fn test_02_fund_sft() {
+    multiversx_sc_scenario::run_rs("scenarios/02-fund-sft.scen.json", world());
+}
+/*
 #[test]
 fn test_02_fund_sft_raw() {
     let mut world = world();
@@ -57,3 +63,4 @@ fn test_02_fund_sft_raw() {
                 .expect(TxExpect::ok().no_result()),
         );
 }
+*/
