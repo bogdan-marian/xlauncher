@@ -72,6 +72,16 @@ pub trait XLauncherPresale {
         return balance;
     }
 
+    #[view(getSftBalance)]
+    fn get_sft_balance(&self) -> BigUint {
+        let collection_token_id = self.collection_identifier().get_token_id();
+        let nonce = self.nonce().get();
+
+        let egld_or_esdt_token_identifier = EgldOrEsdtTokenIdentifier::esdt(collection_token_id);
+        let balance: BigUint = self.blockchain().get_sc_balance(&egld_or_esdt_token_identifier, nonce);
+        return balance;
+    }
+
     // NOTE
     // From what I see, max_balance() represents the total number of tokens an address can buy
     // If you don't save the amount of tokens already bought by each address, this can be easily exploitable
@@ -123,6 +133,19 @@ pub trait XLauncherPresale {
         self.append_client_if_needed();
         self.send()
             .direct_esdt(&caller, &token_id_val, 0, &result_esdt_token_amount);
+    }
+
+    #[payable("*")]
+    #[endpoint(buySft)]
+    fn buy_sft(&self) {
+        let egld_or_esdt_token_identifier = self.call_value().egld_or_single_esdt();
+        let amount = egld_or_esdt_token_identifier.amount;
+        let token_id = egld_or_esdt_token_identifier.token_identifier;
+
+        require!(token_id.is_valid(), "invalid token_id");
+        let my_token_id = self.token_id().get();
+        require!(my_token_id == token_id, "not the same token id");
+        require!(BigUint::zero()< amount,"amount needs to be grater then zero");
     }
 
     // NOTE

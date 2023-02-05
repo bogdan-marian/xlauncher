@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                           15
+// Endpoints:                           17
 // Async Callback (empty):               1
-// Total number of exported functions:  17
+// Total number of exported functions:  19
 
 #![no_std]
 #![feature(alloc_error_handler, lang_items)]
@@ -20,7 +20,9 @@ multiversx_sc_wasm_adapter::endpoints! {
     (
         fundContract
         getTokenBalance
+        getSftBalance
         buy
+        buySft
         collect
         setTokenInfo
         fundWithSft
