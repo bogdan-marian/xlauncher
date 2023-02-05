@@ -36,6 +36,12 @@ fn test_pricing_for_presale_round_2() {
 fn test_02_fund_sft() {
     multiversx_sc_scenario::run_rs("scenarios/02-fund-sft.scen.json", world());
 }
+
+#[test]
+fn test_03_buy_sft() {
+    multiversx_sc_scenario::run_rs("scenarios/03-buy-sft.scen.json", world());
+}
+
 /*
 #[test]
 fn test_02_fund_sft_raw() {
