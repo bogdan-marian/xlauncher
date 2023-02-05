@@ -6,7 +6,24 @@
       "step": "externalSteps",
       "path": "01-deploy-sft.scen.json"
     },
-
+    {
+      "step": "scCall",
+      "txId": "fund-with-sft",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:xlauncher-presale",
+        "function": "fundWithSft",
+        "esdtValue": [
+          {
+            "tokenIdentifier": "str:SFT-000000",
+            "nonce": "2",
+            "value": "20"
+          }
+        ],
+        "gasLimit": "100,000,000",
+        "gasPrice": "0"
+      }
+    },
     {
       "step": "checkState",
       "accounts": {
