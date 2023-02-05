@@ -59,15 +59,31 @@
           "storage": {},
           "code": ""
         },
-        "sc:xlauncher-presale": {
-          "nonce": "*",
-          "balance": "0",
+        "address:client1": {
+          "nonce": "1",
+          "balance": "2,000,000,000,000,000,000",
           "esdt": {
+            "str:BCOIN-a00000": "99970000000000000000000000",
             "str:SEMIFUNG-000000": {
               "instances": [
                 {
                   "nonce": "2",
-                  "balance": "500"
+                  "balance": "3"
+                }
+              ]
+            }
+          }
+        },
+        "sc:xlauncher-presale": {
+          "nonce": "*",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-a00000": "30000000000000000000000",
+            "str:SEMIFUNG-000000": {
+              "instances": [
+                {
+                  "nonce": "2",
+                  "balance": "497"
                 }
               ]
             }
@@ -79,7 +95,11 @@
             "str:maxAmount": "5,000,000,000,000,000,000",
             "str:maxBalance": "55,000,000,000,000,000,000,000",
             "str:collection_identifier": "str:SEMIFUNG-000000",
-            "str:nonce": "2"
+            "str:nonce": "2",
+            "str:clientBoughtValue|address:client1": "3",
+            "str:clientList|str:.len": "1",
+            "str:clientList|str:.index|address:client1": "1",
+            "str:clientList|str:.item|u32:1": "address:client1"
           },
           "code": "file:../output/xlauncher-presale.wasm"
         }

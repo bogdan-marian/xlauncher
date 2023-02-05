@@ -171,10 +171,10 @@ pub trait XLauncherPresale {
         self.client_bought_value(&caller).set(client_total_balance);
         self.append_client_if_needed();
 
-        // let collection_id = self.collection_identifier().get_token_id();
-        // let nonce = self.nonce().get();
-        /* self.send()
-             .direct_esdt(&caller, &collection_id, nonce, &result_sft_value);*/
+        let collection_id = self.collection_identifier().get_token_id();
+        let nonce = self.nonce().get();
+        self.send()
+            .direct_esdt(&caller, &collection_id, nonce, &result_sft_value);
     }
 
     // NOTE
