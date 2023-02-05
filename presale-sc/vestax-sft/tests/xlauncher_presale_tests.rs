@@ -1,5 +1,9 @@
+use multiversx_sc::storage::mappers::SingleValue;
 use multiversx_sc_scenario::*;
 use multiversx_sc_scenario::{scenario_model::*};
+use multiversx_sc_scenario::{*, num_bigint::BigUint, scenario_model::*};
+
+use xlauncher_presale::ProxyTrait;
 
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
@@ -33,10 +37,10 @@ fn test_02_fund_sft_raw() {
     let mut xlauncher_contract = ContractInfo::<xlauncher_presale::Proxy<DebugApi>>::new("sc:xlauncher-presale");
 
     let token_id = "str:BCOIN-a00000";
-    let initial_price = BigUint::from(10_000_000_000_000_000_000_000);
-    let min_amount = BigUint::from(10_000_000_000_000_000_000_000);
-    let max_amount_val = BigUint::from(10_000_000_000_000_000_000_000);
-    let max_balance_val = BigUint::from(10_000_000_000_000_000_000_000);
+    let initial_price = "10,000,000,000,000,000,000,000";
+    let min_amount = "250,000,000,000,000,000";
+    let max_amount_val = "5,000,000,000,000,000,000";
+    let max_balance_val = "55,000,000,000,000,000,000,000";
 
     world
         .set_state_step(
