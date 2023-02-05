@@ -37,6 +37,13 @@
           "storage": {},
           "code": ""
         },
+        "address:client1": {
+          "nonce": "0",
+          "balance": "2,000,000,000,000,000,000",
+          "esdt": {
+            "str:BCOIN-a00000": "100000000000000000000000000"
+          }
+        },
         "sc:xlauncher-presale": {
           "nonce": "*",
           "balance": "0",

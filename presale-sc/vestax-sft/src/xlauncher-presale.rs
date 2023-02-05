@@ -138,6 +138,7 @@ pub trait XLauncherPresale {
     #[payable("*")]
     #[endpoint(buySft)]
     fn buy_sft(&self) {
+        sc_print!("Debug buySft start {}", 0);
         let egld_or_esdt_token_identifier = self.call_value().egld_or_single_esdt();
         let payment_token = egld_or_esdt_token_identifier.token_identifier;
         let payment_amount = egld_or_esdt_token_identifier.amount;
@@ -165,10 +166,10 @@ pub trait XLauncherPresale {
         self.client_bought_value(&caller).set(client_total_balance);
         self.append_client_if_needed();
 
-        let collection_id = self.collection_identifier().get_token_id();
-        let nonce = self.nonce().get();
-        self.send()
-            .direct_esdt(&caller, &collection_id, nonce, &result_sft_value);
+        // let collection_id = self.collection_identifier().get_token_id();
+        // let nonce = self.nonce().get();
+        /* self.send()
+             .direct_esdt(&caller, &collection_id, nonce, &result_sft_value);*/
     }
 
     // NOTE
