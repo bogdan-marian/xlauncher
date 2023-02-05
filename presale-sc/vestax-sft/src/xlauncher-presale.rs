@@ -174,7 +174,7 @@ pub trait XLauncherPresale {
 
     #[payable("*")]
     #[endpoint(fundWithSft)]
-    fn deposit_sft(&self) {
+    fn fund_with_sft(&self) {
         let (collection_id, nonce, _amount) = self.call_value().single_esdt().into_tuple();
         require!(
             collection_id == self.collection_identifier().get_token_id(),
