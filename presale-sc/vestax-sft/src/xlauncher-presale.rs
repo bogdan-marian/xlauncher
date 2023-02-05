@@ -152,12 +152,15 @@ pub trait XLauncherPresale {
         require!(balance > ZERO, "No more tokens to sale.");
 
         let current_price = self.price().get();
-        let one_standard_token = BigUint::from(EGLD_DECIMALS_VALUE);
-        let result_sft_value = (&current_price * &payment_amount) / &one_standard_token;
+        //let one_standard_token = BigUint::from(EGLD_DECIMALS_VALUE);
+        sc_print!("Debug current_price {}", &current_price);
+        sc_print!("Debug payment_amount {}", &payment_amount);
+        let result_sft_value = &payment_amount / &current_price;
+        // / &one_standard_token;
         sc_print!("Debug result_sft_value {}", result_sft_value.clone());
         require!(
             balance >= result_sft_value,
-            "Not enough sft's for sale."
+            "Not enough sft's for sale: balance={},sftValue={}",balance,result_sft_value
         );
 
         let caller = self.blockchain().get_caller();

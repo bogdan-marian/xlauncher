@@ -32,8 +32,8 @@
         "function": "buySft",
         "esdtValue": [
           {
-            "tokenIdentifier": "str:BCOIN-b00000",
-            "value": "20,000,000,000,000,000"
+            "tokenIdentifier": "str:BCOIN-a00000",
+            "value": "30000000000000000000000"
           }
         ],
         "arguments": [],
