@@ -9,6 +9,8 @@ use multiversx_sc_scenario::{*, num_bigint::BigUint, scenario_model::*};*/
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
 
+
+
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
     blockchain.set_current_dir_from_workspace("");

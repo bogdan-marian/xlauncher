@@ -6,6 +6,7 @@
       "step": "externalSteps",
       "path": "01-deploy-sft.scen.json"
     },
+
     {
       "step": "checkState",
       "accounts": {
@@ -29,7 +30,7 @@
             "str:minAmount": "250,000,000,000,000,000",
             "str:maxAmount": "5,000,000,000,000,000,000",
             "str:maxBalance": "55,000,000,000,000,000,000,000",
-            "str:collection_identifier": "str:VESTAXDAO-e6c48c",
+            "str:collection_identifier": "str:SFT-000000",
             "str:nonce": "2"
           },
           "code": "file:../output/xlauncher-presale.wasm"

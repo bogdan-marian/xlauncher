@@ -54,7 +54,7 @@
         "to": "sc:xlauncher-presale",
         "function": "setTokenInfo",
         "arguments": [
-          "str:VESTAXDAO-e6c48c",
+          "str:SFT-000000",
           "2"
         ],
         "gasLimit": "100,000,000",
