@@ -6,24 +6,7 @@
       "step": "externalSteps",
       "path": "01-deploy-sft.scen.json"
     },
-    {
-      "step": "scCall",
-      "txId": "fund-with-sft",
-      "tx": {
-        "from": "address:owner",
-        "to": "sc:xlauncher-presale",
-        "function": "fundWithSft",
-        "esdtValue": [
-          {
-            "tokenIdentifier": "str:SFT-000000",
-            "nonce": "2",
-            "value": "20"
-          }
-        ],
-        "gasLimit": "100,000,000",
-        "gasPrice": "0"
-      }
-    },
+
     {
       "step": "checkState",
       "accounts": {
@@ -47,7 +30,7 @@
             "str:minAmount": "250,000,000,000,000,000",
             "str:maxAmount": "5,000,000,000,000,000,000",
             "str:maxBalance": "55,000,000,000,000,000,000,000",
-            "str:collection_identifier": "str:SFT-000000",
+            "str:collection_identifier": "str:SEMIFUNG-000000",
             "str:nonce": "2"
           },
           "code": "file:../output/xlauncher-presale.wasm"
