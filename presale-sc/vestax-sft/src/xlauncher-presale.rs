@@ -139,13 +139,36 @@ pub trait XLauncherPresale {
     #[endpoint(buySft)]
     fn buy_sft(&self) {
         let egld_or_esdt_token_identifier = self.call_value().egld_or_single_esdt();
-        let amount = egld_or_esdt_token_identifier.amount;
-        let token_id = egld_or_esdt_token_identifier.token_identifier;
+        let payment_token = egld_or_esdt_token_identifier.token_identifier;
+        let payment_amount = egld_or_esdt_token_identifier.amount;
 
-        require!(token_id.is_valid(), "invalid token_id");
+        require!(payment_token.is_valid(), "invalid token_id");
         let my_token_id = self.token_id().get();
-        require!(my_token_id == token_id, "not the same token id");
-        require!(BigUint::zero()< amount,"amount needs to be grater then zero");
+        require!(my_token_id == payment_token, "not the same token id");
+        require!(BigUint::zero()< payment_amount,"amount needs to be grater then zero");
+
+        let balance = self.get_sft_balance();
+        require!(balance > ZERO, "No more tokens to sale.");
+
+        let current_price = self.price().get();
+        let one_standard_token = BigUint::from(EGLD_DECIMALS_VALUE);
+        let result_sft_value = (&current_price * &payment_amount) / &one_standard_token;
+        sc_print!("Debug result_sft_value {}", result_sft_value.clone());
+        require!(
+            balance >= result_sft_value,
+            "Not enough sft's for sale."
+        );
+
+        let caller = self.blockchain().get_caller();
+        let client_current_balance = self.client_bought_value(&caller).get();
+        let client_total_balance = &result_sft_value + &client_current_balance;
+        self.client_bought_value(&caller).set(client_total_balance);
+        self.append_client_if_needed();
+
+        let collection_id = self.collection_identifier().get_token_id();
+        let nonce = self.nonce().get();
+        self.send()
+            .direct_esdt(&caller, &collection_id, nonce, &result_sft_value);
     }
 
     // NOTE
