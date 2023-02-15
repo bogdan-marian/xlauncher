@@ -67,7 +67,7 @@ setEnvMainnet() {
   TOKEN_ID_HEX=$(echo -n ${TOKEN_ID} | xxd -p)
 }
 
-printCurrentEnv(){
+printCurrentEnv() {
   echo ${CURRENT_ENV}
 }
 
@@ -92,6 +92,20 @@ updateContract() {
     --gas-limit=30000000 --send --outfile="${MY_LOGS}/deploy-${ENV_LOGS}.json" \
     --proxy=${PROXY} --chain=${CHAINID} \
     --arguments "0x${TOKEN_ID_HEX}" ${INITIAL_PRICE} ${MIN_AMOUNT} ${MAX_AMOUNT} ${MAX_BALANCE}
+}
+
+setTokenInfo() {
+  NONCE="2"
+  SFT_ID="VESTAXDAO-b10f26"
+  SFT_ID_HEX=$(echo -n ${SFT_ID} | xxd -p)
+  mxpy --verbose contract call ${ADDRESS} --recall-nonce \
+    --pem=${PEM_FILE} \
+    --gas-limit=8000000 \
+    --proxy=${PROXY} --chain=${CHAINID} \
+    --function="setTokenInfo" \
+    --arguments ${SFT_ID_HEX} ${NONCE} \
+    --send \
+    --outfile="${MY_LOGS}/setTokenInfo-${ENV_LOGS}.json"
 }
 
 fundContract() {
