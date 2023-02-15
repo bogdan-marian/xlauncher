@@ -52,6 +52,9 @@ setEnvTestnet() {
   TOKEN_ID_HEX=$(echo -n ${TOKEN_ID} | xxd -p)
   SFT_ID="VESTAXDAO-b10f26"
   SFT_ID_HEX=$(echo -n ${SFT_ID} | xxd -p)
+  NONCE="2"
+  SFT_WITH_NONCE="VESTAXDAO-b10f26-02"
+  SFT_WITH_NONCE_HEX=$(echo -n ${SFT_WITH_NONCE} | xxd -p)
 }
 
 setEnvMainnet() {
@@ -95,9 +98,6 @@ updateContract() {
 }
 
 setTokenInfo() {
-  NONCE="2"
-  SFT_ID="VESTAXDAO-b10f26"
-  SFT_ID_HEX=$(echo -n ${SFT_ID} | xxd -p)
   mxpy --verbose contract call ${ADDRESS} --recall-nonce \
     --pem=${PEM_FILE} \
     --gas-limit=8000000 \
@@ -106,6 +106,21 @@ setTokenInfo() {
     --arguments "0x${SFT_ID_HEX}" ${NONCE} \
     --send \
     --outfile="${MY_LOGS}/setTokenInfo-${ENV_LOGS}.json"
+}
+
+fundWithSft() {
+  amount="1"
+  method_name="0x$(echo -n 'fundWithSft' | xxd -p -u | tr -d '\n')"
+  SFT_ID="VESTAXDAO-b10f26-02"
+  token_id="0x$(echo -n ${SFT_ID} | xxd -p -u | tr -d '\n')"
+  mxpy --verbose contract call ${ADDRESS} --recall-nonce \
+    --pem=${PEM_FILE} \
+    --gas-limit=8000000 \
+    --proxy=${PROXY} --chain=${CHAINID} \
+    --function="ESDTTransfer" \
+    --arguments $token_id $amount $method_name \
+    --send \
+    --outfile="${MY_LOGS}/fundWithSft-${ENV_LOGS}.json"
 }
 
 fundContract() {
