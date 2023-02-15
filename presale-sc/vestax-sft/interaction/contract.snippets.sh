@@ -103,7 +103,7 @@ setTokenInfo() {
     --gas-limit=8000000 \
     --proxy=${PROXY} --chain=${CHAINID} \
     --function="setTokenInfo" \
-    --arguments ${SFT_ID_HEX} ${NONCE} \
+    --arguments "0x${SFT_ID_HEX}" ${NONCE} \
     --send \
     --outfile="${MY_LOGS}/setTokenInfo-${ENV_LOGS}.json"
 }
