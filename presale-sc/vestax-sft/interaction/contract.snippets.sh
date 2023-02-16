@@ -128,7 +128,7 @@ buySft() {
   #INITIAL_PRICE="6500${MY_DECIMALS}"
   method_name="0x$(echo -n 'buySft' | xxd -p -u | tr -d '\n')"
   token_id="0x$(echo -n ${TOKEN_ID} | xxd -p -u | tr -d '\n')"
-  amount="6500${MY_DECIMALS}"
+  amount="8500${MY_DECIMALS}"
   mxpy --verbose contract call ${ADDRESS} --recall-nonce \
     --pem=${PEM_FILE} \
     --gas-limit=5000000 \
