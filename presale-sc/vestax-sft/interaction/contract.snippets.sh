@@ -108,6 +108,7 @@ setTokenInfo() {
     --outfile="${MY_LOGS}/setTokenInfo-${ENV_LOGS}.json"
 }
 
+# [fund with sft](https://docs.multiversx.com/tokens/nft-tokens/#transfers)
 fundWithSft() {
   method_name="0x$(echo -n 'fundWithSft' | xxd -p -u | tr -d '\n')"
   SFT_ID="VESTAXDAO-b10f26"
@@ -121,6 +122,21 @@ fundWithSft() {
     --arguments $token_id 2 1 ${ADDRESS} $method_name \
     --send \
     --outfile="${MY_LOGS}/fundWithSft-${ENV_LOGS}.json"
+}
+
+buySft() {
+  #INITIAL_PRICE="6500${MY_DECIMALS}"
+  method_name="0x$(echo -n 'buySft' | xxd -p -u | tr -d '\n')"
+  token_id="0x$(echo -n ${TOKEN_ID} | xxd -p -u | tr -d '\n')"
+  amount="6500${MY_DECIMALS}"
+  mxpy --verbose contract call ${ADDRESS} --recall-nonce \
+    --pem=${PEM_FILE} \
+    --gas-limit=5000000 \
+    --proxy=${PROXY} --chain=${CHAINID} \
+    --function="ESDTTransfer" \
+    --arguments $token_id $amount $method_name \
+    --send \
+    --outfile="${MY_LOGS}/fundContract-${ENV_LOGS}.json"
 }
 
 fundContract() {
