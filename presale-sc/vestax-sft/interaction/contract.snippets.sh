@@ -119,7 +119,7 @@ fundWithSft() {
     --gas-limit=8000000 \
     --proxy=${PROXY} --chain=${CHAINID} \
     --function="ESDTNFTTransfer" \
-    --arguments $token_id 2 1 ${ADDRESS} $method_name \
+    --arguments $token_id 2 5 ${ADDRESS} $method_name \
     --send \
     --outfile="${MY_LOGS}/fundWithSft-${ENV_LOGS}.json"
 }
