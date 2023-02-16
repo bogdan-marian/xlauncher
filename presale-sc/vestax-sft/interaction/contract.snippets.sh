@@ -109,16 +109,18 @@ setTokenInfo() {
 }
 
 fundWithSft() {
-  amount="1"
   method_name="0x$(echo -n 'fundWithSft' | xxd -p -u | tr -d '\n')"
-  SFT_ID="VESTAXDAO-b10f26-02"
+  SFT_ID="VESTAXDAO-b10f26"
+  #nonce_hex="0x$(echo -n '2' | xxd -p -u | tr -d '\n')"
+  #amount_hex="0x$(echo -n '1' | xxd -p -u | tr -d '\n')"
+
   token_id="0x$(echo -n ${SFT_ID} | xxd -p -u | tr -d '\n')"
   mxpy --verbose contract call ${ADDRESS} --recall-nonce \
     --pem=${PEM_FILE} \
     --gas-limit=8000000 \
     --proxy=${PROXY} --chain=${CHAINID} \
     --function="ESDTTransfer" \
-    --arguments $token_id $amount $method_name \
+    --arguments $token_id 2 1 $method_name \
     --send \
     --outfile="${MY_LOGS}/fundWithSft-${ENV_LOGS}.json"
 }
