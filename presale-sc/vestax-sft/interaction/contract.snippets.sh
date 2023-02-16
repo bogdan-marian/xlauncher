@@ -23,7 +23,7 @@ MY_LOGS="interaction-logs"
 #envs logs values: devnet, testnet, mainnet
 #token id values: devnet=XLH-4f55ab, testnet=XLH-0be7d1, mainnet=XLH-8daa50
 
-INITIAL_PRICE="6500${MY_DECIMALS}"
+INITIAL_PRICE="8500${MY_DECIMALS}"
 MIN_AMOUNT="6500${MY_DECIMALS}"
 MAX_AMOUNT="32500${MY_DECIMALS}"
 MAX_BALANCE="32500${MY_DECIMALS}"
@@ -92,7 +92,7 @@ deploy() {
 
 updateContract() {
   mxpy --verbose contract upgrade ${ADDRESS} --project=${PROJECT} --recall-nonce --pem=${PEM_FILE} \
-    --gas-limit=30000000 --send --outfile="${MY_LOGS}/deploy-${ENV_LOGS}.json" \
+    --gas-limit=50000000 --send --outfile="${MY_LOGS}/deploy-${ENV_LOGS}.json" \
     --proxy=${PROXY} --chain=${CHAINID} \
     --arguments "0x${TOKEN_ID_HEX}" ${INITIAL_PRICE} ${MIN_AMOUNT} ${MAX_AMOUNT} ${MAX_BALANCE}
 }
