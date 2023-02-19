@@ -92,7 +92,7 @@ deploy() {
 
 updateContract() {
   mxpy --verbose contract upgrade ${ADDRESS} --project=${PROJECT} --recall-nonce --pem=${PEM_FILE} \
-    --gas-limit=30000000 --send --outfile="${MY_LOGS}/deploy-${ENV_LOGS}.json" \
+    --gas-limit=50000000 --send --outfile="${MY_LOGS}/deploy-${ENV_LOGS}.json" \
     --proxy=${PROXY} --chain=${CHAINID} \
     --arguments "0x${TOKEN_ID_HEX}" ${INITIAL_PRICE} ${MIN_AMOUNT} ${MAX_AMOUNT} ${MAX_BALANCE}
 }
@@ -102,8 +102,7 @@ setTokenInfo() {
     --pem=${PEM_FILE} \
     --gas-limit=8000000 \
     --proxy=${PROXY} --chain=${CHAINID} \
-    --function="setTokenInfo" \
-    --arguments "0x${SFT_ID_HEX}" ${NONCE} \
+    --function="setTokenInfo" \    --arguments "0x${SFT_ID_HEX}" ${NONCE} \
     --send \
     --outfile="${MY_LOGS}/setTokenInfo-${ENV_LOGS}.json"
 }
