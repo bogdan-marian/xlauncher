@@ -202,6 +202,16 @@ pub trait XLauncherPresale {
         if big_zero < egld_balance {
             self.send().direct_egld(&owner, &egld_balance)
         }
+
+        let collection_token_id = self.collection_identifier().get_token_id();
+        let my_sft_nonce = self.nonce().get();
+
+        let my_sft_id = EgldOrEsdtTokenIdentifier::esdt(collection_token_id);
+        let my_sft_balance: BigUint = self.blockchain().get_sc_balance(&my_sft_id, my_sft_nonce);
+        let sft_id = self.collection_identifier().get_token_id();
+        if big_zero < my_sft_balance {
+            self.send().direct_esdt(&owner, &sft_id, my_sft_nonce, &my_sft_balance);
+        }
     }
 
     fn append_client_if_needed(&self) {

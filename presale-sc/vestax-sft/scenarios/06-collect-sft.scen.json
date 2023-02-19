@@ -131,7 +131,6 @@
           "esdt": {
             "str:BCOIN-a00000": "100030000000000000000000000",
             "str:BCOIN-bad000": "100,000,000,000,000,000,000",
-
             "str:SEMIFUNG-000000": {
               "instances": [
                 {
@@ -148,21 +147,22 @@
           "nonce": "1",
           "balance": "2,000,000,000,000,000,000",
           "esdt": {
-            "str:BCOIN-a00000": "99970000000000000000000000"
+            "str:BCOIN-a00000": "99970000000000000000000000",
+            "str:SEMIFUNG-000000": {
+              "instances": [
+                {
+                  "nonce": "2",
+                  "balance": "3"
+                }
+              ]
+            }
           }
         },
         "sc:xlauncher-presale": {
           "nonce": "*",
           "balance": "0",
           "esdt": {
-            "str:SEMIFUNG-000000": {
-              "instances": [
-                {
-                  "nonce": "2",
-                  "balance": "497"
-                }
-              ]
-            }
+
           },
           "storage": {
             "str:tokenId": "str:BCOIN-a00000",
@@ -181,5 +181,6 @@
         }
       }
     }
+
   ]
 }
