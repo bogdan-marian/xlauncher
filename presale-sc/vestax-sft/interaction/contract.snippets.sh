@@ -55,6 +55,7 @@ setEnvTestnet() {
   NONCE="2"
   SFT_WITH_NONCE="VESTAXDAO-b10f26-02"
   SFT_WITH_NONCE_HEX=$(echo -n ${SFT_WITH_NONCE} | xxd -p)
+  MY_ADDRESS="erd1mhhnd3ux2duwc9824dhelherdj3gvzn04erdw29l8cyr5z8fpa7quda68z"
 }
 
 setEnvMainnet() {
@@ -62,12 +63,16 @@ setEnvMainnet() {
   CURRENT_ENV="mainnet"
   PEM_FILE="${PROJECT}/../../../wallets/users/mainnet_owner_wallet.pem"
   ADDRESS=$(mxpy data load --key=address-devnet)
-  PROXY=https://api.elrond.com
+  PROXY=https://api.multiversx.com
   CHAINID=1
   ENV_LOGS="mainnet"
   #TOKEN_ID="BCOIN-efba9c"
   TOKEN_ID="XLH-8daa50"
   TOKEN_ID_HEX=$(echo -n ${TOKEN_ID} | xxd -p)
+  SFT_ID="VESTAXDAO-e6c48c"
+  SFT_ID_HEX=$(echo -n ${SFT_ID} | xxd -p)
+  NONCE="2"
+  MY_ADDRESS="erd12euqqtr68sqhdgy8xmzdtasvjgs00ju23cek30t33484qz3t4d6qz7e365"
 }
 
 printCurrentEnv() {
@@ -102,7 +107,8 @@ setTokenInfo() {
     --pem=${PEM_FILE} \
     --gas-limit=8000000 \
     --proxy=${PROXY} --chain=${CHAINID} \
-    --function="setTokenInfo" \    --arguments "0x${SFT_ID_HEX}" ${NONCE} \
+    --function="setTokenInfo" \
+    --arguments "0x${SFT_ID_HEX}" ${NONCE} \
     --send \
     --outfile="${MY_LOGS}/setTokenInfo-${ENV_LOGS}.json"
 }
@@ -110,9 +116,7 @@ setTokenInfo() {
 # [fund with sft](https://docs.multiversx.com/tokens/nft-tokens/#transfers)
 fundWithSft() {
   method_name="0x$(echo -n 'fundWithSft' | xxd -p -u | tr -d '\n')"
-  SFT_ID="VESTAXDAO-b10f26"
   token_id="0x$(echo -n ${SFT_ID} | xxd -p -u | tr -d '\n')"
-  MY_ADDRESS="erd1mhhnd3ux2duwc9824dhelherdj3gvzn04erdw29l8cyr5z8fpa7quda68z"
   mxpy --verbose contract call ${MY_ADDRESS} --recall-nonce \
     --pem=${PEM_FILE} \
     --gas-limit=8000000 \
