@@ -44,6 +44,7 @@ setEnvTestnet() {
   cp -f mxpy.data-storage-testnet.json mxpy.data-storage.json
   CURRENT_ENV="testnet"
   PEM_FILE="${PROJECT}/../../../wallets/users/testnet_owner_wallet.pem"
+  MY_ADDRESS="erd1mhhnd3ux2duwc9824dhelherdj3gvzn04erdw29l8cyr5z8fpa7quda68z"
   ADDRESS=$(mxpy data load --key=address-devnet)
   PROXY=https://testnet-gateway.multiversx.com
   CHAINID=T
@@ -55,13 +56,13 @@ setEnvTestnet() {
   NONCE="2"
   SFT_WITH_NONCE="VESTAXDAO-b10f26-02"
   SFT_WITH_NONCE_HEX=$(echo -n ${SFT_WITH_NONCE} | xxd -p)
-  MY_ADDRESS="erd1mhhnd3ux2duwc9824dhelherdj3gvzn04erdw29l8cyr5z8fpa7quda68z"
 }
 
 setEnvMainnet() {
   cp -f mxpy.data-storage-mainnet.json mxpy.data-storage.json
   CURRENT_ENV="mainnet"
-  PEM_FILE="${PROJECT}/../../../wallets/users/mainnet_owner_wallet.pem"
+  PEM_FILE="${PROJECT}/../../../wallets/users/vesta_sale_owner_wallet.pem"
+  MY_ADDRESS="erd1xa39h8q20gy25449vw2qt4dm38pp3nnxp7kzga2pt54z4u2rgjlqadlgdl"
   ADDRESS=$(mxpy data load --key=address-devnet)
   PROXY=https://api.multiversx.com
   CHAINID=1
@@ -72,7 +73,6 @@ setEnvMainnet() {
   SFT_ID="VESTAXDAO-e6c48c"
   SFT_ID_HEX=$(echo -n ${SFT_ID} | xxd -p)
   NONCE="2"
-  MY_ADDRESS="erd12euqqtr68sqhdgy8xmzdtasvjgs00ju23cek30t33484qz3t4d6qz7e365"
 }
 
 printCurrentEnv() {
