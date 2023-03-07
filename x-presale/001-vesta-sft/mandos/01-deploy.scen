@@ -1,0 +1,77 @@
+{
+  "name": "xlauncher-presale",
+  "comment": "deploy scenario",
+  "steps": [
+    {
+      "step": "setState",
+      "accounts": {
+        "address:owner": {
+          "nonce": "0",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-a00000": "100,000,000,000,000,000,000,000,000",
+            "str:BCOIN-bad000": "100,000,000,000,000,000,000"
+          }
+        }
+      },
+      "newAddresses": [
+        {
+          "creatorAddress": "address:owner",
+          "creatorNonce": "0",
+          "newAddress": "sc:xlauncher-presale"
+        }
+      ]
+    },
+    {
+      "step": "scDeploy",
+      "txId": "deploy",
+      "tx": {
+        "from": "address:owner",
+        "contractCode": "file:../output/xlauncher-presale.wasm",
+        "arguments": [
+          "str:BCOIN-a00000",
+          "10,000,000,000,000,000,000,000",
+          "250,000,000,000,000,000",
+          "5,000,000,000,000,000,000",
+          "55,000,000,000,000,000,000,000"
+        ],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "out": [],
+        "status": "0",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "checkState",
+      "accounts": {
+        "address:owner": {
+          "nonce": "*",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-a00000": "100,000,000,000,000,000,000,000,000",
+            "str:BCOIN-bad000": "100,000,000,000,000,000,000"
+          },
+          "storage": {},
+          "code": ""
+        },
+        "sc:xlauncher-presale": {
+          "nonce": "*",
+          "balance": "0",
+          "storage": {
+            "str:tokenId": "str:BCOIN-a00000",
+            "str:price": "10,000,000,000,000,000,000,000",
+            "str:minAmount": "250,000,000,000,000,000",
+            "str:maxAmount": "5,000,000,000,000,000,000",
+            "str:maxBalance": "55,000,000,000,000,000,000,000"
+          },
+          "code": "file:../output/xlauncher-presale.wasm"
+        }
+      }
+    }
+  ]
+}

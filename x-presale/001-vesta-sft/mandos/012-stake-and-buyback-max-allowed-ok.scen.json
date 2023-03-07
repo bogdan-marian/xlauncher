@@ -1,0 +1,358 @@
+{
+  "name": "xlauncher-presale",
+  "comment": "stake-and-buy-ok",
+  "steps": [
+    {
+      "step": "setState",
+      "accounts": {
+        "address:owner": {
+          "nonce": "0",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-a00000": "100,000,000,000,000,000,000,000,000",
+            "str:BCOIN-b00000": "100,000,000,000,000,000,000,000,000"
+          }
+        },
+        "address:client1": {
+          "nonce": "0",
+          "balance": "25,000,000,000,000,000,000",
+          "esdt": {
+            "str:BCOIN-a00000": "100,000,000,000,000,000,000,000"
+          }
+        }
+      },
+      "newAddresses": [
+        {
+          "creatorAddress": "address:owner",
+          "creatorNonce": "0",
+          "newAddress": "sc:xlauncher-staking"
+        },
+        {
+          "creatorAddress": "address:owner",
+          "creatorNonce": "1",
+          "newAddress": "sc:xlauncher-presale"
+        }
+      ]
+    },
+    {
+      "step": "scDeploy",
+      "txId": "deploy",
+      "tx": {
+        "from": "address:owner",
+        "contractCode": "file:../../xlauncher-staking-contract/output/xlauncher-staking.wasm",
+        "arguments": [
+          "str:BCOIN-a00000",
+          "250,000,000,000,000,000",
+          "1",
+          "0",
+          "1",
+          "0",
+          "31536000",
+          "100",
+          "2",
+          "5184000",
+          "1",
+          "0",
+          "31536000",
+          "200",
+          "3",
+          "15552000",
+          "1",
+          "0",
+          "31536000",
+          "300"
+        ],
+        "gasLimit": "100,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "out": [],
+        "status": "0",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scDeploy",
+      "txId": "deploy-presale",
+      "tx": {
+        "from": "address:owner",
+        "contractCode": "file:../output/xlauncher-presale.wasm",
+        "arguments": [
+          "str:BCOIN-b00000",
+          "1,000,000000000000000000",
+          "1,250000000000000000",
+          "25,000,000000000000000000",
+          "25,000,000000000000000000",
+          "sc:xlauncher-staking"
+        ],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "out": [],
+        "status": "0",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "fund-presale",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:xlauncher-presale",
+        "function": "fundContract",
+        "esdtValue": [
+          {
+            "tokenIdentifier": "str:BCOIN-b00000",
+            "value": "100,000,000,000,000,000,000,000,000"
+          }
+        ],
+        "gasLimit": "100,000,000",
+        "gasPrice": "0"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "switch-sell-to-true",
+      "tx": {
+        "from": "address:owner",
+        "to": "sc:xlauncher-presale",
+        "function": "switchSellIsActiveToTrue",
+        "gasLimit": "100,000,000",
+        "gasPrice": "0"
+      }
+    },
+    {
+      "step": "scCall",
+      "txId": "stake-good-coin",
+      "tx": {
+        "from": "address:client1",
+        "to": "sc:xlauncher-staking",
+        "value": "0",
+        "function": "stake",
+        "esdtValue": [
+          {
+            "tokenIdentifier": "str:BCOIN-a00000",
+            "value": "100,000,000000000000000000"
+          }
+        ],
+        "arguments": [
+          "1"
+        ],
+        "gasLimit": "100,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "out": [],
+        "status": "0",
+        "message": "",
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "tx": {
+        "from": "address:client1",
+        "to": "sc:xlauncher-presale",
+        "value": "25,000000000000000000",
+        "function": "buy",
+        "arguments": [],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "status": "",
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "tx": {
+        "from": "address:client1",
+        "to": "sc:xlauncher-presale",
+        "function": "buyback",
+        "esdtValue": [
+          {
+            "tokenIdentifier": "str:BCOIN-b00000",
+            "value": "20000000000000000000000"
+          }
+        ],
+        "arguments": [],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "status": "",
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "scCall",
+      "tx": {
+        "from": "address:client1",
+        "to": "sc:xlauncher-presale",
+        "function": "buyback",
+        "esdtValue": [
+          {
+            "tokenIdentifier": "str:BCOIN-b00000",
+            "value": "5000000000000000000000"
+          }
+        ],
+        "arguments": [],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "status": "",
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "checkState",
+      "accounts": {
+        "address:owner": {
+          "nonce": "*",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-a00000": "100000000000000000000000000"
+          },
+          "storage": {},
+          "code": ""
+        },
+        "address:client1": {
+          "nonce": "4",
+          "balance": "25,000,000,000,000,000,000",
+          "esdt": {
+            "str:BCOIN-b00000": "0",
+            "str:BCOIN-a00000": "0"
+          },
+          "storage": {}
+        },
+        "sc:xlauncher-presale": {
+          "nonce": "*",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-b00000": "100000000000000000000000000"
+          },
+          "storage": {
+            "str:sellActiveState": "true",
+            "str:tokenId": "str:BCOIN-b00000",
+            "str:price": "1000000000000000000000",
+            "str:minAmount": "1250000000000000000",
+            "str:maxAmount": "25000000000000000000000",
+            "str:maxBalance": "25000000000000000000000",
+            "str:stakingAddress": "sc:xlauncher-staking",
+            "str:clientBoughtValue|address:client1": "25000000000000000000000",
+            "str:clientBuybackValue|address:client1": "25000000000000000000000",
+            "str:clientList|str:.len": "1",
+            "str:clientList|str:.index|address:client1": "1",
+            "str:clientList|str:.item|u32:1": "address:client1"
+          },
+          "code": "file:../output/xlauncher-presale.wasm"
+        },
+        "sc:xlauncher-staking": {
+          "nonce": "*",
+          "balance": "0",
+          "esdt": {
+            "str:BCOIN-a00000": "100000000000000000000000"
+          },
+          "storage": {
+            "str:variableContractSettings": {
+              "1-token_id": "nested:str:BCOIN-a00000",
+              "2-min_amount": "biguint:250,000,000,000,000,000",
+              "3-no_rewards_time_span": "u64:864000",
+              "4-contract_is_active": "true",
+              "5-pool_items_vec_len": "u32:3",
+              "6-first_pool_item": {
+                "1-id": "u32:1",
+                "2-locking_time_span": "u64:0",
+                "3-apy_configuration_vec_len": "u32:1",
+                "4-first_apy_configuration": {
+                  "1-id": "u32:1",
+                  "2-apy": "u64:100",
+                  "3-start_timestamp": "u64:0",
+                  "4-end_timestamp": "u64:31536000"
+                }
+              },
+              "7-second_pool_item": {
+                "1-id": "u32:2",
+                "2-locking_time_span": "u64:5184000",
+                "3-apy_configuration_vec_len": "u32:1",
+                "4-first_apy_configuration": {
+                  "1-id": "u32:1",
+                  "2-apy": "u64:200",
+                  "3-start_timestamp": "u64:0",
+                  "4-end_timestamp": "u64:31536000"
+                }
+              },
+              "8-third_pool_item": {
+                "1-id": "u32:3",
+                "2-locking_time_span": "u64:15552000",
+                "3-apy_configuration_vec_len": "u32:1",
+                "4-first_apy_configuration": {
+                  "1-id": "u32:1",
+                  "2-apy": "u64:300",
+                  "3-start_timestamp": "u64:0",
+                  "4-end_timestamp": "u64:31536000"
+                }
+              }
+            },
+            "str:clientState|address:client1|str:.len": "1",
+            "str:clientState|address:client1|str:.item|u32:1": {
+              "1-pool_id": "u32:1",
+              "2-pool_time_stamp_entry": "u64:0",
+              "3-pool_time_stamp_last_collection": "u64:0",
+              "4-pool_amount": "biguint:100000000000000000000000"
+            },
+            "str:totalStakedValue": "100000000000000000000000",
+            "str:clientList|str:.len": "1",
+            "str:clientList|str:.index|address:client1": "1",
+            "str:clientList|str:.item|u32:1": "address:client1"
+          },
+          "code": "file:../../xlauncher-staking-contract/output/xlauncher-staking.wasm"
+        }
+      }
+    },
+    {
+      "step": "setState",
+      "accounts": {
+        "address:client1": {
+          "esdt": {
+            "str:BCOIN-b00000": "1000000000000000000000"
+          }
+        }
+      }
+    },
+    {
+      "step": "scCall",
+      "tx": {
+        "from": "address:client1",
+        "to": "sc:xlauncher-presale",
+        "function": "buyback",
+        "esdtValue": [
+          {
+            "tokenIdentifier": "str:BCOIN-b00000",
+            "value": "1000000000000000000000"
+          }
+        ],
+        "arguments": [],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "status": "4",
+        "message": "str:Returning that much will exceed the amount you both during presale: presale-value=25000000000000000000000, total-buyback=26000000000000000000000",
+        "gas": "*",
+        "refund": "*"
+      }
+    }
+  ]
+}
